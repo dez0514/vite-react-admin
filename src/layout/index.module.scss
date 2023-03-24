@@ -1,0 +1,35 @@
+@import url('@/styles/variable.scss');
+
+.logo_text {
+  margin-left: 10px;
+}
+.header_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  height: 48px;
+  line-height: 1;
+}
+.userwrap {
+  padding: 0 10px;
+  height: 48px;
+  cursor: pointer;
+  &_avatar {
+    margin-right: 12px;
+  }
+  
+}
+.setting {
+  padding: 0 15px;
+  height: 48px;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+.hover:hover {
+  background: var(--hover-bgcolor);
+  [data-theme="dark"] & {
+    background: var(--dark-hover-bgcolor);
+  }
+}
