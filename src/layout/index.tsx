@@ -184,7 +184,7 @@ function Dashboard() {
           <Header className={moduleStyles.header_wrap} style={{ background: colorBgContainer }}>
             <div className="flex-center">
               <div className={moduleStyles.hover} onClick={() => changeCollaps(!collapsed)}>
-                <TriggerBox style={{ height: '48px', lineHeight: '48px', cursor: 'pointer' }}>
+                <TriggerBox>
                   {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 </TriggerBox>
               </div>
