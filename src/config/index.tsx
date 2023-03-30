@@ -1,4 +1,4 @@
-import { ThemeData } from "../types"
+import { ThemeData, ConfigData } from "../types"
 
 export const THEME: ThemeData = {
   light: {},
@@ -7,4 +7,8 @@ export const THEME: ThemeData = {
     // colorBgBase: "#141414",
     // colorTextBase: "#fff"
   }
+}
+
+export const CONFIG: ConfigData = {
+  headerHeight: 48
 }

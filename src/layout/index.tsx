@@ -1,15 +1,20 @@
 import { Navigate } from 'react-router-dom'
-import { Fragment, useContext } from 'react'
-import { Layout } from 'antd';
-import { UserContext } from "../providers/user"
+import { Fragment, useContext, useEffect } from 'react'
+import { Layout, Drawer } from 'antd';
+import { UserContext } from "@/providers/user"
 import LayoutHeader from './layoutHeader'
 import LayoutContent from './layoutContent'
 import LayoutSider from './layoutSider'
+import { ConfigContext } from '@/providers/config';
+import SettingBoard from './setting/settingBoard'
 
 
 function Dashboard() {
   const userInfo = useContext(UserContext)
-
+  const { configStates, dispatch } = useContext(ConfigContext)
+  useEffect(() => {
+    console.log('config==', configStates)
+  }, [configStates])
   return (
     <Fragment>
       { userInfo.userCheck() === false && <Navigate to="/login" replace /> }
@@ -20,15 +25,17 @@ function Dashboard() {
           <LayoutContent />
         </Layout>
       </Layout>
-      {/* <Drawer
+      <Drawer
         title="系统设置"
         placement='right'
         closable={true}
-        open={isOpenDrawer}
-        onClose={closeDrawer}
+        open={configStates.openSettingDrawer}
+        onClose={
+          () => dispatch({ type: 'UPDATE_CONFIG', payload: { openSettingDrawer: false} })
+        }
       >
-        <Setting />
-      </Drawer> */}
+        <SettingBoard />
+      </Drawer>
     </Fragment>
   )
 }

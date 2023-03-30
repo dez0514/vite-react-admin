@@ -6,6 +6,7 @@ import { ThemeContext } from "@/providers/theme"
 import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
+import { ConfigContext } from '@/providers/config';
 const { Sider } = AntdLayOut;
 
 
@@ -46,6 +47,8 @@ function LayoutSider() {
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
   const { themeType } = useContext(ThemeContext)
   const userInfo = useContext(UserContext)
+  const { configStates } = useContext(ConfigContext)
+  const { siderCollapse } = configStates
   const formatPath = (pathArray: string[]) => {
     pathArray.reverse()
     return pathArray.reduce((path, cur, index) => {
@@ -103,10 +106,10 @@ function LayoutSider() {
       trigger={null}
       collapsible
       theme={themeType}
-      collapsed={collapsed}
+      collapsed={siderCollapse}
       onCollapse={(value) => changeCollaps(value)}
     >
-      <Logo collapsed={true} />
+      <Logo collapsed={siderCollapse} />
       <Menu
         theme={themeType}
         mode="inline"
