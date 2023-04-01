@@ -49,3 +49,7 @@ export type UserType = {
 export enum StorageKeys {
   USERINFO = "userinfo",
 }
+
+export type ConfigData = {
+  headerHeight: number
+}

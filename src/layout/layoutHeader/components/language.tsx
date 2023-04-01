@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Icon from '@ant-design/icons';
 import { Typography, Dropdown } from 'antd';
 import type { MenuProps } from 'antd'
+import { CONFIG } from '@/config'
 
 const LangSvg = () => (
   <svg viewBox="0 0 1024 1024" p-id="3644" width="1em" height="1em" fill="currentColor">
@@ -23,8 +24,8 @@ const langMenu: MenuProps['items'] = [
 ]
 const style = {
   padding: '0 15px',
-  height: '48px',
-  lineHeight: '48px',
+  height: `${CONFIG.headerHeight}px`,
+  lineHeight: `${CONFIG.headerHeight}px`,
   cursor: 'pointer'
 }
 

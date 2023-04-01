@@ -2,11 +2,12 @@ import screenfull from 'screenfull'
 import { message } from 'antd'
 import { useEffect, useState } from 'react'
 import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons'
+import { CONFIG } from '@/config'
 
 const style = {
   padding: '0 15px',
-  height: '48px',
-  lineHeight: '48px',
+  height: `${CONFIG.headerHeight}px`,
+  lineHeight: `${CONFIG.headerHeight}px`,
   cursor: 'pointer'
 }
 

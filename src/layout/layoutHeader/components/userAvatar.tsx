@@ -4,10 +4,11 @@ import { PoweroffOutlined } from '@ant-design/icons'
 import { Typography, Dropdown, Space, Avatar } from 'antd'
 import type { MenuProps } from 'antd'
 import avatar from '@/assets/head.png'
+import { CONFIG } from '@/config'
 
 const style = {
   padding: '0 10px',
-  height: '48px',
+  height: `${CONFIG.headerHeight}px`,
   cursor: 'pointer'
 }
 
