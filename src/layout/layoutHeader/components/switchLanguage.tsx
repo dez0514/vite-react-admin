@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import Icon from '@ant-design/icons';
-import { Typography, Dropdown } from 'antd';
+import {  Dropdown } from 'antd';
 import type { MenuProps } from 'antd'
 import { CONFIG } from '@/config'
+import i18n from "@/i18n"
 
 const LangSvg = () => (
   <svg viewBox="0 0 1024 1024" p-id="3644" width="1em" height="1em" fill="currentColor">
@@ -12,16 +13,7 @@ const LangSvg = () => (
     />
   </svg>
 )
-const langMenu: MenuProps['items'] = [
-  {
-    key: '1',
-    label: <Typography.Text>简体中文</Typography.Text>
-  },
-  {
-    key: '2',
-    label: <Typography.Text>English</Typography.Text>
-  }
-]
+
 const style = {
   padding: '0 15px',
   height: `${CONFIG.headerHeight}px`,
@@ -29,12 +21,31 @@ const style = {
   cursor: 'pointer'
 }
 
-function Fullscreen() {
-  const [ language, setLanguage ] = useState<string>('')
-  
+function SwitchLanguage() {
+  const [language, setLanguage] = useState('');
+  const handleSelect = (val: any) => {
+    setLanguage(val.key);
+    i18n.changeLanguage(val.key);
+  }
+  const langMenu: MenuProps['items'] = [
+    {
+      key: 'zh',
+      label: '简体中文'
+    },
+    {
+      key: 'en',
+      label: 'English'
+    }
+  ]
+  useEffect(() => {
+    const type = sessionStorage.getItem("langType");
+    if (type) {
+      setLanguage(type);
+    }
+  }, []);
   return (
     <div className='language'>
-      <Dropdown menu={{ items: langMenu }} trigger={['click']}>
+      <Dropdown menu={{ items: langMenu, selectable: true, selectedKeys: [language], onSelect: handleSelect }} trigger={['click']}>
         <div className="custom_btn_hover" style={{...style}}>
           <Icon component={LangSvg} />
         </div>
@@ -42,4 +53,4 @@ function Fullscreen() {
     </div>
   )
 }
-export default Fullscreen
+export default SwitchLanguage

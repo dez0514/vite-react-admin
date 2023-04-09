@@ -1,7 +1,7 @@
 import { Layout as AntdLayOut, theme, Space } from 'antd';
 const { Header } = AntdLayOut;
 import Fullscreen from './components/fullscreen'
-import Language from './components/language'
+import SwitchLanguage from './components/switchLanguage'
 import UserAvatar from './components/userAvatar'
 import SiderTrigger from '../siderTrigger/index'
 import SettingTrigger from '../setting/settingTriger'
@@ -25,7 +25,7 @@ function LayoutHeader() {
       </div>
       <div className="header-rt flex-center">
         <Fullscreen />
-        <Language />
+        <SwitchLanguage />
         <UserAvatar />
         <SettingTrigger />
       </div>
