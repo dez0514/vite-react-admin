@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom"
 import { defaultUser, UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/layoutHeader/components/switchLanguage"
 import SwitchTheme from "@/layout/switchTheme"
+import styled from "styled-components"
+
+const Box = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex; 
+  alignItems: center;
+  padding: 0 10px 0 10px;
+`
 
 export default function Login() {
   const navigate = useNavigate()
@@ -20,12 +30,12 @@ export default function Login() {
 
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, height: '100vh' }}>
-      <div style={{ position: 'absolute', right: '0', top: '0', display: 'flex', alignItems: 'center', padding: '0 10px 0 10px' }}>
+      <Box>
         <Space>
           <SwitchLanguage />
           <SwitchTheme />
         </Space>
-      </div>
+      </Box>
       <Card style={{ width: 300 }} title="React Admin" bordered={false}>
         <Form
           name="normal_login"
