@@ -15,9 +15,13 @@ function Dashboard() {
   useEffect(() => {
     console.log('config==', configStates)
   }, [configStates])
+  useEffect(() => {
+    console.log('userInfo==', userInfo)
+    console.log('userInfo==', userInfo.userCheck())
+  }, [userInfo])
   return (
     <Fragment>
-      { userInfo.userCheck() === false && <Navigate to="/login" replace /> }
+      {/* { userInfo.userCheck() === false && <Navigate to="/login" replace /> } */}
       <Layout>
         <LayoutSider />
         <Layout className="site-layout">

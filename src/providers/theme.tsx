@@ -3,7 +3,7 @@ import { ThemeConfig } from "antd/es/config-provider/context"
 import { createContext, useState, useEffect } from "react"
 import { THEME } from "../config"
 import { ContextProps, Theme, ThemeType } from "../types"
-import i18n from '@/i18n'
+// import i18n from '@/i18n'
 import zh from "antd/lib/locale/zh_CN";
 import en from "antd/lib/locale/en_US";
 
@@ -15,8 +15,6 @@ sessionStorage.setItem = function (key, newValue) {
   originalSetItem.apply(this, [key, newValue]);
 };
 
-const defaultTheme = {}
-
 export const ThemeContext = createContext<{
   themeType: ThemeType
   updateThemeType: any
@@ -25,7 +23,7 @@ export const ThemeContext = createContext<{
 
 export function ThemeProvider(props: ContextProps) {
   const [themeType, setThemeType] = useState<ThemeType>("light")
-  const [themeToken, setThemeToken] = useState<ThemeConfig["token"]>(defaultTheme)
+  const [themeToken, setThemeToken] = useState<ThemeConfig["token"]>(THEME.light)
   const [locale, setLocale] = useState(sessionStorage.getItem("langType"));
 
   const updateThemeType = (themeType: Theme) => {
@@ -41,12 +39,16 @@ export function ThemeProvider(props: ContextProps) {
   useEffect(() => {
     const getLangType = (e: any) => {
       e?.langType && setLocale(e.langType);
+      location.reload()
     };
     window.addEventListener("setItemEvent", getLangType);
     return () => {
       window.removeEventListener("setItemEvent", getLangType);
     };
   }, []);
+  useEffect(() => {
+    console.log('locale===', locale)
+  }, [locale])
 
   return (
     <ThemeContext.Provider

@@ -28,7 +28,7 @@ export type RouterType = {
   // menu props
   icon?: ReactNode
   name?: string
-  label?: string
+  label?: string | ReactNode
   hide?: boolean
   // auth props
   // auth?: Roles[]

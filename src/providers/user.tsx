@@ -29,7 +29,6 @@ export const UserContext = createContext<{
 })
 
 const userInit = () => {
-  // return defaultUser
   const userJson = sessionStorage.getItem(StorageKeys.USERINFO)
   try {
     const user = JSON.parse(userJson || "{}")
@@ -42,13 +41,9 @@ const userInit = () => {
 export function UserProvider(props: ContextProps) {
   const [user, setUser] = useState<UserType>(userInit())
   const userLogin = (user: any) => {
+    const jsonUser = JSON.stringify(user)
+    sessionStorage.setItem(StorageKeys.USERINFO, jsonUser)
     setUser(user)
-    try {
-      const jsonUser = JSON.stringify(user)
-      sessionStorage.setItem(StorageKeys.USERINFO, jsonUser)
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   const userLoginOut = () => {

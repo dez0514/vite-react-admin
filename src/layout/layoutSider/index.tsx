@@ -7,6 +7,7 @@ import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
 import { ConfigContext } from '@/providers/config';
+import { Trans } from 'react-i18next'
 const { Sider } = AntdLayOut;
 
 
@@ -17,7 +18,7 @@ const formatMenu: any = (menuRoutes: RouterType[] | undefined) => {
   }
   for (const route of menuRoutes) {
     const menu = {
-      label: route.label,
+      label: <Trans>{ route.label }</Trans>,
       key: route.path,
       icon: route.icon,
       children: formatMenu(route.children),

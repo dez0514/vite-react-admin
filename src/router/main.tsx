@@ -1,10 +1,10 @@
 import { HomeOutlined, LoadingOutlined, FileImageOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
-
 import Layout from "@/layout"
 import { Outlet } from "react-router-dom"
 // const Home = lazy(() => import('@/views/home'))
+
 import Home from '@/views/home'
 const Pics = lazy(() => import('@/views/pics'))
 const Tags = lazy(() => import('@/views/tags'))
@@ -25,37 +25,37 @@ export const mainRoute: RouterType = {
   children: [
     {
       path: "",
-      label: "首页",
+      label: 'menu.home',
       element: <Home />,
       icon: <HomeOutlined />,
     },
     {
       path: "pics",
-      label: "图片管理",
+      label: 'menu.picsManage',
       element: formatSuspense(<Pics />),
       icon: <FileImageOutlined />,
     },
     {
       path: "tags",
-      label: "标签管理",
+      label: 'menu.tagsManage',
       element: formatSuspense(<Tags />),
       icon: <TagsOutlined />,
     },
     {
       path: "else",
-      label: "其他",
+      label: 'menu.else',
       element: <Outlet />,
       icon: <ToolOutlined />,
       children: [
         {
           path: "test1",
-          label: "测试1",
+          label: 'menu.test1',
           icon: <HomeOutlined />,
           element:  formatSuspense(<Test1 />)
         },
         {
           path: "test2",
-          label: "测试2",
+          label: 'menu.test2',
           icon: <HomeOutlined />,
           element: formatSuspense(<Test2 />)
         },
