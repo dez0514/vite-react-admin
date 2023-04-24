@@ -29,7 +29,7 @@ export default function Login() {
   } = theme.useToken()
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values)
-    // userInfo.userLogin(defaultUser)
+    userInfo.userLogin(defaultUser)
     navigate("/pics")
   }
   const rules = {

@@ -39,7 +39,7 @@ export function ThemeProvider(props: ContextProps) {
   useEffect(() => {
     const getLangType = (e: any) => {
       e?.langType && setLocale(e.langType);
-      location.reload()
+      console.log('lang===============', e)
     };
     window.addEventListener("setItemEvent", getLangType);
     return () => {
