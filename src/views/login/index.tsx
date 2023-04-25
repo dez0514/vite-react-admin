@@ -1,6 +1,6 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, theme, Space } from "antd"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { defaultUser, UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/layoutHeader/components/switchLanguage"
@@ -24,6 +24,7 @@ export default function Login() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const userInfo = useContext(UserContext)
+  const [ formRules, setFormRules ] = useState<any>([])
   const {
     token: { colorPrimaryBg },
   } = theme.useToken()
@@ -32,10 +33,13 @@ export default function Login() {
     userInfo.userLogin(defaultUser)
     navigate("/pics")
   }
-  const rules = {
-    username: [{ required: true, message: t('login.usernameNotEmpty') }],
-    password: [{ required: true, message: t('login.passwordNotEmpty') }]
-  }
+  useEffect(() => {
+    const rules = {
+      username: [{ required: true, message: t('login.usernameNotEmpty') }],
+      password: [{ required: true, message: t('login.passwordNotEmpty') }]
+    }
+    setFormRules(rules)
+  }, [])
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, height: '100vh' }}>
       <RightCorner>
@@ -51,14 +55,14 @@ export default function Login() {
           autoComplete="off"
           onFinish={ onFinish }
         >
-          <Form.Item name="username" rules={ rules.username }>
+          <Form.Item name="username" rules={ formRules?.username }>
             <Input
               size="large"
               prefix={<UserOutlined style={{ ...IconStyle }} />}
               placeholder={t('login.username') || ''}
             />
           </Form.Item>
-          <Form.Item name="password" rules={ rules.password }>
+          <Form.Item name="password" rules={ formRules.password }>
             <Input.Password
               size="large"
               prefix={<LockOutlined style={{ ...IconStyle }} />}
