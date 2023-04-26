@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { ThemeConfig } from "antd/es/config-provider/context"
+import { type } from "os"
 
 export type ThemeType = 'light' | 'dark'
 
@@ -45,6 +46,8 @@ export type UserType = {
   name?: string
   token?: string
 }
+
+export type LangType = 'en' | 'zh'
 
 export enum StorageKeys {
   USERINFO = "userinfo",

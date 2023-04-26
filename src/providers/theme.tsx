@@ -6,25 +6,19 @@ import { ContextProps, Theme, ThemeType } from "../types"
 // import i18n from '@/i18n'
 import zh from "antd/lib/locale/zh_CN";
 import en from "antd/lib/locale/en_US";
-
-const originalSetItem = sessionStorage.setItem;
-sessionStorage.setItem = function (key, newValue) {
-  const setItemEvent: any = new Event("setItemEvent");
-  setItemEvent[key] = newValue;
-  window.dispatchEvent(setItemEvent);
-  originalSetItem.apply(this, [key, newValue]);
-};
+import { IntlProvider } from "react-intl";
+import loginMessages from '@/i18n/module/login' 
 
 export const ThemeContext = createContext<{
   themeType: ThemeType
   updateThemeType: any
   setThemeToken: any
 }>({ themeType: "light", updateThemeType: () => {}, setThemeToken: () => {} })
-
+const defaultLang = 'zh'
 export function ThemeProvider(props: ContextProps) {
   const [themeType, setThemeType] = useState<ThemeType>("light")
   const [themeToken, setThemeToken] = useState<ThemeConfig["token"]>(THEME.light)
-  const [locale, setLocale] = useState(sessionStorage.getItem("langType"));
+  const [locale, setLocale] = useState(sessionStorage.getItem("langType") || defaultLang);
 
   const updateThemeType = (themeType: Theme) => {
     setThemeType(themeType)
@@ -38,7 +32,7 @@ export function ThemeProvider(props: ContextProps) {
 
   useEffect(() => {
     const getLangType = (e: any) => {
-      e?.langType && setLocale(e.langType);
+      e?.langType && setLocale(e.langType || defaultLang);
       console.log('lang===============', e)
     };
     window.addEventListener("setItemEvent", getLangType);
@@ -48,6 +42,7 @@ export function ThemeProvider(props: ContextProps) {
   }, []);
   useEffect(() => {
     console.log('locale===', locale)
+    // location.reload()
   }, [locale])
 
   return (
@@ -58,9 +53,11 @@ export function ThemeProvider(props: ContextProps) {
           token: themeToken,
           algorithm: themeType === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm 
         }}
-        locale={ locale === "en" ? en : zh }
+        locale={ locale === 'en' ? en : zh }
       >
-        {props.children}
+        <IntlProvider locale={ locale || defaultLang } messages={loginMessages[locale]}>
+          {props.children}
+        </IntlProvider>
       </ConfigProvider>
     </ThemeContext.Provider>
   )
