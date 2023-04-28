@@ -26,6 +26,7 @@ function SwitchLanguage() {
   const handleSelect = (val: any) => {
     setLanguage(val.key);
     i18n.changeLanguage(val.key);
+    sessionStorage.setItem("langType", val.key)
   }
   const langMenu: MenuProps['items'] = [
     {

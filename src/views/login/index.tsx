@@ -7,7 +7,7 @@ import SwitchLanguage from "@/layout/layoutHeader/components/switchLanguage"
 import SwitchTheme from "@/layout/switchTheme"
 import styled from "styled-components"
 import { useTranslation } from 'react-i18next'
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 
 const RightCorner = styled.div`
   position: absolute;
@@ -20,8 +20,14 @@ const RightCorner = styled.div`
 const IconStyle = {
   color: 'rgba(0, 0, 0, 0.25)'
 }
-
+const messages = defineMessages({
+  title:{
+    id:  'login2.title',
+    defaultMessage: '333'
+  }
+})
 export default function Login() {
+  const intl = useIntl()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const userInfo = useContext(UserContext)
@@ -78,8 +84,10 @@ export default function Login() {
               autoComplete="off"
             />
           </Form.Item>
-          <DatePicker onChange={onChange} />
-          <FormattedMessage id="usernameNotEmpty" />
+          <div>
+          <FormattedMessage id="logins.name" />
+          <h1>{intl.formatMessage(messages.title)}</h1>
+          </div>
           <Form.Item>
             <Button htmlType="submit" type="primary" size="large" block>{t('login.loginBtn')}</Button>
           </Form.Item>

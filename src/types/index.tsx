@@ -57,6 +57,9 @@ export type ConfigData = {
   defaultLanguage: TypeLang
 }
 
+export interface IntlMsg {
+  [key: string]: any
+}
 // type Rule = {
 //   validator?: Function;
 //   message?: ReactNode;

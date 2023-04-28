@@ -1,13 +1,22 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
-import resources from "./resources"
+// import LanguageDetector from "i18next-browser-languagedetector"
+import En from './language/en'
+import Zh from './language/zh'
+import { CONFIG } from '@/config' 
 console.log('navigator==', navigator)
-const langType: string = sessionStorage.getItem("langType") || ''
+const langType: string = sessionStorage.getItem("langType") || CONFIG.defaultLanguage
 i18n
-  .use(LanguageDetector)  // 获取浏览器默认的语言（浏览器默认通常是en）
+  // .use(LanguageDetector)  // 获取浏览器默认的语言（浏览器默认通常是en）
   .use(initReactI18next).init({
-    resources,
+    resources:  {
+      en: {
+        translation: En
+      },
+      zh: {
+        translation: Zh
+      }
+    },
     interpolation: {
       escapeValue: false,
     },

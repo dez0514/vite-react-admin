@@ -1,13 +1,24 @@
-import commonLanguage from "../module/common";
-import menuLanguage from "../module/menu";
-import login from "../module/login";
-const language = "en";
 export default {
-  translation: {
-    // 公共
-    common: commonLanguage[language],
-    // 菜单
-    menu: menuLanguage[language],
-    login: login[language]
+  // 公共
+  common: {
+    systemTitle: 'React admin'
+  },
+  // 菜单
+  menu: {
+    home: 'Home',
+    picsManage: 'Picture Manage',
+    tagsManage: 'Tag Manage',
+    else: 'Else Module',
+    test1: 'Test One',
+    test2: 'Test Two'
+  },
+  // 模块
+  login: {
+    loginBtn: 'Login',
+    username: 'Username',
+    password: 'Password',
+    usernameNotEmpty: 'Please Enter Username',
+    passwordNotEmpty: 'Please Enter Password',
+    errorUsernameOrPassword: 'Not Found The Username Or Password'
   }
 };

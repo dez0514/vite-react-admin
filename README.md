@@ -32,6 +32,14 @@ const TriggerBox = styled.div`
 2. 换肤：修改antd的token里的变量颜色值。
 3. 使用theme provider 就不需要在 vite.config.ts 里配置按需引入antd的样式配置
 
+## 国际化
+1. i18next react-i18next 参考：[https://www.i18next.com/overview/getting-started]
+2. react-intl 参考：[https://formatjs.io/docs/getting-started/installation/]
+两种方案都可以。
+1. i18next 配置可以分模块，插件很多，使用简单。遇到的问题，form表单校验的rules的message，无法在切换语言是实时转换，需要额外处理，刷新组件或页面，即重新校验才会更新为切换后的语言。
+2. react-intl 没有上述1的form的问题，但是想配置中分模块的话，写法比较麻烦（defineMessages）。配置是铺平的，不能嵌套（可以在key上作文章，例如这样 'module1.xxx': 'xxxx'）。
+我偏向使用 react-intl
+
 #### 存疑
 1. React.StrictMode 严格模式下使用antd报findDOMNode的错，说是4.5.0版本以上解决了，但是5.3.1怎么也有？？
 // https://blog.csdn.net/qq_40314318/article/details/105209873
