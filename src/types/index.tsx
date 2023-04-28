@@ -1,6 +1,5 @@
 import { ReactNode } from "react"
 import { ThemeConfig } from "antd/es/config-provider/context"
-import { type } from "os"
 
 export type ThemeType = 'light' | 'dark'
 
@@ -47,12 +46,27 @@ export type UserType = {
   token?: string
 }
 
-export type LangType = 'en' | 'zh'
+export type TypeLang = 'en' | 'zh'
 
 export enum StorageKeys {
-  USERINFO = "userinfo",
+  USERINFO = "userinfo"
 }
 
 export type ConfigData = {
-  headerHeight: number
+  headerHeight: number,
+  defaultLanguage: TypeLang
 }
+
+// type Rule = {
+//   validator?: Function;
+//   message?: ReactNode;
+//   required?: boolean;
+//   pattern?: RegExp;
+//   min?: number;
+//   max?: number;
+//   len?: number;
+//   enum?: string | any[];
+//   whitespace?: boolean;
+//   transform?: (value: any) => any;
+//   [propName: string]: any;
+// };

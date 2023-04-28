@@ -10,5 +10,6 @@ export const THEME: ThemeData = {
 }
 
 export const CONFIG: ConfigData = {
-  headerHeight: 48
+  headerHeight: 48,
+  defaultLanguage: 'zh'
 }

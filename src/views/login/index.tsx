@@ -6,7 +6,7 @@ import { defaultUser, UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/layoutHeader/components/switchLanguage"
 import SwitchTheme from "@/layout/switchTheme"
 import styled from "styled-components"
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { FormattedMessage } from "react-intl";
 
 const RightCorner = styled.div`
@@ -79,6 +79,7 @@ export default function Login() {
             />
           </Form.Item>
           <DatePicker onChange={onChange} />
+          <FormattedMessage id="usernameNotEmpty" />
           <Form.Item>
             <Button htmlType="submit" type="primary" size="large" block>{t('login.loginBtn')}</Button>
           </Form.Item>
