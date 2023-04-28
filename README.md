@@ -105,6 +105,64 @@ function useFriendStatus(friendID) {
 ```
 
 ### redux 与 useReducer + useContext
+用法很相似：reducer定义, dispatch触发，写法基本一样。
+1. useReducer + useContext 使用比较方便，小场景几乎能达到redux的效果， 缺点就是更新时会触发整个context渲染。
 
+```js
+// providers/config.tsx  定义context 和 provider
+import { createContext, useReducer } from "react"
+import { ContextProps } from "../types"
+import { configState, configAction, ConfigReducerType } from "../types/reducer"
+import { initialConfigState, configReducer } from '@/reducers/configReducer'
+export const ConfigContext = createContext<{
+  configStates: configState
+  dispatch:  React.Dispatch<configAction>
+}>({
+  configStates: initialConfigState,
+  dispatch: () => {}
+})
+export function ConfigProvider(props: ContextProps) {
+  const [configStates, dispatch] = useReducer<ConfigReducerType>(configReducer, initialConfigState)
+  return (
+    <ConfigContext.Provider
+      value={{ configStates, dispatch }}>
+      {props.children}
+    </ConfigContext.Provider>
+  )
+}
+```
+```js
+import { useContext } from 'react'
+import { ConfigContext } from "@/providers/config"
+// 函数组件里使用hooks获取到数据，
+const { configStates, dispatch } = useContext(ConfigContext)
+const { siderCollapse } = configStates
+// dispatch 调用
+dispatch({ type: 'UPDATE_CONFIG', payload: { siderCollapse: true }})
+```
+
+2. redux
+```js
+// main.js
+import reducers from '@/store/reducers/index'
+import { configureStore } from "@reduxjs/toolkit";
+const store = configureStore({
+  reducer: reducers
+})
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
+```
+```js
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
+
+const { siderCollapse } = useSelector((state: any) => state.globalConfig, shallowEqual)
+const dispatch = useDispatch() 
+
+// dispatch 调用
+dispatch({ type: 'UPDATE_CONFIG', payload: { siderCollapse: true }})
+```
 ### 自定义 hooks
 

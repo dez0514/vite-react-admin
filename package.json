@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "antd": "^5.4.6",
@@ -23,7 +24,9 @@
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.0",
     "react-intl": "^6.4.1",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
+    "redux": "^4.2.1",
     "sass": "^1.59.3",
     "screenfull": "^6.0.2",
     "styled-components": "^5.3.9",

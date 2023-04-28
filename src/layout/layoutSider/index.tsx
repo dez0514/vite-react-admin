@@ -6,7 +6,7 @@ import { ThemeContext } from "@/providers/theme"
 import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
-import { ConfigContext } from '@/providers/config';
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { Trans } from 'react-i18next'
 const { Sider } = AntdLayOut;
 
@@ -43,13 +43,11 @@ const pathnameToSelectedKeys = (pathname: string) => {
 function LayoutSider() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [collapsed, setCollapsed] = useState(false);
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
   const { themeType } = useContext(ThemeContext)
   const userInfo = useContext(UserContext)
-  const { configStates } = useContext(ConfigContext)
-  const { siderCollapse } = configStates
+  const { siderCollapse } = useSelector((state: any) => state.globalConfig, shallowEqual)
   const formatPath = (pathArray: string[]) => {
     pathArray.reverse()
     return pathArray.reduce((path, cur, index) => {
@@ -80,7 +78,6 @@ function LayoutSider() {
     }
   }
   const changeCollaps = (val: boolean) => {
-    setCollapsed(val)
     if(!val) {
       setMenuActive()
     }
