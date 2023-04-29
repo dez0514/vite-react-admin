@@ -1,7 +1,7 @@
-import { useContext } from 'react'
 import { SettingOutlined } from '@ant-design/icons';
 import { CONFIG } from '@/config'
-import { ConfigContext } from "@/providers/config"
+import { updateConfig } from '@/actions';
+import { useDispatch } from "react-redux";
 const style = {
   padding: '0 15px',
   height: `${CONFIG.headerHeight}px`,
@@ -10,9 +10,9 @@ const style = {
 }
 
 function SettingTrigger() {
-  const { dispatch } = useContext(ConfigContext)
+  const dispatch = useDispatch()
   const showDrawer = () => {
-    dispatch({ type: 'UPDATE_CONFIG', payload: { openSettingDrawer: true }})
+    dispatch(updateConfig({ openSettingDrawer: true }))
   };
   return (
     <div className='custom_btn_hover' style={{...style}} onClick={showDrawer}>

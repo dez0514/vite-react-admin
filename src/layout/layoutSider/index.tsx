@@ -6,8 +6,8 @@ import { ThemeContext } from "@/providers/theme"
 import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
-import { Trans } from 'react-i18next'
+import { shallowEqual, useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 const { Sider } = AntdLayOut;
 
 
@@ -18,7 +18,7 @@ const formatMenu: any = (menuRoutes: RouterType[] | undefined) => {
   }
   for (const route of menuRoutes) {
     const menu = {
-      label: <Trans>{ route.label }</Trans>,
+      label: <FormattedMessage id={route.label} />,
       key: route.path,
       icon: route.icon,
       children: formatMenu(route.children),

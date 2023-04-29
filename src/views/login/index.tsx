@@ -1,13 +1,12 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, theme, Space,DatePicker } from "antd"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { defaultUser, UserContext } from "@/providers/user"
-import SwitchLanguage from "@/layout/layoutHeader/components/switchLanguage"
+import SwitchLanguage from "@/layout/switchLanguage"
 import SwitchTheme from "@/layout/switchTheme"
 import styled from "styled-components"
-import { useTranslation } from 'react-i18next'
-import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const RightCorner = styled.div`
   position: absolute;
@@ -20,49 +19,32 @@ const RightCorner = styled.div`
 const IconStyle = {
   color: 'rgba(0, 0, 0, 0.25)'
 }
-const messages = defineMessages({
-  title:{
-    id:  'login2.title',
-    defaultMessage: '333'
-  }
-})
+
 export default function Login() {
-  const intl = useIntl()
-  const { t } = useTranslation()
+  const { formatMessage } = useIntl()
   const navigate = useNavigate()
   const userInfo = useContext(UserContext)
   const rules = {
-    username: [{ required: true, message: <FormattedMessage id="usernameNotEmpty" /> }], // t('login.usernameNotEmpty') // 
-    password: [{ required: true, message: t('login.passwordNotEmpty') }]
+    username: [{ required: true, message: <FormattedMessage id="login.usernameNotEmpty" /> }],
+    password: [{ required: true, message: <FormattedMessage id="login.passwordNotEmpty" /> }]
   }
   const {
     token: { colorPrimaryBg },
   } = theme.useToken()
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values)
-    userInfo.userLogin(defaultUser)
+    const { username, password } = values
+    userInfo.userLogin({ name: username, token: password })
     navigate("/pics")
   }
-  const onChange = (val: any) => {
-    console.log(val)
-  }
-  // useEffect(() => {
-  //   const rules = {
-  //     username: [{ required: true, message: t('login.usernameNotEmpty') }],
-  //     password: [{ required: true, message: t('login.passwordNotEmpty') }]
-  //   }
-  //   console.log('init==============')
-  //   setFormRules(rules)
-  // }, [])
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, height: '100vh' }}>
       <RightCorner>
         <Space>
-          <SwitchLanguage />
+          <SwitchLanguage showHover={false} />
           <SwitchTheme />
         </Space>
       </RightCorner>
-      <Card style={{ width: 400 }} title={t('common.systemTitle')} bordered={false}>
+      <Card style={{ width: 400 }} title={formatMessage({ id: 'common.systemTitle' })} bordered={false}>
         <Form
           name="normal_login"
           initialValues={{ remember: true }}
@@ -73,23 +55,19 @@ export default function Login() {
             <Input
               size="large"
               prefix={<UserOutlined style={{ ...IconStyle }} />}
-              placeholder={t('login.username') || ''}
+              placeholder={formatMessage({ id:'login.username' })}
             />
           </Form.Item>
           <Form.Item name="password" rules={ rules.password }>
             <Input.Password
               size="large"
               prefix={<LockOutlined style={{ ...IconStyle }} />}
-              placeholder={t('login.password') || ''}
+              placeholder={formatMessage({ id: 'login.password' })}
               autoComplete="off"
             />
           </Form.Item>
-          <div>
-          <FormattedMessage id="logins.name" />
-          <h1>{intl.formatMessage(messages.title)}</h1>
-          </div>
           <Form.Item>
-            <Button htmlType="submit" type="primary" size="large" block>{t('login.loginBtn')}</Button>
+            <Button htmlType="submit" type="primary" size="large" block>{formatMessage({ id: 'login.loginBtn' })}</Button>
           </Form.Item>
         </Form>
       </Card>

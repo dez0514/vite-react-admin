@@ -1,24 +1,18 @@
 import { Navigate } from 'react-router-dom'
-import { Fragment, useContext, useEffect } from 'react'
+import { Fragment, useContext } from 'react'
 import { Layout, Drawer } from 'antd';
 import { UserContext } from "@/providers/user"
 import LayoutHeader from './layoutHeader'
 import LayoutContent from './layoutContent'
 import LayoutSider from './layoutSider'
-import { ConfigContext } from '@/providers/config';
 import SettingBoard from './setting/settingBoard'
-
+import { updateConfig } from '@/actions';
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 
 function Dashboard() {
   const userInfo = useContext(UserContext)
-  const { configStates, dispatch } = useContext(ConfigContext)
-  useEffect(() => {
-    console.log('config==', configStates)
-  }, [configStates])
-  useEffect(() => {
-    console.log('userInfo==', userInfo)
-    console.log('userInfo==', userInfo.userCheck())
-  }, [userInfo])
+  const { openSettingDrawer } = useSelector((state: any) => state.globalConfig, shallowEqual)
+  const dispatch = useDispatch() 
   return (
     <Fragment>
       { userInfo.userCheck() === false && <Navigate to="/login" replace /> }
@@ -33,9 +27,9 @@ function Dashboard() {
         title="系统设置"
         placement='right'
         closable={true}
-        open={configStates.openSettingDrawer}
+        open={openSettingDrawer}
         onClose={
-          () => dispatch({ type: 'UPDATE_CONFIG', payload: { openSettingDrawer: false} })
+          () => dispatch(updateConfig({ openSettingDrawer: false}))
         }
       >
         <SettingBoard />

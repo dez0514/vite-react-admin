@@ -1,12 +1,18 @@
 export default {
-  loginBtn: 'Login',
-  username: 'Username',
-  password: 'Password',
-  usernameNotEmpty: 'Please Enter Username',
-  passwordNotEmpty: 'Please Enter Password',
-  errorUsernameOrPassword: 'Not Found The Username Or Password',
-  'logins.name': 'zwd',
-  login2: {
-    title: '222'
-  }
+  // common
+  'common.systemTitle': 'React admin',
+  // menu
+  'menu.home': 'Home',
+  'menu.picsManage': 'Picture Manage',
+  'menu.tagsManage': 'Tag Manage',
+  'menu.else': 'Else Module',
+  'menu.test1': 'Test One',
+  'menu.test2': 'Test Two',
+  // login
+  'login.loginBtn': 'Login',
+  'login.username': 'Username',
+  'login.password': 'Password',
+  'login.usernameNotEmpty': 'Please Enter Username',
+  'login.passwordNotEmpty': 'Please Enter Password',
+  'login.errorUsernameOrPassword': 'Not Found The Username Or Password'
 };

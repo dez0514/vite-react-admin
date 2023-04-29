@@ -34,7 +34,67 @@ const TriggerBox = styled.div`
 
 ## 国际化
 1. i18next react-i18next 参考：[https://www.i18next.com/overview/getting-started]
+```js
+// en.js, zh.js
+export default {
+  menu: {
+    home: 'Home',
+  },
+  login: {
+    loginBtn: 'Login'
+  }
+};
+```
+```js
+// i18n.js
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+// import LanguageDetector from "i18next-browser-languagedetector"
+import En from './language/en'
+import Zh from './language/zh'
+console.log('navigator==', navigator)
+const langType: string = sessionStorage.getItem("langType")
+i18n
+  // .use(LanguageDetector)  // 获取浏览器默认的语言（浏览器默认通常是en）
+  .use(initReactI18next).init({
+    resources:  {
+      en: {
+        translation: En
+      },
+      zh: {
+        translation: Zh
+      }
+    },
+    interpolation: {
+      escapeValue: false,
+    },
+    lng: langType,
+    debug: false,
+    // fallbackLng: "zh", //默认当前环境的语言
+    fallbackLng: ["zh", "en", "dev"],
+    detection: {
+      lookupSessionStorage: "langType",
+      caches: ["sessionStorage"],
+      order: ["sessionStorage"],
+      lookupQuerystring: "lng"
+    }
+  })
+export default i18n
+```
+```js
+// 切换组件里 切换时调用
+import i18n from "@/i18n"
+i18n.changeLanguage(val.key);
+```
 2. react-intl 参考：[https://formatjs.io/docs/getting-started/installation/]
+```js
+import { FormattedMessage, useIntl } from "react-intl";
+
+<FormattedMessage id="usernameNotEmpty"
+// const intl = useIntl()
+// intl.formatMessage({ id: `${intlKey}` })
+
+```
 两种方案都可以。
 1. i18next 配置可以分模块，插件很多，使用简单。遇到的问题，form表单校验的rules的message，无法在切换语言是实时转换，需要额外处理，刷新组件或页面，即重新校验才会更新为切换后的语言。
 2. react-intl 没有上述1的form的问题，但是想配置中分模块的话，写法比较麻烦（defineMessages）。配置是铺平的，不能嵌套（可以在key上作文章，例如这样 'module1.xxx': 'xxxx'）。
@@ -107,6 +167,29 @@ function useFriendStatus(friendID) {
 ### redux 与 useReducer + useContext
 用法很相似：reducer定义, dispatch触发，写法基本一样。
 1. useReducer + useContext 使用比较方便，小场景几乎能达到redux的效果， 缺点就是更新时会触发整个context渲染。
+```js
+import { createContext, useReducer } from "react"
+import { ContextProps } from "../types"
+import { configState, configAction, ConfigReducerType } from "../types/reducer"
+import { initialConfigState, configReducer } from '@/reducers/configReducer'
+export const ConfigContext = createContext<{
+  configStates: configState
+  dispatch:  React.Dispatch<configAction>
+}>({
+  configStates: initialConfigState,
+  dispatch: () => {}
+})
+export function ConfigProvider(props: ContextProps) {
+  const [configStates, dispatch] = useReducer<ConfigReducerType>(configReducer, initialConfigState)
+  return (
+    <ConfigContext.Provider
+      value={{ configStates, dispatch }}>
+      {props.children}
+    </ConfigContext.Provider>
+  )
+}
+
+```
 
 ```js
 // providers/config.tsx  定义context 和 provider

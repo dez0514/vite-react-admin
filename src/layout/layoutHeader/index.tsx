@@ -1,11 +1,11 @@
 import { Layout as AntdLayOut, theme, Space } from 'antd';
 const { Header } = AntdLayOut;
-import Fullscreen from './components/fullscreen'
-import SwitchLanguage from './components/switchLanguage'
-import UserAvatar from './components/userAvatar'
+import Fullscreen from '../fullscreen'
+import SwitchLanguage from '../switchLanguage'
+import UserAvatar from '../userAvatar'
 import SiderTrigger from '../siderTrigger/index'
 import SettingTrigger from '../setting/settingTriger'
-import Breadcrumb from './components/breadcrumb'
+import Breadcrumb from '../breadCrumb'
 import { CONFIG } from '@/config'
 
 const style = {

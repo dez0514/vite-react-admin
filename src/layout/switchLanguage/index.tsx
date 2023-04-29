@@ -3,7 +3,6 @@ import Icon from '@ant-design/icons';
 import {  Dropdown } from 'antd';
 import type { MenuProps } from 'antd'
 import { CONFIG } from '@/config'
-import i18n from "@/i18n"
 
 const LangSvg = () => (
   <svg viewBox="0 0 1024 1024" p-id="3644" width="1em" height="1em" fill="currentColor">
@@ -21,11 +20,10 @@ const style = {
   cursor: 'pointer'
 }
 
-function SwitchLanguage() {
+function SwitchLanguage({ showHover = true }: { showHover?: Boolean }) {
   const [language, setLanguage] = useState('');
   const handleSelect = (val: any) => {
     setLanguage(val.key);
-    i18n.changeLanguage(val.key);
     sessionStorage.setItem("langType", val.key)
   }
   const langMenu: MenuProps['items'] = [
@@ -47,7 +45,7 @@ function SwitchLanguage() {
   return (
     <div className='language'>
       <Dropdown menu={{ items: langMenu, selectable: true, selectedKeys: [language], onSelect: handleSelect }} trigger={['click']}>
-        <div className="custom_btn_hover" style={{...style}}>
+        <div className={showHover ? 'custom_btn_hover' : ''} style={{...style}}>
           <Icon component={LangSvg} />
         </div>
       </Dropdown>
