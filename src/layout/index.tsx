@@ -8,10 +8,11 @@ import LayoutSider from './layoutSider'
 import SettingBoard from './setting/settingBoard'
 import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { GlobalConfigState } from '@/types/reducer'
 
 function Dashboard() {
   const userInfo = useContext(UserContext)
-  const { openSettingDrawer } = useSelector((state: any) => state.globalConfig, shallowEqual)
+  const { openSettingDrawer } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const dispatch = useDispatch() 
   return (
     <Fragment>

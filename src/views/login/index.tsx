@@ -1,8 +1,8 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { Button, Card, Form, Input, theme, Space,DatePicker } from "antd"
+import { Button, Card, Form, Input, theme, Space, Typography } from "antd"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { defaultUser, UserContext } from "@/providers/user"
+import { UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/switchLanguage"
 import SwitchTheme from "@/layout/switchTheme"
 import styled from "styled-components"
@@ -16,9 +16,6 @@ const RightCorner = styled.div`
   align-items: center;
   padding: 0 10px 0 10px;
 `
-const IconStyle = {
-  color: 'rgba(0, 0, 0, 0.25)'
-}
 
 export default function Login() {
   const { formatMessage } = useIntl()
@@ -37,14 +34,16 @@ export default function Login() {
     navigate("/pics")
   }
   return (
-    <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, height: '100vh' }}>
+    <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
       <RightCorner>
-        <Space>
-          <SwitchLanguage showHover={false} />
-          <SwitchTheme />
-        </Space>
+        <Typography.Text>
+          <Space>
+            <SwitchLanguage showHover={false} />
+            <SwitchTheme />
+          </Space>
+        </Typography.Text>
       </RightCorner>
-      <Card style={{ width: 400 }} title={formatMessage({ id: 'common.systemTitle' })} bordered={false}>
+      <Card style={{ width: 400 }} title={formatMessage({ id: 'common.systemTitle' })}>
         <Form
           name="normal_login"
           initialValues={{ remember: true }}
@@ -54,14 +53,14 @@ export default function Login() {
           <Form.Item name="username" rules={ rules.username }>
             <Input
               size="large"
-              prefix={<UserOutlined style={{ ...IconStyle }} />}
+              prefix={<UserOutlined />}
               placeholder={formatMessage({ id:'login.username' })}
             />
           </Form.Item>
           <Form.Item name="password" rules={ rules.password }>
             <Input.Password
               size="large"
-              prefix={<LockOutlined style={{ ...IconStyle }} />}
+              prefix={<LockOutlined />}
               placeholder={formatMessage({ id: 'login.password' })}
               autoComplete="off"
             />

@@ -90,7 +90,7 @@ i18n.changeLanguage(val.key);
 ```js
 import { FormattedMessage, useIntl } from "react-intl";
 
-<FormattedMessage id="usernameNotEmpty"
+<FormattedMessage id="usernameNotEmpty" />
 // const intl = useIntl()
 // intl.formatMessage({ id: `${intlKey}` })
 

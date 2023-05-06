@@ -2,6 +2,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { updateConfig } from '@/actions';
+import { GlobalConfigState } from '@/types/reducer'
 
 const TriggerBox = styled.div`
   padding: 0 15px;
@@ -10,7 +11,7 @@ const TriggerBox = styled.div`
 `
 
 function SiderTrigger() {
-  const { siderCollapse } = useSelector((state: any) => state.globalConfig, shallowEqual)
+  const { siderCollapse } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const dispatch = useDispatch() 
   // console.log('reduxData===', siderCollapse)
   const changeCollaps = (val: boolean) => {

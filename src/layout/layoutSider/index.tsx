@@ -2,12 +2,13 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { Layout as AntdLayOut, Menu } from 'antd';
 import { RouterType } from '@/types'
-import { ThemeContext } from "@/providers/theme"
 import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
 import { shallowEqual, useSelector } from "react-redux";
 import { FormattedMessage } from "react-intl";
+import { GlobalConfigState } from '@/types/reducer'
+import { StorageKeys } from '@/types/enum';
 const { Sider } = AntdLayOut;
 
 
@@ -43,11 +44,10 @@ const pathnameToSelectedKeys = (pathname: string) => {
 function LayoutSider() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { theme, siderCollapse } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
-  const { themeType } = useContext(ThemeContext)
   const userInfo = useContext(UserContext)
-  const { siderCollapse } = useSelector((state: any) => state.globalConfig, shallowEqual)
   const formatPath = (pathArray: string[]) => {
     pathArray.reverse()
     return pathArray.reduce((path, cur, index) => {
@@ -62,9 +62,9 @@ function LayoutSider() {
     setMemoSubKeys(openKeys)
     const openkeys = openKeys.filter(Boolean).join('-')
     if(openkeys) {
-      sessionStorage.setItem('menuOpenkeys', openkeys)
+      sessionStorage.setItem(StorageKeys.menuOpenkeys, openkeys)
     } else {
-      sessionStorage.removeItem('menuOpenkeys')
+      sessionStorage.removeItem(StorageKeys.menuOpenkeys)
     }
   }
   const setMenuActive = () => {
@@ -84,7 +84,7 @@ function LayoutSider() {
   }
 
   useEffect(() => {
-    const menuOpenkeys = sessionStorage.getItem('menuOpenkeys')
+    const menuOpenkeys = sessionStorage.getItem(StorageKeys.menuOpenkeys)
     if(menuOpenkeys) {
       const openArr = menuOpenkeys.split('-').filter(Boolean)
       setMenuOpen(openArr)
@@ -103,13 +103,13 @@ function LayoutSider() {
     <Sider
       trigger={null}
       collapsible
-      theme={themeType}
+      theme={theme}
       collapsed={siderCollapse}
       onCollapse={(value) => changeCollaps(value)}
     >
       <Logo collapsed={siderCollapse} />
       <Menu
-        theme={themeType}
+        theme={theme}
         mode="inline"
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}

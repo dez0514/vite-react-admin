@@ -1,15 +1,19 @@
-import { ThemeData, ConfigData } from "../types"
+import { ThemeTokenType, ConfigData } from "../types"
 
-export const THEME: ThemeData = {
+
+// 初始默认值
+export const CONFIG: ConfigData = {
+  headerHeight: 48,
+  language: 'zh',
+  theme: 'dark'
+}
+
+// antd 组件换主题时 配色
+export const THEME_TOKEN: ThemeTokenType = {
   light: {},
   dark: {
     colorPrimary: '#1677ff'
     // colorBgBase: "#141414",
     // colorTextBase: "#fff"
   }
-}
-
-export const CONFIG: ConfigData = {
-  headerHeight: 48,
-  defaultLanguage: 'zh'
 }

@@ -1,18 +1,16 @@
 import { createContext, useState } from "react"
-import { ContextProps, StorageKeys, UserType } from "../types"
+import { ContextProps, UserType } from "../types"
+import { StorageKeys } from "../types/enum"
 
-export const defaultUser: UserType = {
-  name: "zwd",
-  token: "testtoken"
-}
-
-export const UserContext = createContext<{
+interface IUserContext {
   user: UserType
   userLogin: (user: UserType) => void
   userLoginOut: () => void
   userUpdate: (user: UserType) => void
   userCheck: () => boolean
-}>({
+}
+
+export const UserContext = createContext<IUserContext>({
   user: {},
   userLogin: function (user: UserType): void {
     throw new Error("Function not implemented.")

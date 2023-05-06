@@ -2,19 +2,24 @@ import { ReactNode } from "react"
 import { ThemeConfig } from "antd/es/config-provider/context"
 
 export type ThemeType = 'light' | 'dark'
+export type TypeLang = 'en' | 'zh'
 
-export interface ThemeData {
+export type UserType = {
+  name?: string
+  token?: string
+}
+
+export type ConfigData = {
+  headerHeight: number
+  language: TypeLang
+  theme: ThemeType
+}
+export interface ThemeTokenType {
   light?: ThemeConfig["token"]
   dark?: ThemeConfig["token"],
   algorithmLight?: ThemeConfig["algorithm"],
   algorithmDark?: ThemeConfig["algorithm"]
 }
-
-export enum Theme {
-  light = "light",
-  dark = "dark"
-}
-
 export interface ContextProps {
   children?: ReactNode
 }
@@ -41,35 +46,6 @@ export type MenuType = {
   children: MenuType[]
 }
 
-export type UserType = {
-  name?: string
-  token?: string
-}
-
-export type TypeLang = 'en' | 'zh'
-
-export enum StorageKeys {
-  USERINFO = "userinfo"
-}
-
-export type ConfigData = {
-  headerHeight: number,
-  defaultLanguage: TypeLang
-}
-
 export interface IntlMsg {
   [key: string]: any
 }
-// type Rule = {
-//   validator?: Function;
-//   message?: ReactNode;
-//   required?: boolean;
-//   pattern?: RegExp;
-//   min?: number;
-//   max?: number;
-//   len?: number;
-//   enum?: string | any[];
-//   whitespace?: boolean;
-//   transform?: (value: any) => any;
-//   [propName: string]: any;
-// };
