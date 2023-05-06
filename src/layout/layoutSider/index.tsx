@@ -9,6 +9,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { GlobalConfigState } from '@/types/reducer'
 import { StorageKeys } from '@/types/enum';
+import { CSSProperties } from "react"
 const { Sider } = AntdLayOut;
 
 
@@ -41,7 +42,9 @@ const pathnameToSelectedKeys = (pathname: string) => {
   }
 }
 
-function LayoutSider() {
+function LayoutSider(props: {
+  style?: CSSProperties
+}) {
   const location = useLocation()
   const navigate = useNavigate()
   const { theme, siderCollapse } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
@@ -106,6 +109,7 @@ function LayoutSider() {
       theme={theme}
       collapsed={siderCollapse}
       onCollapse={(value) => changeCollaps(value)}
+      style={{ ...props.style }}
     >
       <Logo collapsed={siderCollapse} />
       <Menu

@@ -7,9 +7,9 @@ const LayoutContent = () => {
   return (
     <Content
       style={{
-        height: `calc(100vh - ${CONFIG.headerHeight}px)`,
         overflow: 'hidden',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        flex: 1
       }}
     >
       <Outlet />
