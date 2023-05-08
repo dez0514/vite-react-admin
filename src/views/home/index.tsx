@@ -15,6 +15,7 @@ function Home() {
         <Space>
           <Button type="primary" onClick={gorouter}>Home</Button>
         </Space>
+        <div className='tw-bg-orange-400 tw-text-green-700'>tailwindCss</div>
         {
           arr.map((item, index) => {
             return (

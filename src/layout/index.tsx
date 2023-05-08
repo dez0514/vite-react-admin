@@ -17,7 +17,7 @@ function Dashboard() {
   return (
     <Fragment>
       { userInfo.userCheck() === false && <Navigate to="/login" replace /> }
-      <Layout style={{ display: 'flex', alignItems: 'flex-start', width: '100vw' }}>
+      <Layout style={{ willChange: 'transform', display: 'flex', alignItems: 'flex-start', width: '100vw', height: '100vh' }}>
         <LayoutSider style={{ height: '100vh'}} />
         <Layout style={{ height: '100vh', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <LayoutHeader />
