@@ -26,6 +26,8 @@ const TriggerBox = styled.div`
  <div className={classNames('a', 'b', { 'c': true })}></div>
 ```
 4. 内联style
+5. tailwindCss库
+
 ## antd组件换主题， 换肤。
 参考官网：[研发 -> 定制主题](https://ant.design/docs/react/customize-theme-cn)
 1. 主题: light, dark。修改antd的预设算法。
