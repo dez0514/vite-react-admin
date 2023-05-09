@@ -17,9 +17,9 @@ function Dashboard() {
   return (
     <Fragment>
       { userInfo.userCheck() === false && <Navigate to="/login" replace /> }
-      <Layout style={{ display: 'flex',flexDirection: 'row' }}>
-        <LayoutSider style={{ minHeight: '100vh'}} />
-        <Layout style={{ minHeight: '100vh', flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Layout hasSider={true}>
+        <LayoutSider/>
+        <Layout>
           <LayoutHeader />
           <LayoutContent />
         </Layout>

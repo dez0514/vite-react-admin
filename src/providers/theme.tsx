@@ -3,7 +3,7 @@ import { useMemo } from "react"
 import { IntlProvider } from "react-intl";
 import intlMessages from '@/intl'
 import { shallowEqual, useSelector } from "react-redux";
-import { THEME_TOKEN } from "@/config"
+import { CONFIG } from "@/config"
 import { GlobalConfigState } from '@/types/reducer'
 import { ContextProps, ThemeType, IntlMsg, TypeLang } from "@/types"
 
@@ -18,7 +18,7 @@ const antdLocal = {
 export function ThemeProvider(props: ContextProps) {
   const { theme, language } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const themeToken = useMemo(() => {
-    return THEME_TOKEN[theme as ThemeType]
+    return CONFIG[theme as ThemeType]
   }, [theme])
 
   return (

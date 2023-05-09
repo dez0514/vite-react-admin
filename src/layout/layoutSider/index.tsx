@@ -10,6 +10,7 @@ import { FormattedMessage } from "react-intl";
 import { GlobalConfigState } from '@/types/reducer'
 import { StorageKeys } from '@/types/enum';
 import { CSSProperties } from "react"
+import { CONFIG } from '@/config'
 const { Sider } = AntdLayOut;
 
 
@@ -110,11 +111,13 @@ function LayoutSider(props: {
       collapsed={siderCollapse}
       onCollapse={(value) => changeCollaps(value)}
       style={{ ...props.style }}
+      width={CONFIG.siderWidth}
     >
       <Logo collapsed={siderCollapse} />
       <Menu
         theme={theme}
         mode="inline"
+        style={{ borderInlineEnd: 'none' }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
         items={formatMenu(mainRoute.children)}

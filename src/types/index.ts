@@ -4,6 +4,13 @@ import { ThemeConfig } from "antd/es/config-provider/context"
 export type ThemeType = 'light' | 'dark'
 export type TypeLang = 'en' | 'zh'
 
+export interface ContextProps {
+  children?: ReactNode
+}
+export interface IntlMsg {
+  [key: string]: any
+}
+
 export type UserType = {
   name?: string
   token?: string
@@ -11,17 +18,13 @@ export type UserType = {
 
 export type ConfigData = {
   headerHeight: number
+  siderWidth: number
   language: TypeLang
   theme: ThemeType
-}
-export interface ThemeTokenType {
-  light?: ThemeConfig["token"]
-  dark?: ThemeConfig["token"],
+  light: ThemeConfig["token"]
+  dark: ThemeConfig["token"],
   algorithmLight?: ThemeConfig["algorithm"],
   algorithmDark?: ThemeConfig["algorithm"]
-}
-export interface ContextProps {
-  children?: ReactNode
 }
 
 export type RouterType = {
@@ -46,6 +49,3 @@ export type MenuType = {
   children: MenuType[]
 }
 
-export interface IntlMsg {
-  [key: string]: any
-}
