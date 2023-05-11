@@ -25,7 +25,7 @@ function Dashboard() {
         </Layout>
       </Layout>
       <Drawer
-        title="系统设置"
+        title="系统布局配置"
         placement='right'
         closable={true}
         open={openSettingDrawer}
