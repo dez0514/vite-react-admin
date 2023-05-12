@@ -18,7 +18,7 @@ function SiderTrigger() {
     dispatch(updateConfig({ siderCollapse: val }))
   }
   return (
-    <TriggerBox className="custom_btn_hover" onClick={() => changeCollaps(!siderCollapse)}>
+    <TriggerBox id='sider-trigger' className="custom_btn_hover" onClick={() => changeCollaps(!siderCollapse)}>
       { siderCollapse ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
     </TriggerBox>
   )

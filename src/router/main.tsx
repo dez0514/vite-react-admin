@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom"
 
 import Home from '@/views/home'
 const Pics = lazy(() => import('@/views/pics'))
+const Guide = lazy(() => import('@/views/guide'))
 const Tags = lazy(() => import('@/views/tags'))
 const NotFound = lazy(() => import('@/views/error/404'))
 const Test1 = lazy(() => import('@/views/error/test1'))
@@ -28,6 +29,12 @@ export const mainRoute: RouterType = {
       label: 'menu.home',
       element: <Home />,
       icon: <HomeOutlined />,
+    },
+    {
+      path: "guide",
+      label: 'menu.guide',
+      element: formatSuspense(<Guide />),
+      icon: <FileImageOutlined />,
     },
     {
       path: "pics",

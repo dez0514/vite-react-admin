@@ -25,7 +25,7 @@ function Fullscreen() {
     screenfull.toggle()
   }
   return (
-    <div className="FullScreen custom_btn_hover" style={{...style}} onClick={handleFullScreen}>
+    <div id='fullscreen' className="FullScreen custom_btn_hover" style={{...style}} onClick={handleFullScreen}>
       {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
     </div>
   )

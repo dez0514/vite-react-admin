@@ -3,6 +3,7 @@ export default {
   'common.systemTitle': 'React admin',
   // menu
   'menu.home': 'Home',
+  'menu.guide': 'Guide',
   'menu.picsManage': 'Picture Manage',
   'menu.tagsManage': 'Tag Manage',
   'menu.else': 'Else Module',
@@ -14,5 +15,7 @@ export default {
   'login.password': 'Password',
   'login.usernameNotEmpty': 'Please Enter Username',
   'login.passwordNotEmpty': 'Please Enter Password',
-  'login.errorUsernameOrPassword': 'Not Found The Username Or Password'
+  'login.errorUsernameOrPassword': 'Not Found The Username Or Password',
+  // guide
+  'guide.openGuide': 'open guide'
 };

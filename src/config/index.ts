@@ -14,3 +14,22 @@ export const CONFIG: ConfigData = {
     // colorTextBase: "#fff"
   }
 }
+
+export const guideSteps = [
+  {
+    element: "#sider-trigger",
+    popover: {
+      title: "演示标题1",
+      description: "这是详细描述\n",
+      position: "bottom-center",
+    },
+  },
+  {
+    element: "#fullscreen",
+    popover: {
+      title: "演示标题2",
+      description: "这是详细描述\n",
+      position: "bottom-center",
+    },
+  }
+]
