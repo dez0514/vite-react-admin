@@ -5,7 +5,7 @@ import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { GlobalConfigState } from '@/types/reducer'
 import { TypeLang } from '@/types';
-import { ReactComponent as IconLang } from '@/icons/lang.svg';
+import { ReactComponent as IconLang } from '@/assets/icons/lang.svg';
 
 const style = {
   padding: '0 15px',

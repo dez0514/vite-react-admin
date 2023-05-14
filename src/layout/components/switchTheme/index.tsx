@@ -4,8 +4,8 @@ import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 import { GlobalConfigState } from '@/types/reducer'
-import { ReactComponent as IconSun } from '@/icons/sun.svg';
-import { ReactComponent as IconMoon } from '@/icons/moon.svg';
+import { ReactComponent as IconSun } from '@/assets/icons/sun.svg';
+import { ReactComponent as IconMoon } from '@/assets/icons/moon.svg';
 
 const IconBox = styled.div`
   position: absolute;
