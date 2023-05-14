@@ -8,7 +8,8 @@ export const initialConfigState: configState = {
   openSettingDrawer: false,
   siderCollapse: false,
   language: (sessionStorage.getItem(StorageKeys.LANGUAGE) || CONFIG.language) as TypeLang,
-  theme: (sessionStorage.getItem(StorageKeys.THEME) || CONFIG.theme) as ThemeType
+  theme: (sessionStorage.getItem(StorageKeys.THEME) || CONFIG.theme) as ThemeType,
+  primaryColor: sessionStorage.getItem(StorageKeys.PRIMARY_COLOR) || ''
 };
 
 export const configReducer = (
@@ -22,6 +23,9 @@ export const configReducer = (
       }
       if(payload.theme) {
         sessionStorage.setItem(StorageKeys.THEME, payload.theme)
+      }
+      if(payload.primaryColor) {
+        sessionStorage.setItem(StorageKeys.PRIMARY_COLOR, payload.primaryColor)
       }
       return { ...state, ...payload };
     default:

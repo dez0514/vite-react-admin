@@ -9,6 +9,10 @@ export default {
   'menu.else': 'Else Module',
   'menu.test1': 'Test One',
   'menu.test2': 'Test Two',
+  // layout
+  'layout.setting': 'system setting',
+  'layout.setting.themeType': 'theme mode',
+  'layout.setting.themeColor': 'theme color',
   // login
   'login.loginBtn': 'Login',
   'login.username': 'Username',

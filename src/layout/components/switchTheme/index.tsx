@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
 import { Switch } from 'antd';
-import Icon from '@ant-design/icons';
 import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 import { GlobalConfigState } from '@/types/reducer'
-import { ReactComponent as IconSun } from '../../icons/sun.svg';
+import { ReactComponent as IconSun } from '@/icons/sun.svg';
 import { ReactComponent as IconMoon } from '@/icons/moon.svg';
 
 const IconBox = styled.div`

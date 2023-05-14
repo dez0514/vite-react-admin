@@ -3,8 +3,8 @@ import { Button, Card, Form, Input, theme, Space, Typography } from "antd"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "@/providers/user"
-import SwitchLanguage from "@/layout/switchLanguage"
-import SwitchTheme from "@/layout/switchTheme"
+import SwitchLanguage from "@/layout/components/switchLanguage"
+import SwitchTheme from "@/layout/components/switchTheme"
 import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
 

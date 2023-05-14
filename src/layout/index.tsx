@@ -2,13 +2,14 @@ import { Navigate } from 'react-router-dom'
 import { Fragment, useContext } from 'react'
 import { Layout, Drawer } from 'antd';
 import { UserContext } from "@/providers/user"
-import LayoutHeader from './layoutHeader'
-import LayoutContent from './layoutContent'
-import LayoutSider from './layoutSider'
-import SettingBoard from './setting/settingBoard'
+import LayoutHeader from './components/layoutHeader'
+import LayoutContent from './components/layoutContent'
+import LayoutSider from './components/layoutSider'
+import SettingBoard from './components/setting/settingBoard'
 import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { GlobalConfigState } from '@/types/reducer'
+import { FormattedMessage } from "react-intl";
 
 function Dashboard() {
   const userInfo = useContext(UserContext)
@@ -25,7 +26,7 @@ function Dashboard() {
         </Layout>
       </Layout>
       <Drawer
-        title="系统布局配置"
+        title={ <FormattedMessage id="layout.setting" /> }
         placement='right'
         closable={true}
         open={openSettingDrawer}

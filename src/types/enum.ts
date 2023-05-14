@@ -1,10 +1,7 @@
-export enum Theme {
-  light = "light",
-  dark = "dark"
-}
 export enum StorageKeys {
   USERINFO = "userinfo",
-  THEME = "theme",
   LANGUAGE = "langType",
+  THEME = "theme",
+  PRIMARY_COLOR = "primaryColor",
   menuOpenkeys = "menuOpenkeys"
 }

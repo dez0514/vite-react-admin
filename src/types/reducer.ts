@@ -4,7 +4,8 @@ export type configState = {
   openSettingDrawer?: boolean
   siderCollapse?: boolean
   language?: TypeLang,
-  theme?: ThemeType
+  theme?: ThemeType,
+  primaryColor?: string
 }
 
 export type GlobalConfigState = {

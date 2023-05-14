@@ -1,4 +1,3 @@
-import Icon from '@ant-design/icons';
 import {  Dropdown } from 'antd';
 import type { MenuProps } from 'antd'
 import { CONFIG } from '@/config'

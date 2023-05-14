@@ -9,6 +9,10 @@ export default {
   'menu.else': '其他',
   'menu.test1': '测试1',
   'menu.test2': '测试2',
+  // layout
+  'layout.setting': '系统布局配置',
+  'layout.setting.themeType': '主题模式',
+  'layout.setting.themeColor': '主题颜色',
   // login
   'login.loginBtn': '登录',
   'login.username': '用户名',

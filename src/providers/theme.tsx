@@ -1,5 +1,5 @@
 import { ConfigProvider, theme as antdTheme } from "antd"
-import { useMemo } from "react"
+import { useMemo, useEffect } from "react"
 import { IntlProvider } from "react-intl";
 import intlMessages from '@/intl'
 import { shallowEqual, useSelector } from "react-redux";
@@ -16,11 +16,14 @@ const antdLocal = {
 }
 
 export function ThemeProvider(props: ContextProps) {
-  const { theme, language } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, language, primaryColor } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const themeToken = useMemo(() => {
-    return CONFIG[theme as ThemeType]
-  }, [theme])
-
+    let color = primaryColor || CONFIG[theme as ThemeType]?.colorPrimary
+    return { ...CONFIG[theme as ThemeType], colorPrimary: color }
+  }, [theme, primaryColor])
+  useEffect(() => {
+    console.log('themeToken===', themeToken)
+  }, [themeToken])
   return (
     <ConfigProvider
       theme={{
