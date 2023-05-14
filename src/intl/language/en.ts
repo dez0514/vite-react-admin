@@ -21,5 +21,17 @@ export default {
   'login.passwordNotEmpty': 'Please Enter Password',
   'login.errorUsernameOrPassword': 'Not Found The Username Or Password',
   // guide
-  'guide.openGuide': 'open guide'
+  'guide.openGuide': 'open guide',
+  'guide.finish': 'Done',
+  'guide.close': 'Close',
+  'guide.prev': 'Previous',
+  'guide.next': 'Next',
+  'guide.change.collapse': 'Hamburger',
+  'guide.change.collapse.desc': 'Open && Close sidebar',
+  'guide.change.fullscreen': 'Screenfull',
+  'guide.change.fullscreen.desc': 'Set the page into fullscreen',
+  'guide.change.language': 'Language',
+  'guide.change.language.desc': 'Set language',
+  'guide.change.setting': 'Setting',
+  'guide.change.setting.desc': 'system setting'
 };

@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { ThemeConfig } from "antd/es/config-provider/context"
+import { LoaderFunction } from 'react-router-dom'
 
 export type ThemeType = 'light' | 'dark'
 export type TypeLang = 'en' | 'zh'
@@ -32,11 +33,11 @@ export type RouterType = {
   path?: string
   element?: ReactNode
   children?: RouterType[]
-  loader?: () => void
+  loader?: LoaderFunction
   // menu props
   icon?: ReactNode
   name?: string
-  label?: string  // | ReactNode
+  label?: string | ReactNode
   hide?: boolean
   // auth props
   // auth?: Roles[]

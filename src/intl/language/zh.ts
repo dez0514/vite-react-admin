@@ -21,5 +21,17 @@ export default {
   'login.passwordNotEmpty': '请填写密码',
   'login.errorUsernameOrPassword': '用户名或密码不正确',
   // guide
-  'guide.openGuide': '打开引导'
+  'guide.openGuide': '打开引导',
+  'guide.finish': '完成',
+  'guide.close': '关闭',
+  'guide.prev': '上一步',
+  'guide.next': '下一步',
+  'guide.change.collapse': '侧边栏按钮',
+  'guide.change.collapse.desc': '控制侧边栏展开或收拢',
+  'guide.change.fullscreen': '全屏',
+  'guide.change.fullscreen.desc': '控制网页全屏',
+  'guide.change.language': '语言',
+  'guide.change.language.desc': '切换语言',
+  'guide.change.setting': '设置',
+  'guide.change.setting.desc': '系统设置'
 };

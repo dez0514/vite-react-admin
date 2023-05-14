@@ -34,7 +34,7 @@ function SwitchLanguage({ showHover = true }: { showHover?: Boolean }) {
     }
   ]
   return (
-    <div className='language'>
+    <div id='language-switch' className='language'>
       <Dropdown
         menu={
           { 

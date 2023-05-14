@@ -18,22 +18,3 @@ export const CONFIG: ConfigData = {
 }
 
 export const presetColors = ['#1677ff', '#304156', '#212121', '#11A983', '#13C2C2', '#6959CD', '#F5222D']
-
-export const guideSteps = [
-  {
-    element: "#sider-trigger",
-    popover: {
-      title: "演示标题1",
-      description: "这是详细描述\n",
-      position: "bottom-center",
-    },
-  },
-  {
-    element: "#fullscreen",
-    popover: {
-      title: "演示标题2",
-      description: "这是详细描述\n",
-      position: "bottom-center",
-    },
-  }
-]

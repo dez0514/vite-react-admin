@@ -15,7 +15,7 @@ function SettingTrigger() {
     dispatch(updateConfig({ openSettingDrawer: true }))
   };
   return (
-    <div className='custom_btn_hover' style={{...style}} onClick={showDrawer}>
+    <div id='system-setting' className='custom_btn_hover' style={{...style}} onClick={showDrawer}>
       <SettingOutlined />
     </div>
   )
