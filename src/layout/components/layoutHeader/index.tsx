@@ -7,6 +7,7 @@ import SiderTrigger from '../siderTrigger/index'
 import SettingTrigger from '../setting/settingTriger'
 import Breadcrumb from '../breadCrumb'
 import { CONFIG } from '@/config'
+import TagsView from '../tagsView';
 
 const style = {
   padding: 0,
@@ -16,6 +17,7 @@ const style = {
 function LayoutHeader() {
   const { token: { colorBgContainer } } = theme.useToken();
   return (
+    <>
     <Header className='flex-between' style={{ ...style, background: colorBgContainer }}>
       <div className="header-lf flex-center">
         <Space>
@@ -30,6 +32,8 @@ function LayoutHeader() {
         <SettingTrigger />
       </div>
     </Header>
+    <TagsView tags={['magenta', 'volcano', 'red', 'magenta', 'volcano', 'red']} />
+    </>
   )
 }
 
