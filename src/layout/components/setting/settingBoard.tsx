@@ -39,10 +39,7 @@ function Setting () {
           </Typography.Text>
         </div>
         <div>
-          <CustomColorPicker
-            value={curColor}
-            onChange={changeColor}
-          />
+          <CustomColorPicker popoverStyle={{ paddingRight: '10px' }} hexval={curColor} onChange={changeColor} />
         </div>
       </div>
     </div>

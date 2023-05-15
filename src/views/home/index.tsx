@@ -2,10 +2,16 @@ import { Button, Space } from 'antd'
 import { useNavigate } from "react-router-dom";
 import styles from './index.module.scss'
 import { useState, useEffect } from 'react'
+import CustomColorPicker from '@/components/colorPicker'
 
 function Home() {
   const navigate = useNavigate();
   // const [msg, setMsg] = useState('')
+  const [color, setColor] = useState('#167fff')
+  const colorChange = (val:any) => {
+    console.log('cur color===', val)
+    setColor(val)
+  }
   const gorouter = () => {
     navigate(`/pics`)
   }
@@ -31,6 +37,7 @@ function Home() {
           <Button type="primary" onClick={gorouter}>Home</Button>
         </Space>
         {/* <div className='tw-bg-orange-400 tw-text-green-700'>{msg}</div> */}
+        <CustomColorPicker hexval={color} onChange={colorChange} />
       </div>
     </div>
   )

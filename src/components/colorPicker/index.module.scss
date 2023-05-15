@@ -1,0 +1,30 @@
+.custom_colorpicker_wrapper {
+  box-sizing: border-box;
+  width: 306px;
+  .top_content {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .saturation_wrap {
+    margin-right: 10px;
+  }
+  .swatch_wrap {
+    margin-top: 10px;
+  }
+  .bottom_wrap {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  :global {
+    .w-color-editable-input input:hover {
+      box-shadow: #1677ff 0px 0px 0px 1px inset!important;
+    }
+    .w-color-editable-input input:focus {
+      box-shadow: #1677ff 0px 0px 0px 1px inset!important;
+    }
+  }
+}
