@@ -51,3 +51,8 @@ export type MenuType = {
   children: MenuType[]
 }
 
+export type TagType = {
+  path: string
+  label: string | ReactNode
+  closable: boolean
+}
