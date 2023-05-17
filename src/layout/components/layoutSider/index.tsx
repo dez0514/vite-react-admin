@@ -21,7 +21,7 @@ const formatMenu: any = (menuRoutes: RouterType[] | undefined) => {
   }
   for (const route of menuRoutes) {
     const menu = {
-      label: <FormattedMessage id={route.label} />,
+      label: <FormattedMessage id={`${route.label}`} />,
       key: route.path,
       icon: route.icon,
       children: formatMenu(route.children),
@@ -48,7 +48,7 @@ function LayoutSider(props: {
 }) {
   const location = useLocation()
   const navigate = useNavigate()
-  const { theme, siderCollapse } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, siderCollapse, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
   const userInfo = useContext(UserContext)
@@ -113,7 +113,7 @@ function LayoutSider(props: {
       style={{ ...props.style }}
       width={CONFIG.siderWidth}
     >
-      <Logo collapsed={siderCollapse} />
+      { !hideLogo && <Logo collapsed={siderCollapse} /> }
       <Menu
         theme={theme}
         mode="inline"

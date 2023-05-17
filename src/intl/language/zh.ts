@@ -13,6 +13,7 @@ export default {
   'layout.setting': '系统布局配置',
   'layout.setting.themeType': '主题模式',
   'layout.setting.themeColor': '主题颜色',
+  'layout.setting.isshowlogo': '是否显示Logo',
   // login
   'login.loginBtn': '登录',
   'login.username': '用户名',

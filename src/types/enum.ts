@@ -3,5 +3,6 @@ export enum StorageKeys {
   LANGUAGE = "langType",
   THEME = "theme",
   PRIMARY_COLOR = "primaryColor",
-  menuOpenkeys = "menuOpenkeys"
+  menuOpenkeys = "menuOpenkeys",
+  HIDELOGO = "hideLogo"
 }

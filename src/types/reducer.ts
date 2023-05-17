@@ -3,9 +3,10 @@ import { TypeLang, ThemeType } from './index'
 export type configState = {
   openSettingDrawer?: boolean
   siderCollapse?: boolean
-  language?: TypeLang,
-  theme?: ThemeType,
+  language?: TypeLang
+  theme?: ThemeType
   primaryColor?: string
+  hideLogo?: boolean
 }
 
 export type GlobalConfigState = {

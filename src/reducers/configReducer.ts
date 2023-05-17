@@ -9,7 +9,8 @@ export const initialConfigState: configState = {
   siderCollapse: false,
   language: (sessionStorage.getItem(StorageKeys.LANGUAGE) || CONFIG.language) as TypeLang,
   theme: (sessionStorage.getItem(StorageKeys.THEME) || CONFIG.theme) as ThemeType,
-  primaryColor: sessionStorage.getItem(StorageKeys.PRIMARY_COLOR) || ''
+  primaryColor: sessionStorage.getItem(StorageKeys.PRIMARY_COLOR) || '',
+  hideLogo: sessionStorage.getItem(StorageKeys.HIDELOGO) === 'true' ? true : (CONFIG.hideLogo || false)
 };
 
 export const configReducer = (
@@ -18,14 +19,17 @@ export const configReducer = (
 ) => {
   switch (type) {
     case UPDATE_CONFIG:
-      if(payload.language) {
-        sessionStorage.setItem(StorageKeys.LANGUAGE, payload.language)
+      if('language' in payload) {
+        sessionStorage.setItem(StorageKeys.LANGUAGE, payload.language || '')
       }
-      if(payload.theme) {
-        sessionStorage.setItem(StorageKeys.THEME, payload.theme)
+      if('theme' in payload) {
+        sessionStorage.setItem(StorageKeys.THEME, payload.theme || '')
       }
-      if(payload.primaryColor) {
-        sessionStorage.setItem(StorageKeys.PRIMARY_COLOR, payload.primaryColor)
+      if('primaryColor' in payload) {
+        sessionStorage.setItem(StorageKeys.PRIMARY_COLOR, payload.primaryColor || '')
+      }
+      if('hideLogo' in payload) { // boolean 值可能是 false
+        sessionStorage.setItem(StorageKeys.HIDELOGO, String(payload.hideLogo))
       }
       return { ...state, ...payload };
     default:

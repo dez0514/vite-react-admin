@@ -13,6 +13,7 @@ export default {
   'layout.setting': 'system setting',
   'layout.setting.themeType': 'theme mode',
   'layout.setting.themeColor': 'theme color',
+  'layout.setting.isshowlogo': 'show Logo',
   // login
   'login.loginBtn': 'Login',
   'login.username': 'Username',
