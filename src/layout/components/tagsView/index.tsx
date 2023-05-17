@@ -17,6 +17,7 @@ type scrollVisibilityApiType = ContextType<typeof VisibilityContext>;
 
 const TagsView = ({ tags }: { tags: any }) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const { theme, primaryColor } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const checkColor = useMemo(() => {
@@ -24,10 +25,12 @@ const TagsView = ({ tags }: { tags: any }) => {
   }, [theme, primaryColor])
   
   const handleClose = (item: any) => {
-    console.log('item====', item)
+    console.log('item====', item) // 删掉tags里的
+    navigate(-1)
   }
   const handleCheck = (item: any) => {
-    console.log('item====', item)
+    console.log('item====', navigate)
+    navigate(item.path)
   }
   const onWheel = (apiObj: scrollVisibilityApiType, ev: WheelEvent) => {
     const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;

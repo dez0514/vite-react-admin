@@ -37,7 +37,7 @@
     "react-i18next": "^12.2.0",
     "react-intl": "^6.4.1",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.9.0",
+    "react-router-dom": "^6.11.1",
     "redux": "^4.2.1",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.59.3",
