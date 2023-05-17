@@ -1,106 +1,38 @@
-// import { useState, useRef } from 'react';
-// import { Tag, Row, Col, Button } from 'antd';
-// import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-
-// const TagsView = ({ tags }) => {
-//   const [showLeftButton, setShowLeftButton] = useState(false);
-//   const [showRightButton, setShowRightButton] = useState(false);
-//   const [scrollPosition, setScrollPosition] = useState(0);
-
-//   const tagContainerRef = useRef();
-
-//   const handleTagsScroll = () => {
-//     const containerWidth = tagContainerRef.current.clientWidth;
-//     const scrollWidth = tagContainerRef.current.scrollWidth;
-//     const scrollLeft = tagContainerRef.current.scrollLeft;
-
-//     if (scrollWidth > containerWidth) {
-//       setShowLeftButton(scrollLeft > 0);
-//       setShowRightButton(scrollLeft + containerWidth < scrollWidth);
-//     } else {
-//       setShowLeftButton(false);
-//       setShowRightButton(false);
-//     }
-
-//     setScrollPosition(scrollLeft);
-//   };
-
-//   const handleLeftButtonClick = () => {
-//     tagContainerRef.current.scroll({ left: scrollPosition - 100, behavior: 'smooth' });
-//   };
-
-//   const handleRightButtonClick = () => {
-//     tagContainerRef.current.scroll({ left: scrollPosition + 100, behavior: 'smooth' });
-//   };
-
-//   return (
-//     <div>
-//       {showLeftButton && (
-//         <Button className="tags-view-button tags-view-left-button" onClick={handleLeftButtonClick}>
-//           <LeftOutlined />
-//         </Button>
-//       )}
-//       <div
-//         className="tags-view-container"
-//         onScroll={handleTagsScroll}
-//         ref={tagContainerRef}
-//       >
-//         <Row gutter={[16, 16]} wrap={false}>
-//           {tags.map((tag, index) => (
-//             <Col key={index} flex="none">
-//               <Tag>{tag}</Tag>
-//             </Col>
-//           ))}
-//         </Row>
-//       </div>
-
-//       {showRightButton && (
-//         <Button className="tags-view-button tags-view-right-button" onClick={handleRightButtonClick}>
-//           <RightOutlined />
-//         </Button>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default TagsView
-
-import { useState } from 'react';
+import { ContextType, WheelEvent } from 'react'
+import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import 'react-horizontal-scrolling-menu/dist/styles.css';
+import './hideScrollbar.css'
 import { Tag } from 'antd';
+import { LeftArrow, RightArrow } from './arrow'
+import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 
-const TagsView = ({ tags }) => {
-  const [scrollLeft, setScrollLeft] = useState(0);
+type scrollVisibilityApiType = ContextType<typeof VisibilityContext>;
 
-  const handleScroll = (scrollOffset) => {
-    const container = document.getElementById('tags-container');
-    if (container) {
-      const newScrollLeft = scrollLeft + scrollOffset;
-      container.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth',
-      });
-      setScrollLeft(newScrollLeft);
+const TagsView = ({ tags }: { tags: any }) => {
+  const { disableScroll, enableScroll } = usePreventBodyScroll();
+  const onWheel = (apiObj: scrollVisibilityApiType, ev: WheelEvent) => {
+    const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+    if (isThouchpad) {
+      ev.stopPropagation();
+      return;
     }
-  };
-
+    if (ev.deltaY < 0) {
+      apiObj.scrollNext();
+    } else if (ev.deltaY > 0) {
+      apiObj.scrollPrev();
+    }
+  }
   return (
-    <div style={{ display: 'flex', overflowX: 'auto' }}>
-      <div
-        id="tags-container"
-        style={{ display: 'flex', flexWrap: 'nowrap', whiteSpace: 'nowrap' }}
+    <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
+      <ScrollMenu
+        LeftArrow={LeftArrow}
+        RightArrow={RightArrow}
+        onWheel={onWheel}
       >
-        {tags.map((tag, index) => {
-          return <Tag key={index}>{tag}</Tag>;
+        {tags.map((tag: string, index: number) => {
+          return (<div className='tw-flex tw-flex-col tw-justify-center' style={{height: '40px'}} key={index}><Tag>{tag}</Tag></div>);
         })}
-      </div>
-      <div style={{ alignSelf: 'center', marginLeft: '8px', cursor: 'pointer' }}>
-        <span role="img" aria-label="left-arrow" onClick={() => handleScroll(-100)}>
-          ⬅️
-        </span>
-        <span role="img" aria-label="right-arrow" onClick={() => handleScroll(100)}>
-          ➡️
-        </span>
-      </div>
+      </ScrollMenu>
     </div>
   );
 };

@@ -6,6 +6,6 @@ export default function Page(props: {
   className?: string
 }) {
   return (
-    <div style={{ margin: "24px 16px", ...props.style }}>{props.children}</div>
+    <div style={{ margin: '20px', ...props.style }}>{props.children}</div>
   )
 }

@@ -18,7 +18,7 @@ function LayoutHeader() {
   const { token: { colorBgContainer } } = theme.useToken();
   return (
     <>
-    <Header className='flex-between' style={{ ...style, background: colorBgContainer }}>
+    <Header className='flex-between' style={{ ...style, background: colorBgContainer, boxShadow: '0 1px 4px rgba(0,21,41,.08)' }}>
       <div className="header-lf flex-center">
         <Space>
           <SiderTrigger />
@@ -32,7 +32,11 @@ function LayoutHeader() {
         <SettingTrigger />
       </div>
     </Header>
-    <TagsView tags={['magenta', 'volcano', 'red', 'magenta', 'volcano', 'red']} />
+    <div style={{ background: colorBgContainer, borderBottom: '1px solid #d8dce5',
+    boxShadow: '0 1px 3px 0 rgba(0,0,0,.12), 0 0 3px 0 rgba(0,0,0,.04)' }}>
+      <TagsView tags={['magenta', 'volcano', 'red', 'magenta', 'volcano', 'red']} />
+    </div>
+    
     </>
   )
 }
