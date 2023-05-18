@@ -8,7 +8,7 @@ import autoprefixer from 'autoprefixer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/react-admin/',
+  base: './',
   plugins: [
     reactRefresh(),
     // react(),
