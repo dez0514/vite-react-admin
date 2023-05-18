@@ -4,4 +4,5 @@
 .react-horizontal-scrolling-menu--scroll-container {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  padding: 0 5px;
 }

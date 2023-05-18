@@ -5,17 +5,26 @@ import './hideScrollbar.css'
 import { Tag } from 'antd';
 import { LeftArrow, RightArrow } from './arrow'
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
-import { FormattedMessage } from "react-intl";
 import { TagType } from '@/types';
 import { shallowEqual, useSelector } from "react-redux";
 import { GlobalConfigState } from '@/types/reducer'
 import { ThemeType } from '@/types'
 import { CONFIG } from '@/config';
 import { useNavigate, useLocation } from 'react-router-dom'
+import styled from 'styled-components';
+
+const Circle = styled.span`
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: currentColor;
+`
 
 type scrollVisibilityApiType = ContextType<typeof VisibilityContext>;
 
-const TagsView = ({ tags }: { tags: any }) => {
+const TagsView = ({ tags, onClose }: { tags: any, onClose: Function }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { disableScroll, enableScroll } = usePreventBodyScroll();
@@ -24,12 +33,7 @@ const TagsView = ({ tags }: { tags: any }) => {
     return primaryColor || CONFIG[theme as ThemeType]?.colorPrimary
   }, [theme, primaryColor])
   
-  const handleClose = (item: any) => {
-    console.log('item====', item) // 删掉tags里的
-    navigate(-1)
-  }
   const handleCheck = (item: any) => {
-    console.log('item====', navigate)
     navigate(item.path)
   }
   const onWheel = (apiObj: scrollVisibilityApiType, ev: WheelEvent) => {
@@ -53,8 +57,18 @@ const TagsView = ({ tags }: { tags: any }) => {
       >
         {tags.map((tag: TagType, index: number) => {
           return (<div className='tw-flex tw-flex-col tw-justify-center' style={{height: '40px'}} key={index}>
-            <Tag style={{ cursor: 'pointer', userSelect: 'none' }} color={ location.pathname === tag.path ? checkColor : 'default' } closable={tag.closable} onClose={() => handleClose(tag)} onClick={() => handleCheck(tag)}>
-              <FormattedMessage id={`${tag.label}`} />
+            <Tag
+              style={{ cursor: 'pointer', userSelect: 'none', padding: '4px 10px', transition: 'all 0.05s' }}
+              color={ location.pathname === tag.path ? checkColor : 'default' }
+              icon={ location.pathname === tag.path ? <Circle/> : null }
+              closable={tag.closable}
+              onClose={(e) => {
+                e.preventDefault()
+                onClose(tag)
+              }}
+              onClick={() => handleCheck(tag)}
+            >
+              {tag.label}
             </Tag>
           </div>);
         })}

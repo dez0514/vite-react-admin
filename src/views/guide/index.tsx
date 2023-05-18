@@ -2,7 +2,6 @@ import { Button, Space } from 'antd'
 import { FormattedMessage, useIntl } from "react-intl";
 import { initDriver } from '@/config/driver';
 import TypingCard from '@/components/typingCard'
-import { useEffect } from 'react';
 import PageWrap from '@/components/page' 
 
 function Guide() {
@@ -17,7 +16,7 @@ function Guide() {
       <div>
         <TypingCard title='新手引导' source={cardContent} />
         <Space>
-          <Button type="primary" onClick={handleClickGuide}>
+          <Button className='tw-mt-[10px]' type="primary" onClick={handleClickGuide}>
             <FormattedMessage id="guide.openGuide" />
           </Button>
         </Space>

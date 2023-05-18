@@ -1,24 +1,24 @@
 import { Breadcrumb } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { mainRoute } from '@/router/main'
-import { flatArr } from '@/utils'
+import { flatRouteTree } from '@/utils'
 import { useEffect, useState } from 'react'
 import { FormattedMessage } from "react-intl";
 
 function CustomBreadcrumb() {
   const location = useLocation()
-  const MenuData = flatArr(mainRoute.children)
+  const MenuData = flatRouteTree(mainRoute.children)
   const [breadList, setBreadList] = useState<any[]>([])
   const renderBreadcrumbs = () => {
     const paths = location.pathname.match(/\w+/g)
     if(paths === null) {
       const title = (MenuData && MenuData[0] && MenuData[0].label) || ''
-      setBreadList([{ title: <FormattedMessage id={title} /> }])
+      setBreadList([{ title: <FormattedMessage id={`${title}`} /> }])
     } else {
       const temp = paths.map(item => {
-        const fitem = MenuData.find(inner => inner.path === item)
+        const fitem = MenuData.find((inner: any) => inner.path === item)
         return {
-          title: fitem ? <FormattedMessage id={fitem.label} /> : ''
+          title: fitem ? <FormattedMessage id={`${fitem.label}`} /> : ''
         }
       })
       setBreadList([...temp])

@@ -1,4 +1,4 @@
-import { ConfigData, TagType } from "../types"
+import { ConfigData } from "../types"
 
 // 初始默认值
 export const CONFIG: ConfigData = {
@@ -19,11 +19,3 @@ export const CONFIG: ConfigData = {
 }
 
 export const presetColors = ['#1677ff', '#304156', '#212121', '#11A983', '#13C2C2', '#6959CD', '#F5222D']
-
-export const defaultTags: TagType[] = [
-  {
-    path: "/", // location 拿到的是 '/'
-    label: 'menu.home',
-    closable: false
-  }
-]

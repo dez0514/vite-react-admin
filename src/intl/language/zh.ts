@@ -1,6 +1,7 @@
 export default {
   // common
   'common.systemTitle': '管理系统',
+  '404': '404',
   // menu
   'menu.home': '首页',
   'menu.guide': '引导页',

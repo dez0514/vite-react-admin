@@ -32,9 +32,11 @@ export type ConfigData = {
 export type RouterType = {
   // route props
   path?: string
+  fullPath?: string
   element?: ReactNode
   children?: RouterType[]
   loader?: LoaderFunction
+  id?: string
   // menu props
   icon?: ReactNode
   name?: string

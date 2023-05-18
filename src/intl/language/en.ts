@@ -1,6 +1,7 @@
 export default {
   // common
   'common.systemTitle': 'React admin',
+  '404': '404',
   // menu
   'menu.home': 'Home',
   'menu.guide': 'Guide',
