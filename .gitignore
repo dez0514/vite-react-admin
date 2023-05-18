@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 *.lock
-package-lock.json
+# package-lock.json
 yarn.lock
 
 # Editor directories and files
