@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: 
           npm run build
-       - name: Set up Git config
+      - name: Set up Git config
         run:
           git config --global user.email "2573433803@qq.com"
           git config --global user.name "zhangwangde"
