@@ -7,7 +7,6 @@ import '@/styles/variable.scss'
 import '@/styles/global.scss'
 import '@/styles/tailwind.css'
 import 'driver.js/dist/driver.min.css'; // guide
-import '@/utils/beforeHandle'
 import { Provider } from 'react-redux'
 import reducers from '@/reducers/index'
 import { configureStore } from "@reduxjs/toolkit";
