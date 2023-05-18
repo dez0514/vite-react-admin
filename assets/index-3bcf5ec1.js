@@ -1,1 +1,0 @@
-import{j as s,S as a,B as r}from"./index-e5dcc663.js";function t(){return s.jsx("div",{className:"tags",children:s.jsx("div",{children:s.jsx(a,{children:s.jsx(r,{type:"primary",children:"Tags"})})})})}export{t as default};
