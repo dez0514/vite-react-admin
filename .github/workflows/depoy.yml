@@ -26,7 +26,7 @@ jobs:
           git config --global user.email "2573433803@qq.com"
       - name: Git config name
         run:
-          git config --global user.name "zhangwd24"
+          git config --global user.name "dez0514"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
