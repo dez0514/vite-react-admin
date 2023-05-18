@@ -21,9 +21,11 @@ jobs:
       - name: Build
         run: 
           npm run build
-      - name: Set up Git config
+      - name: Git config email
         run:
           git config --global user.email "2573433803@qq.com"
+      - name: Git config name
+        run:
           git config --global user.name "zhangwangde"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
