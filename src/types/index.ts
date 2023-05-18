@@ -19,6 +19,7 @@ export type UserType = {
 
 export type ConfigData = {
   hideLogo: boolean
+  hideTagsView: boolean
   headerHeight: number
   siderWidth: number
   language: TypeLang

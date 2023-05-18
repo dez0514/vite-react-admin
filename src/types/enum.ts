@@ -4,5 +4,6 @@ export enum StorageKeys {
   THEME = "theme",
   PRIMARY_COLOR = "primaryColor",
   menuOpenkeys = "menuOpenkeys",
-  HIDELOGO = "hideLogo"
+  HIDELOGO = "hideLogo",
+  HIDETAGSVIEW = "hideTagsView"
 }

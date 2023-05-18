@@ -7,6 +7,7 @@ export type configState = {
   theme?: ThemeType
   primaryColor?: string
   hideLogo?: boolean
+  hideTagsView?: boolean
 }
 
 export type GlobalConfigState = {

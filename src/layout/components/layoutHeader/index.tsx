@@ -15,6 +15,8 @@ import { ReactNode } from 'react'
 import { mainRoute } from '@/router/main'
 import { flatRouteTree } from '@/utils'
 import { FormattedMessage } from "react-intl";
+import { shallowEqual, useSelector } from "react-redux";
+import { GlobalConfigState } from '@/types/reducer'
 
 const style = {
   padding: 0,
@@ -22,6 +24,7 @@ const style = {
   lineHeight: `${CONFIG.headerHeight}px`,
 }
 function LayoutHeader() {
+  const { hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const navigate = useNavigate()
   const location = useLocation()
   const homeTag: TagType = {
@@ -79,15 +82,20 @@ function LayoutHeader() {
           <SettingTrigger />
         </div>
       </Header>
-      <div
-        style={{
-          background: colorBgContainer,
-          borderBottom: '1px solid #d8dce5',
-          boxShadow: '0 1px 3px 0 rgba(0,0,0,.12), 0 0 3px 0 rgba(0,0,0,.04)'
-        }}
-      >
-        <TagsView tags={tags} onClose={handleTagClose} />
-      </div>
+      {
+        !hideTagsView &&
+        (
+          <div
+            style={{
+              background: colorBgContainer,
+              borderBottom: '1px solid #d8dce5',
+              boxShadow: '0 1px 3px 0 rgba(0,0,0,.12), 0 0 3px 0 rgba(0,0,0,.04)'
+            }}
+          >
+            <TagsView tags={tags} onClose={handleTagClose} />
+          </div>
+        )
+      }
     </>
   )
 }

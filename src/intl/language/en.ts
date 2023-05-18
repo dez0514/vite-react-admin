@@ -15,6 +15,7 @@ export default {
   'layout.setting.themeType': 'theme mode',
   'layout.setting.themeColor': 'theme color',
   'layout.setting.isshowlogo': 'show Logo',
+  'layout.setting.isshowtagsview': 'show TagsView',
   // login
   'login.loginBtn': 'Login',
   'login.username': 'Username',

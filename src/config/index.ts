@@ -3,6 +3,7 @@ import { ConfigData } from "../types"
 // 初始默认值
 export const CONFIG: ConfigData = {
   hideLogo: false,
+  hideTagsView: false,
   headerHeight: 48,
   siderWidth: 220,
   language: 'zh',

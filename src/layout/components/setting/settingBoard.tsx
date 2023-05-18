@@ -11,7 +11,7 @@ import { Typography, Switch } from 'antd'
 
 function Setting () {
   const dispatch = useDispatch()
-  const { theme, primaryColor, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, primaryColor, hideLogo, hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const curColor = useMemo(() => {
     return primaryColor || CONFIG[theme as ThemeType]?.colorPrimary
   }, [theme, primaryColor])
@@ -22,6 +22,9 @@ function Setting () {
   }
   const handleChangeLogoShow = (val: boolean) => {
     dispatch(updateConfig({ hideLogo: !val }))
+  }
+  const handleChangeTagsViewShow = (val: boolean) => {
+    dispatch(updateConfig({ hideTagsView: !val }))
   }
   return (
     <div>
@@ -53,6 +56,16 @@ function Setting () {
         </div>
         <div>
           <Switch checked={!hideLogo} onChange={(value: boolean) => handleChangeLogoShow(value)}/>
+        </div>
+      </div>
+      <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
+        <div>
+          <Typography.Text>
+            <FormattedMessage id="layout.setting.isshowtagsview" />
+          </Typography.Text>
+        </div>
+        <div>
+          <Switch checked={!hideTagsView} onChange={(value: boolean) => handleChangeTagsViewShow(value)}/>
         </div>
       </div>
     </div>

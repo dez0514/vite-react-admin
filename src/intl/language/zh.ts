@@ -15,6 +15,7 @@ export default {
   'layout.setting.themeType': '主题模式',
   'layout.setting.themeColor': '主题颜色',
   'layout.setting.isshowlogo': '是否显示Logo',
+  'layout.setting.isshowtagsview': '是否显示TagsView',
   // login
   'login.loginBtn': '登录',
   'login.username': '用户名',
