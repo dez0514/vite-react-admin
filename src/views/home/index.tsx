@@ -32,7 +32,7 @@ function Home() {
   return (
     <div className="Home">
       <div>
-        <div className={styles.title}>222</div>
+        <div className={styles.title}>666</div>
         <Space>
           <Button type="primary" onClick={gorouter}>Home</Button>
         </Space>
