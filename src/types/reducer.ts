@@ -1,6 +1,7 @@
 import { TypeLang, ThemeType } from './index'
 
 export type configState = {
+  showGlobalLoading?: boolean 
   openSettingDrawer?: boolean
   siderCollapse?: boolean
   language?: TypeLang

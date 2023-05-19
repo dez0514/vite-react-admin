@@ -102,6 +102,11 @@ import { FormattedMessage, useIntl } from "react-intl";
 2. react-intl 没有上述1的form的问题，但是想配置中分模块的话，写法比较麻烦（defineMessages）。配置是铺平的，不能嵌套（可以在key上作文章，例如这样 'module1.xxx': 'xxxx'）。
 我偏向使用 react-intl
 
+接口数据该如何国际化呢？
+1. 文字相关的全都存到前端语言包。不需要刷新页面。可以考虑做成一个接口，从接口获取所有语言包的内容。
+2. 接口根据headers里传的语言类型进行返回对应的语言。切换时需要刷新页面重新获取。
+接口数据通常都是数字或者英文，通常只要描述类的可能会有中文。所以我个人觉得应该方案1比较靠谱。
+
 #### 存疑
 1. React.StrictMode 严格模式下使用antd报findDOMNode的错，说是4.5.0版本以上解决了，但是5.3.1怎么也有？？
 // https://blog.csdn.net/qq_40314318/article/details/105209873

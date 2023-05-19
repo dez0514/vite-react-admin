@@ -5,6 +5,7 @@ import { StorageKeys } from '@/types/enum'
 import { TypeLang, ThemeType } from '@/types'
 
 export const initialConfigState: configState = {
+  showGlobalLoading: false,
   openSettingDrawer: false,
   siderCollapse: false,
   language: (sessionStorage.getItem(StorageKeys.LANGUAGE) || CONFIG.language) as TypeLang,
