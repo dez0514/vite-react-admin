@@ -9,6 +9,19 @@ const CONTENT_TYPE = {
   xwform: 'application/x-www-form-urlencoded',
 }
 
+/**
+ * config 参数配置:
+ * url: string 接口地址
+ * loading: boolean 加载中
+ * hideError: boolean 不走共通的报错
+ * abortRequest： boolean 取消之前所有的请求
+ * headers: object header信息覆盖
+ * **/
+
+// 1.参数可能在url上 例如 '/article/:id'
+// 2.url后，例如'/article?id='
+// 3.body上
+
 const service = axios.create({
   baseURL: baseApiUrl, // api的base_url
   timeout: 30000, // 请求超时时间
@@ -19,6 +32,7 @@ service.interceptors.request.use(
     if(config.loading) {
       store.dispatch(updateConfig({ showGlobalLoading: true }))
     }
+    
     // let url, version; let needParse = true;
 		// 		const mapUrl = apiConfig[key] || key;
 		// 		// config value 可能是对象 {url:'',version:''}
