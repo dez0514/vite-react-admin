@@ -3,25 +3,117 @@ import axios from 'axios'
 import { baseApiUrl } from './getUrls'
 import store from '@/reducers/index'
 import { updateConfig } from '@/actions';
-
+import { parse, compile } from 'path-to-regexp';
+import { notification } from 'antd';
+/**
+ * config 参数配置:
+ * abortRequest: boolean 取消之前所有的请求.
+ * abortSign: string 取消某个请求
+ * baseURL: string
+ * url: string 接口地址
+ * loading: boolean 是否全局加载
+ * hideError: boolean 不走共通的报错
+ * hideErrorByCallback 个别code不走共通error时,利用回调判断
+ * headers: object header信息覆盖
+ * **/
+/**
+ * 请求参数情况：
+ * 1.参数可能在url上 例如 '/article/:id'
+ * 2.get方式在url后，例如'/article?id='
+ * 3.body上，使用qs.stringfy
+**/
+const CancelToken = axios.CancelToken
 const CONTENT_TYPE = {
   json: 'application/json;charset=utf-8',
   xwform: 'application/x-www-form-urlencoded',
 }
-
-/**
- * config 参数配置:
- * url: string 接口地址
- * loading: boolean 加载中
- * hideError: boolean 不走共通的报错
- * abortRequest： boolean 取消之前所有的请求
- * headers: object header信息覆盖
- * **/
-
-// 1.参数可能在url上 例如 '/article/:id'
-// 2.url后，例如'/article?id='
-// 3.body上
-
+const defaultConfig = {
+  loading: true,
+  hideError: true,
+  headers: {
+    version: '1.0.0',
+    'Content-Type': CONTENT_TYPE.json
+  }
+}
+let loadingRequestList: any = []; // 请求带的队列
+let sources: any = []; // 保存请求的config，cancel
+let loadingTimeout: any = null
+if(loadingTimeout) clearTimeout(loadingTimeout);
+// 是否取消之前的请求
+function isAbortRequest(config: any) {
+  // 单个取消
+  if (config.abortSign) {
+    sources.forEach((item: any) => {
+      if(item.config && item.config.abortSign) {
+        if (config.abortSign === item.config.abortSign) {
+          item.cancel('取消所有请求');
+        }
+      }
+    });
+	}
+  // 全部取消
+	if (config.abortRequest) {
+    loadingRequestList = []
+		sources.forEach((item: any) => {
+			item.cancel('取消所有请求');
+		});
+	}
+	config.cancelToken = new CancelToken((cancel) => {
+		sources.push({ config, cancel });
+	});
+}
+// loading
+function changeLoadingState(config: any, toState: boolean) {
+  const request = config.url + config.method;
+  if(config.loading) {
+    if(toState) {
+      loadingRequestList.push(request);
+      store.dispatch(updateConfig({ showGlobalLoading: toState }))
+    } else {
+      // 隐藏 loading 时，考虑其他的请求是否完成，都完成时再隐藏
+      const findex = loadingRequestList.findIndex((item: string) => item === request)
+      if(findex > -1) {
+        loadingRequestList.splice(findex, 1)
+      }
+      if(loadingTimeout) clearTimeout(loadingTimeout);
+      loadingTimeout = setTimeout(() => {
+        if (loadingRequestList.length === 0) {
+          store.dispatch(updateConfig({ showGlobalLoading: toState }))
+        }
+      }, 100);
+    }
+  }
+}
+// config
+function compileConfig(config: any) {
+  // 默认修改post的Content-Type
+  if(config.method === 'post') { // post默认
+    config.headers['Content-Type'] = CONTENT_TYPE.xwform
+  }
+  const { headers, ...defaultRest } = defaultConfig
+  let { headers: newHeaders, ...rest } = config
+  if(!newHeaders) newHeaders = {};
+  config = { ...defaultRest, ...rest, headers: { ...headers, ...newHeaders }}
+  // get,set token...
+  // const token = sessionStorage.getItem('token')
+  // if(token) config.headers.Authorization = token;
+  // 处理restful方式的url, 形如 '/article/:id'
+	const data = ['get', 'delete', 'head'].includes(config.method) ? config.params : config.data;
+  const parseData = parse(config.url);
+	config.url = compile(config.url)(data);
+	parseData.forEach((item: any) => {
+		if (item.name) {
+			delete data[item.name];
+		}
+	});
+}
+// 
+function handleError(data: any) {
+  notification.error({
+    message: 'error',
+    description: 'xxx'
+  })
+}
 const service = axios.create({
   baseURL: baseApiUrl, // api的base_url
   timeout: 30000, // 请求超时时间
@@ -29,35 +121,9 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   (config: any) => {
-    if(config.loading) {
-      store.dispatch(updateConfig({ showGlobalLoading: true }))
-    }
-    
-    // let url, version; let needParse = true;
-		// 		const mapUrl = apiConfig[key] || key;
-		// 		// config value 可能是对象 {url:'',version:''}
-		// 		if (mapUrl instanceof Object) {
-		// 			url = mapUrl.url;
-		// 			version = mapUrl.version;
-		// 			needParse = mapUrl.needParse;
-		// 		} else if (typeof mapUrl == 'string') {
-		// 			// 可能是stirng, 'url'
-		// 			url = mapUrl;
-		// 		}
-		// 		// 有可能参数需要拼接到url上
-		// 		const parse = pathToRegexp.parse(url);
-		// 		const data = ['get', 'delete', 'head'].includes(config.method)
-		// 			? config.params
-		// 			: config.data;
-		// 		if (needParse !== false) {
-		// 			url = pathToRegexp.compile(url)(data);
-		// 			parse.forEach(item => {
-		// 				if (item.name) {
-		// 					delete data[item.name];
-		// 				}
-		// 			});
-		// 		}
-		// 		config.url = url;
+    isAbortRequest(config)
+    changeLoadingState(config, true)
+    compileConfig(config)
     return config
   },
   error => {
@@ -68,27 +134,22 @@ service.interceptors.response.use(
   (response: any) => {
     // 成功请求到数据
     // console.log('response==', response)
-    if(response.config.loading) {
-      store.dispatch(updateConfig({ showGlobalLoading: false }))
+    changeLoadingState(response.config, false)
+    if(!response.config.hideError) {
+      handleError(response.data)
     }
     return Promise.resolve(response.data)
   },
   (error) => {
     // 响应错误处理
     // console.log('error==', error)
-    if(error.config.loading) {
-      store.dispatch(updateConfig({ showGlobalLoading: false }))
+    changeLoadingState(error.config, false)
+    if(!error.config.hideError) {
+      handleError(error.data)
     }
-    if (axios.isCancel(error)) {
-      // 取消请求的情况下，终端Promise调用链
-      return { code: '-1', message: '请求取消' }
-    } else {
-      return Promise.reject(error)
-    }
+    return Promise.reject(error)
   }
 )
-const CancelToken = axios.CancelToken
-
 export { service, CancelToken }
 
 
