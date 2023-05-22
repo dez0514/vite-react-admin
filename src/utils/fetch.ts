@@ -5,7 +5,6 @@ import store from '@/reducers/index'
 import { updateConfig } from '@/actions';
 import { parse, compile } from 'path-to-regexp';
 import { notification } from 'antd';
-import { config } from 'process';
 
 /**
  * config 参数配置:
