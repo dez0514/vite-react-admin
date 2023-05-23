@@ -41,6 +41,7 @@ export function UserProvider(props: ContextProps) {
   const userLogin = (user: any) => {
     const jsonUser = JSON.stringify(user)
     sessionStorage.setItem(StorageKeys.USERINFO, jsonUser)
+    sessionStorage.setItem(StorageKeys.TOKEN, user.token)
     setUser(user)
   }
 

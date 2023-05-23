@@ -7,7 +7,7 @@ export const CONFIG: ConfigData = {
   headerHeight: 48,
   siderWidth: 220,
   language: 'zh',
-  theme: 'dark',
+  theme: 'light',
   // antd 组件换主题时 配色
   light: {
     colorPrimary: '#1677ff'

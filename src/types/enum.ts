@@ -1,5 +1,6 @@
 export enum StorageKeys {
   USERINFO = "userinfo",
+  TOKEN = "token",
   LANGUAGE = "langType",
   THEME = "theme",
   PRIMARY_COLOR = "primaryColor",

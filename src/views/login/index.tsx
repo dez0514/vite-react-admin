@@ -1,5 +1,5 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { Button, Card, Form, Input, theme, Space, Typography } from "antd"
+import { Button, Card, Form, Input, theme, Space, Typography, message } from "antd"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "@/providers/user"
@@ -7,6 +7,7 @@ import SwitchLanguage from "@/layout/components/switchLanguage"
 import SwitchTheme from "@/layout/components/switchTheme"
 import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
+import { loginPost, getUserInfo } from '@/api/user'
 
 const RightCorner = styled.div`
   position: absolute;
@@ -28,10 +29,22 @@ export default function Login() {
   const {
     token: { colorPrimaryBg },
   } = theme.useToken()
+  const handleGetUserInfo = () => {
+    getUserInfo().then((res: any) => {
+      console.log(res)
+    })
+  }
   const onFinish = (values: any) => {
     const { username, password } = values
-    userInfo.userLogin({ name: username, token: password })
-    navigate("/pics")
+    loginPost({ username, password }).then((res: any) => {
+      console.log('res==', res)
+      if(res.code === 0) {
+        message.success("登录成功");
+        userInfo.userLogin({ name: username, token: res.token })
+        handleGetUserInfo()
+        navigate('/')
+      }
+    })
   }
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>

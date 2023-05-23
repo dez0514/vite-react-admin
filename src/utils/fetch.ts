@@ -5,6 +5,7 @@ import store from '@/reducers/index'
 import { updateConfig } from '@/actions';
 import { parse, compile } from 'path-to-regexp';
 import { notification } from 'antd';
+import { StorageKeys } from '@/types/enum';
 
 /**
  * config 参数配置:
@@ -14,7 +15,7 @@ import { notification } from 'antd';
  * url: string 接口地址
  * loading: boolean 是否全局加载
  * hideError: boolean 不走共通的报错
- * hideErrorByCallback：(err) => boolean // 个别code不走共通error时,传说error, 利用error返回code判断是否走共通
+ * hideErrorByCallback: (err) => boolean // true表示不走共通。个别code不走共通error时,传说error, 利用error返回code判断是否不走共通
  * headers: object header信息覆盖
  * **/
 /**
@@ -97,8 +98,8 @@ function compileConfig(config: any) {
   if(!newHeaders) newHeaders = {};
   config = { ...defaultRest, ...rest, headers: { ...headers, ...newHeaders }}
   // get,set token...
-  // const token = sessionStorage.getItem('token')
-  // if(token) config.headers.Authorization = token;
+  const token = sessionStorage.getItem(StorageKeys.TOKEN)
+  if(token) config.headers.Authorization = token;
   // 处理restful方式的url, 形如 '/article/:id'
 	const data = ['get', 'delete', 'head'].includes(config.method) ? config.params : config.data;
   const parseData = parse(config.url);
@@ -109,12 +110,15 @@ function compileConfig(config: any) {
 		}
 	});
 }
-// 
+
 function handleError(data: any) {
-  notification.error({
-    message: 'error',
-    description: 'xxx'
-  })
+  // 根据code来做不同的错误提示
+  if(data.code !== 0) {
+    notification.error({
+      message: '提示',
+      description: data.message || `网络错误(${data.code})`
+    })
+  }
 }
 // 移除没回来的请求
 function removeSourcesRequest(config: any) {
@@ -145,7 +149,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: any) => {
     // 成功请求到数据
-    // console.log('response==', response)
+    console.log('response==', response)
     changeLoadingState(response.config, false)
     removeSourcesRequest(response.config);
     if(!response.config.hideError) {
@@ -159,7 +163,10 @@ service.interceptors.response.use(
     changeLoadingState(error.config, false)
     let hideErr = false
     if(error.config.hideErrorByCallback && typeof error.config.hideErrorByCallback === 'function') {
-      hideErr = error.config.hideErrorByCallback(error)
+      hideErr = error.config.hideErrorByCallback(error) // 返回true时不走共通
+      // 此场景比较少遇到。
+      // 例如某接口大部分error的时候都走共通error, 仅当 error.code === -2 时，不走共通，单独修改页面某处显示，
+      // 在调用接口时传入 hideErrorByCallback: (err) => { if(err.code === -2) {return true} else {return false} }。
     }
     if(!hideErr && !error.config.hideError) {
       handleError(error.data)
@@ -167,9 +174,6 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-export { service, CancelToken }
-
-
 export const get = (url: string, params: any, option: any) => {
   const config = {
     method: 'get',
@@ -177,42 +181,8 @@ export const get = (url: string, params: any, option: any) => {
     params,
     ...option
   };
-  return axios.request(config);
+  return service.request(config);
 }
-export const getBlob = (url: string, params: any, option: any) => {
-  const config = {
-    method: 'get',
-    url,
-    params,
-    ...option,
-    responseType: 'blob'
-  };
-  return axios.request(config);
-}
-
-export const download = (res: any, file: string = '') => {
-	const a = document.createElement('a');
-	const blob = URL.createObjectURL(res.data);
-	const filename =
-		file || (res.request.getResponseHeader('content-disposition') && res.request.getResponseHeader('content-disposition').split('filename=')[1]) || '';
-	a.href = blob;
-	a.download = filename ? window.decodeURI(filename) : '文件.xlsx';
-	a.click();
-	window.URL.revokeObjectURL(blob);
-}
-export const downloadUrl = (url: string) => {
-	const a = document.createElement('a');
-  a.href = url
-	a.click();
-};
-
-export const getDownloadBlob = (url: string, params: any, option: any, filename: string) => {
-  return getBlob(url, params, option).then((res: any) => {
-    download(res, filename);
-    return res;
-  });
-}
-
 export const post = (url: string, data: any, option: any) => {
   const config = {
     method: 'post',
@@ -220,36 +190,9 @@ export const post = (url: string, data: any, option: any) => {
     data: data,
     ...option
   };
-  return axios.request(config);
+  return service.request(config);
 }
-export const postBlob = (url: string, data: any, option: any) => {
-  const config = {
-    method: 'post',
-    url,
-    data,
-    ...option,
-    responseType: 'blob'
-  };
-  return axios.request(config);
-}
-export const postDownloadBlob = (url: string, data: any, option: any, filename: string) => {
-  return postBlob(url, data, option).then((res) => {
-    download(res, filename);
-    return res;
-  });
-}
-export const postDownloadUrl = (url: string, data: any, option: any) => {
-  return post(url, data, option).then((res: any) => {
-    downloadUrl(res);
-    return res;
-  });
-}
-export const getDownloadUrl = (url: string, data: any, option: any) => {
-  return get(url, data, option).then((res: any) => {
-    downloadUrl(res);
-    return res;
-  });
-}
+// 严格模式下不能用 保留字delete 命名。。
 export const deletes = (url: string, params: any, option: any) => {
   const config = {
     method: 'delete',
@@ -257,7 +200,25 @@ export const deletes = (url: string, params: any, option: any) => {
     params,
     ...option
   };
-  return axios.request(config);
+  return service.request(config);
+}
+export const put = (url: string, data: any, option: any) => {
+  const config = {
+    method: 'put',
+    url,
+    data,
+    ...option
+  }
+  return service.request(config);
+}
+export const patch = (url: string, data: any, option: any) => {
+  const config = {
+    method: 'patch',
+    url,
+    data,
+    ...option
+  }
+  return service.request(config);
 }
 export const head = (url: string, params: any, option: any) => {
   const config = {
@@ -266,7 +227,7 @@ export const head = (url: string, params: any, option: any) => {
     params,
     ...option
   };
-  return axios.request(config);
+  return service.request(config);
 }
 export const options = (url: string, option: any) => {
   const config = {
@@ -274,9 +235,8 @@ export const options = (url: string, option: any) => {
     url,
     ...option
   };
-  return axios.request(config);
+  return service.request(config);
 }
-
 export const postUpload = (url: string, data: any, option: any) => {
   const config = {
     method: 'post',
@@ -287,52 +247,25 @@ export const postUpload = (url: string, data: any, option: any) => {
     },
     ...option
   }
-  return axios.request(config);
+  return service.request(config);
 }
-export const put = (url: string, data: any, option: any) => {
+export const getBlob = (url: string, params: any, option: any) => {
   const config = {
-    method: 'put',
+    method: 'get',
+    url,
+    params,
+    responseType: 'blob',
+    ...option
+  };
+  return service.request(config);
+}
+export const postBlob = (url: string, data: any, option: any) => {
+  const config = {
+    method: 'post',
     url,
     data,
+    responseType: 'blob',
     ...option
-  }
-  return axios.request(config);
+  };
+  return service.request(config);
 }
-export const patch = (url: string, data: any, option: any) => {
-  const config = {
-    method: 'patch',
-    url,
-    data,
-    ...option
-  }
-  return axios.request(config);
-}
-
-export const downloadImg = function(src: string, cb: Function) {
-	let filename: string = '' // 图片名称
-	let filetype: string = '' // 图片类型
-	let path = src;
-	if (path.indexOf('/') > 0) {
-		let file = path.substring(path.lastIndexOf('/') + 1, path.length);
-		let fileArr = file.toLowerCase().split('.');
-		filename = fileArr[0];
-		filetype = fileArr[1];
-	}
-	let canvas = document.createElement('canvas');
-	let img = document.createElement('img');
-	img.onload = function() {
-		canvas.width = img.width;
-		canvas.height = img.height;
-		const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
-		context!.drawImage(img, 0, 0, img.width, img.height);
-		canvas.toBlob((blob: Blob | null) => {
-			let a = document.createElement('a');
-			a.href = window.URL.createObjectURL(blob!);
-			a.download = filename;
-			a.click();
-			cb && cb();
-		}, `image/${filetype}`);
-	};
-	img.setAttribute('crossOrigin', 'Anonymous');
-	img.src = src;
-};
