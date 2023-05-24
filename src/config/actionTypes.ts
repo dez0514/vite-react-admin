@@ -1,1 +1,4 @@
 export const UPDATE_CONFIG = 'UPDATE_CONFIG'
+export const USER_NAMESPACE = 'USER'
+export const LOGIN_FETCH = 'LOGIN_FETCH'
+export const USERINFO_FETCH = 'USERINFO_FETCH'

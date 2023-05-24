@@ -2,13 +2,13 @@ import qs from 'qs'
 import avatar from '@/assets/head.png'
 import avatar0 from '@/assets/avatar/0.jpg'
 import avatar1 from '@/assets/avatar/1.jpg'
-import Mock from 'mockjs'
+// import Mock from 'mockjs'
 const tokens: any = {
   admin: "admin-token",
   editor: "editor-token",
   visitor: "visitor-token"
 }
-const users = {
+const users: any = {
   "admin-token": {
     id: "admin",
     role: "admin",
@@ -53,25 +53,21 @@ export const login = (config: any) => {
 }
 
 export const userInfo = (config: any) => {
-  console.log('config===', config)
+  console.log('get==config===', config)
   const { headers } = config; // 获取请求头信息
   console.log('headers===',headers); // 打印请求头信息
-  // const token = data.body;
-  // const userInfo = users[token as string];
-  // if (!userInfo) {
-  //   return {
-  //     code: 1,
-  //     message: "获取用户信息失败",
-  //   };
-  // }
-  // return {
-  //   status: 0,
-  //   userInfo,
-  // };
+  const token: string = headers.Authorization || '';
+  if(!token || !Object.keys(users).includes(token)) {
+    const err = {
+      code: 1,
+      message: "error.getuserinfo",
+    };
+    return [200, err]
+  }
   const response = {
     code: 0,
     message: 'success',
-    data: {}
+    data: users[token as string]
   }
   return [200, response]
 }

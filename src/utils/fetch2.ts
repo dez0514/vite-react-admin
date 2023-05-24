@@ -17,6 +17,8 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   (config: any) => {
+    const token = sessionStorage.getItem('token')
+    if(token) config.headers.Authorization = token;
     // 在所有请求头部添加token值
     // const token = localStorage.getItem('token') // store.state.token;
     // if (token) {

@@ -12,7 +12,8 @@ export type configState = {
 }
 
 export type GlobalConfigState = {
-  globalConfig: configState
+  globalConfig: configState,
+  loginReducer: any
 }
 
 export type configAction = {

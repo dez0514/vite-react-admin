@@ -1,13 +1,15 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, theme, Space, Typography, message } from "antd"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/components/switchLanguage"
 import SwitchTheme from "@/layout/components/switchTheme"
 import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
-import { loginPost, getUserInfo } from '@/api/user'
+import { getUserInfo } from '@/api/user'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateToken, loginReducerApi } from '@/reducers/userReducer'
 
 const RightCorner = styled.div`
   position: absolute;
@@ -22,6 +24,11 @@ export default function Login() {
   const { formatMessage } = useIntl()
   const navigate = useNavigate()
   const userInfo = useContext(UserContext)
+  const dispatch = useDispatch()
+  const { token } = useSelector((store: any) => store.loginReducer)
+  useEffect(() => {
+    console.log('state===', token)
+  }, [token])
   const rules = {
     username: [{ required: true, message: <FormattedMessage id="login.usernameNotEmpty" /> }],
     password: [{ required: true, message: <FormattedMessage id="login.passwordNotEmpty" /> }]
@@ -36,15 +43,16 @@ export default function Login() {
   }
   const onFinish = (values: any) => {
     const { username, password } = values
-    loginPost({ username, password }).then((res: any) => {
-      console.log('res==', res)
-      if(res.code === 0) {
-        message.success("登录成功");
-        userInfo.userLogin({ name: username, token: res.token })
-        handleGetUserInfo()
-        navigate('/')
-      }
-    })
+    dispatch(loginReducerApi({ username, password }))
+    // loginPost({ username, password }).then((res: any) => {
+    //   console.log('res==', res)
+    //   if(res.data.code === 0) {
+    //     message.success("登录成功");
+    //     userInfo.userLogin({ name: username, token: res.data.data })
+    //     handleGetUserInfo()
+    //     navigate('/')
+    //   }
+    // })
   }
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
