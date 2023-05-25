@@ -30,9 +30,12 @@ export default function Login() {
   } = theme.useToken()
   const onFinish = async (values: any) => {
     const { username, password } = values
-    await dispatch(loginReducerApi({ username, password })) // 获取token
-    const res = await dispatch(userinfoReducerApi()) // 获取userinfo
-    console.log('logggggg=====', res)
+    const { payload } = await dispatch(loginReducerApi({ username, password })) // 获取token
+    console.log('log token=====', payload)
+    if(!payload) return;
+    const { payload: infoPayload } = await dispatch(userinfoReducerApi()) // 获取userinfo
+    console.log('log user=====', infoPayload)
+    if(!infoPayload) return;
     navigate('/')
   }
   return (

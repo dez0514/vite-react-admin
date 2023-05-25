@@ -51,21 +51,24 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(loginReducerApi.fulfilled, (state: any, action: any) => {
       console.log('fulfilled payload==', action)
-      state.token = action.payload
-      sessionStorage.setItem(StorageKeys.TOKEN, action.payload)
-      console.log('fulfilled payload==', state)
+      if(action.payload) {
+        state.token = action.payload
+        sessionStorage.setItem(StorageKeys.TOKEN, action.payload)
+      }
     })
-    builder.addCase(loginReducerApi.rejected, (state: any, action: any) => {
-      console.log('rejected action==', action)
-    })
+    // builder.addCase(loginReducerApi.rejected, (state: any, action: any) => {
+    //   console.log('rejected action==', action)
+    // })
     builder.addCase(userinfoReducerApi.fulfilled, (state: any, action: any) => {
       console.log('fulfilled1 payload==', action)
-      state.userinfo = action.payload
-      sessionStorage.setItem(StorageKeys.USERINFO, JSON.stringify(action.payload))
+      if(action.payload) {
+        state.userinfo = action.payload
+        sessionStorage.setItem(StorageKeys.USERINFO, JSON.stringify(action.payload))
+      }
     })
-    builder.addCase(userinfoReducerApi.rejected, (state: any, action: any) => {
-      console.log('rejected action==', action)
-    })
+    // builder.addCase(userinfoReducerApi.rejected, (state: any, action: any) => {
+    //   console.log('rejected action==', action)
+    // })
   }
 })
 

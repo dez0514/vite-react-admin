@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom'
-import { Fragment, useCallback, useContext } from 'react'
+import { Fragment } from 'react'
 import { Layout, Drawer } from 'antd';
 import LayoutHeader from './components/layoutHeader'
 import LayoutContent from './components/layoutContent'
@@ -16,7 +16,7 @@ function Dashboard() {
   const { token, userinfo } = useSelector((store: GlobalConfigState) => store.userReducer, shallowEqual)
   const dispatch = useDispatch() 
 
-  const main = useCallback(()=>{
+  const main = () => {
     return (<>
       <Layout hasSider={true}>
         <LayoutSider/>
@@ -37,40 +37,19 @@ function Dashboard() {
         <SettingBoard />
       </Drawer>
     </>)
-  },[])
+  }
 
-  const loadMain = useCallback(()=>{
-    // debugger
-    if(!token){
-      return <Navigate to="/login" replace />
-    }
-    if(!userinfo){
+  const loadMain = () => {
+    if(!token) return <Navigate to="/login" replace />
+    if(!userinfo || Object.keys(userinfo).length === 0){
       dispatch(userinfoReducerApi())
-      return null;
+      return null
     }
     return main()
-  },[token,userinfo])
+  }
   return (
     <Fragment>
       { loadMain() }
-      {/* <Layout hasSider={true}>
-        <LayoutSider/>
-        <Layout>
-          <LayoutHeader />
-          <LayoutContent />
-        </Layout>
-      </Layout>
-      <Drawer
-        title={ <FormattedMessage id="layout.setting" /> }
-        placement='right'
-        closable={true}
-        open={openSettingDrawer}
-        onClose={
-          () => dispatch(updateConfig({ openSettingDrawer: false}))
-        }
-      >
-        <SettingBoard />
-      </Drawer> */}
     </Fragment>
   )
 }
