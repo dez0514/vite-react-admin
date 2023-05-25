@@ -15,6 +15,10 @@ export interface IntlMsg {
 export type UserType = {
   name?: string
   token?: string
+  avatar?: string
+  description?: string
+  id?: string
+  role?: string
 }
 
 export type ConfigData = {

@@ -22,7 +22,7 @@ import { StorageKeys } from '@/types/enum';
  * 请求参数情况：
  * 1.参数可能在url上 例如 '/article/:id'
  * 2.get方式在url后，例如'/article?id='
- * 3.body上，使用qs.stringfy
+ * 3.body上
 **/
 const CancelToken = axios.CancelToken
 const CONTENT_TYPE = {
@@ -99,7 +99,9 @@ function compileConfig(config: any) {
   config = { ...defaultRest, ...rest, headers: { ...headers, ...newHeaders }}
   // get,set token...
   const token = sessionStorage.getItem(StorageKeys.TOKEN)
-  if(token) config.headers.Authorization = token;
+  if(token) {
+    config.headers.Authorization = token; // 坑：axios-mock-adapter 监听不到更新
+  }
   // 处理restful方式的url, 形如 '/article/:id'
 	const data = ['get', 'delete', 'head'].includes(config.method) ? config.params : config.data;
   const parseData = parse(config.url);
@@ -133,7 +135,7 @@ function removeSourcesRequest(config: any) {
 const service = axios.create({
   baseURL: baseApiUrl, // api的base_url
   timeout: 30000, // 请求超时时间
-  headers: { 'Content-Type': CONTENT_TYPE.json }
+  headers: defaultConfig.headers
 })
 service.interceptors.request.use(
   (config: any) => {

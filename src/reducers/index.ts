@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
 import { configReducer } from './configReducer'
+import { userSliceReducer } from './userReducer';
 import { GlobalConfigState } from '@/types/reducer'
 import { configureStore } from "@reduxjs/toolkit";
-import { loginSliceReducer } from './userReducer';
+
 
 const reducers = combineReducers<GlobalConfigState>({
   globalConfig: configReducer,
-  loginReducer: loginSliceReducer
+  userReducer: userSliceReducer
 })
 
 const store = configureStore({

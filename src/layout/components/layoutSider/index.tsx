@@ -1,8 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Layout as AntdLayOut, Menu } from 'antd';
 import { RouterType } from '@/types'
-import { UserContext } from "@/providers/user"
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
 import { shallowEqual, useSelector } from "react-redux";
@@ -51,7 +50,6 @@ function LayoutSider(props: {
   const { theme, siderCollapse, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
-  const userInfo = useContext(UserContext)
   const formatPath = (pathArray: string[]) => {
     pathArray.reverse()
     return pathArray.reduce((path, cur, index) => {
@@ -99,10 +97,6 @@ function LayoutSider(props: {
     setMenuActive()
   }, [location])
 
-  useEffect(() => {
-    console.log(userInfo)
-  }, [userInfo])
-  
   return (
     <Sider
       trigger={null}

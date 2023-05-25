@@ -1,15 +1,12 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { Button, Card, Form, Input, theme, Space, Typography, message } from "antd"
-import { useContext, useEffect } from "react"
+import { Button, Card, Form, Input, theme, Space, Typography } from "antd"
 import { useNavigate } from "react-router-dom"
-import { UserContext } from "@/providers/user"
 import SwitchLanguage from "@/layout/components/switchLanguage"
 import SwitchTheme from "@/layout/components/switchTheme"
 import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
-import { getUserInfo } from '@/api/user'
-import { useSelector, useDispatch } from 'react-redux'
-import { updateToken, loginReducerApi } from '@/reducers/userReducer'
+import { useDispatch } from 'react-redux'
+import { loginReducerApi, userinfoReducerApi } from '@/reducers/userReducer'
 
 const RightCorner = styled.div`
   position: absolute;
@@ -23,12 +20,7 @@ const RightCorner = styled.div`
 export default function Login() {
   const { formatMessage } = useIntl()
   const navigate = useNavigate()
-  const userInfo = useContext(UserContext)
   const dispatch = useDispatch()
-  const { token } = useSelector((store: any) => store.loginReducer)
-  useEffect(() => {
-    console.log('state===', token)
-  }, [token])
   const rules = {
     username: [{ required: true, message: <FormattedMessage id="login.usernameNotEmpty" /> }],
     password: [{ required: true, message: <FormattedMessage id="login.passwordNotEmpty" /> }]
@@ -36,23 +28,12 @@ export default function Login() {
   const {
     token: { colorPrimaryBg },
   } = theme.useToken()
-  const handleGetUserInfo = () => {
-    getUserInfo().then((res: any) => {
-      console.log(res)
-    })
-  }
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     const { username, password } = values
-    dispatch(loginReducerApi({ username, password }))
-    // loginPost({ username, password }).then((res: any) => {
-    //   console.log('res==', res)
-    //   if(res.data.code === 0) {
-    //     message.success("登录成功");
-    //     userInfo.userLogin({ name: username, token: res.data.data })
-    //     handleGetUserInfo()
-    //     navigate('/')
-    //   }
-    // })
+    await dispatch(loginReducerApi({ username, password })) // 获取token
+    const res = await dispatch(userinfoReducerApi()) // 获取userinfo
+    console.log('logggggg=====', res)
+    navigate('/')
   }
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
@@ -67,7 +48,7 @@ export default function Login() {
       <Card style={{ width: 400 }} title={formatMessage({ id: 'common.systemTitle' })}>
         <Form
           name="normal_login"
-          initialValues={{ remember: true }}
+          initialValues={{ remember: true, username: 'admin', password: '123456'  }}
           autoComplete="off"
           onFinish={ onFinish }
         >

@@ -1,5 +1,5 @@
 import { configState, configAction } from '@/types/reducer'
-import { UPDATE_CONFIG } from '@/config/actionTypes'
+import { UPDATE_CONFIG } from '@/actions/actionTypes'
 import { CONFIG } from '@/config'
 import { StorageKeys } from '@/types/enum'
 import { TypeLang, ThemeType } from '@/types'

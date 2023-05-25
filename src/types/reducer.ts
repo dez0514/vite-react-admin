@@ -13,7 +13,7 @@ export type configState = {
 
 export type GlobalConfigState = {
   globalConfig: configState,
-  loginReducer: any
+  userReducer: any
 }
 
 export type configAction = {
