@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { service } from '@/utils/fetch2';
+import service from '@/utils/fetch';
 import MockAdapter from 'axios-mock-adapter';
 import { login, userInfo } from './user'
 

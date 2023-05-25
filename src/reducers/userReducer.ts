@@ -8,7 +8,7 @@ export const loginReducerApi: any = createAsyncThunk(`${USER_NAMESPACE}/${LOGIN_
   try {
     const res = await loginPost(params)
     console.log('async reducer res=====', res)
-    sessionStorage.setItem('token', res.data.data)
+    sessionStorage.setItem('token', res.data)
     action.dispatch(userinfoReducerApi())
     return res.data
   } catch(error) {
@@ -44,7 +44,7 @@ const loginSlice = createSlice({
     builder.addCase(loginReducerApi.fulfilled, (state: any, action: any) => {
       console.log('fulfilled state==', state)
       console.log('fulfilled payload==', action)
-      state.token = action.payload.data
+      state.token = action.payload
     })
     builder.addCase(loginReducerApi.rejected, (state: any, action: any) => {
       console.log('rejected action==', action)

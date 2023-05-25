@@ -269,3 +269,5 @@ export const postBlob = (url: string, data: any, option: any) => {
   };
   return service.request(config);
 }
+
+export default service
