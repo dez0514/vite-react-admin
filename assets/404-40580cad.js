@@ -1,1 +1,0 @@
-import{j as r,S as s,B as t}from"./index-9256bdcf.js";function n(){return r.jsx("div",{className:"NotFound",children:r.jsx("div",{children:r.jsx(s,{children:r.jsx(t,{type:"primary",children:"404"})})})})}export{n as default};
