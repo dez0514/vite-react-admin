@@ -15,7 +15,6 @@ function Dashboard() {
   const { openSettingDrawer } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const { token, userinfo } = useSelector((store: GlobalConfigState) => store.userReducer, shallowEqual)
   const dispatch = useDispatch() 
-
   const main = () => {
     return (<>
       <Layout hasSider={true}>
