@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import { Fragment } from 'react'
 import { Layout, Drawer } from 'antd';
 import LayoutHeader from './components/layoutHeader'
@@ -9,14 +9,14 @@ import { updateConfig } from '@/actions';
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { GlobalConfigState } from '@/types/reducer'
 import { FormattedMessage } from "react-intl";
-import { userinfoReducerApi } from '@/reducers/userReducer'
 
 function Dashboard() {
+  const loaderData : any = useLoaderData();
+  console.log('loaderData===', loaderData)
   const { openSettingDrawer } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
-  const { token, userinfo } = useSelector((store: GlobalConfigState) => store.userReducer, shallowEqual)
   const dispatch = useDispatch() 
-  const main = () => {
-    return (<>
+  return (
+    <Fragment>
       <Layout hasSider={true}>
         <LayoutSider/>
         <Layout>
@@ -35,20 +35,6 @@ function Dashboard() {
       >
         <SettingBoard />
       </Drawer>
-    </>)
-  }
-
-  const loadMain = () => {
-    if(!token) return <Navigate to="/login" replace />
-    if(!userinfo || Object.keys(userinfo).length === 0){
-      dispatch(userinfoReducerApi())
-      return null
-    }
-    return main()
-  }
-  return (
-    <Fragment>
-      { loadMain() }
     </Fragment>
   )
 }

@@ -6,8 +6,7 @@ import avatar1 from '@/assets/avatar/1.jpg'
 const tokens: any = {
   admin: "admin-token",
   editor: "editor-token",
-  visitor: "visitor-token",
-  error: "no-userinfo-token"
+  visitor: "visitor-token"
 }
 const users: any = {
   "admin-token": {

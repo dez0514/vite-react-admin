@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
 import { useDispatch } from 'react-redux'
 import { loginReducerApi, userinfoReducerApi } from '@/reducers/userReducer'
+import { useState } from 'react'
 
 const RightCorner = styled.div`
   position: absolute;
@@ -21,6 +22,7 @@ export default function Login() {
   const { formatMessage } = useIntl()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [btnLoad, setBtnLoad] = useState<boolean>(false)
   const rules = {
     username: [{ required: true, message: <FormattedMessage id="login.usernameNotEmpty" /> }],
     password: [{ required: true, message: <FormattedMessage id="login.passwordNotEmpty" /> }]
@@ -30,12 +32,20 @@ export default function Login() {
   } = theme.useToken()
   const onFinish = async (values: any) => {
     const { username, password } = values
+    setBtnLoad(true)
     const { payload } = await dispatch(loginReducerApi({ username, password })) // 获取token
-    console.log('log token=====', payload)
-    if(!payload) return;
+    // console.log('log token=====', payload)
+    if(!payload) {
+      setBtnLoad(false)
+      return
+    };
     const { payload: infoPayload } = await dispatch(userinfoReducerApi()) // 获取userinfo
-    console.log('log user=====', infoPayload)
-    if(!infoPayload) return;
+    // console.log('log user=====', infoPayload)
+    if(!infoPayload) {
+      setBtnLoad(false)
+      return
+    }
+    setBtnLoad(false)
     navigate('/')
   }
   return (
@@ -71,7 +81,7 @@ export default function Login() {
             />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" type="primary" size="large" block>{formatMessage({ id: 'login.loginBtn' })}</Button>
+            <Button htmlType="submit" type="primary" size="large" block loading={btnLoad}>{ !btnLoad ? formatMessage({ id: 'login.loginBtn' }) : formatMessage({ id: 'login.loginBtn.loading' })}</Button>
           </Form.Item>
         </Form>
       </Card>

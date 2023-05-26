@@ -18,6 +18,7 @@ export default {
   'layout.setting.isshowtagsview': 'show TagsView',
   // login
   'login.loginBtn': 'Login',
+  'login.loginBtn.loading': 'Login Data...',
   'login.username': 'Username',
   'login.password': 'Password',
   'login.usernameNotEmpty': 'Please Enter Username',

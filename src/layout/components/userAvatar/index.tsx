@@ -6,6 +6,7 @@ import { CONFIG } from '@/config'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { resetLoginInfo } from '@/reducers/userReducer'
 import { GlobalConfigState } from "@/types/reducer"
+import { useNavigate } from 'react-router-dom'
 
 const style = {
   padding: '0 10px',
@@ -15,10 +16,12 @@ const style = {
 
 function UserAvatar() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer, shallowEqual)
   const handleLogout = () => {
     sessionStorage.clear()
     dispatch(resetLoginInfo())
+    navigate('/login', { replace: true })
   }
   const userDropMenu: MenuProps['items'] = [
     {

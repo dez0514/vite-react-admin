@@ -35,7 +35,7 @@ function App() {
         <Spin
           spinning={showGlobalLoading}
           tip='Loading...'
-          style={{ maxHeight: 'unset' }}
+          style={{ maxHeight: 'unset', minHeight: '100vh' }}
         >
           <RootRouter />
         </Spin>

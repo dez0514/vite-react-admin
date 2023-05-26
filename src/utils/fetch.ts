@@ -68,7 +68,7 @@ function isAbortRequest(config: any) {
 // loading
 function changeLoadingState(config: any, toState: boolean) {
   const request = config.url + config.method;
-  if(config.loading) {
+  if(config.loading || (!('loading' in config) && defaultConfig.loading)) {
     if(toState) {
       loadingRequestList.push(request);
       store.dispatch(updateConfig({ showGlobalLoading: toState }))

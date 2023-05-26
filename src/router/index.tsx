@@ -13,6 +13,9 @@ export function RootRouter() {
         element: route.element,
         children: route.children ? formatRoute(route.children) : undefined
       }
+      if('loader' in route) {
+        temp.loader = route.loader
+      }
       if(route.id) { // 可以加id, 配合 useRouteLoaderData 可以在路由之前异步加载信息，暂时不需要
         temp.id = route.id
       }

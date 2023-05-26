@@ -18,6 +18,7 @@ export default {
   'layout.setting.isshowtagsview': '是否显示TagsView',
   // login
   'login.loginBtn': '登录',
+  'login.loginBtn.loading': '正在登录',
   'login.username': '用户名',
   'login.password': '密码',
   'login.usernameNotEmpty': '请填写用户名',
