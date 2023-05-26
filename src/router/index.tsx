@@ -23,7 +23,7 @@ export function RootRouter() {
     }
     return _routes
   }
-  const allRoutes = [loginRoute, mainRoute]
+  const allRoutes = [loginRoute, ...mainRoute]
   const rootRoutes = createBrowserRouter(formatRoute(allRoutes),  { basename: '/react-admin' })
   return <RouterProvider router={rootRoutes} />
 }

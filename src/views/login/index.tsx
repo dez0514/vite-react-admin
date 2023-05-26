@@ -46,7 +46,7 @@ export default function Login() {
       return
     }
     setBtnLoad(false)
-    navigate('/')
+    navigate('/dashboard')
   }
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>

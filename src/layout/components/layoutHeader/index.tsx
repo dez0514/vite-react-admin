@@ -28,11 +28,11 @@ function LayoutHeader() {
   const navigate = useNavigate()
   const location = useLocation()
   const homeTag: TagType = {
-    path: '/', // location 拿到的是 '/'
+    path: '/dashboard', // location 拿到的是 '/'
     label: <FormattedMessage id='menu.home' />,
     closable: false
   }
-  const MenuData: RouterType[] = flatRouteTree(mainRoute.children).filter((item: any) => item.path).map((item: any) => {
+  const MenuData: RouterType[] = flatRouteTree(mainRoute[1].children || []).filter((item: any) => item.path).map((item: any) => {
     return {
       path: item.path,
       fullPath: item.fullPath,

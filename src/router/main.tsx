@@ -2,7 +2,7 @@ import { HomeOutlined, LoadingOutlined, FileImageOutlined, TagsOutlined, ToolOut
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import Layout from "@/layout"
-import { Outlet, redirect } from "react-router-dom"
+import { Outlet, redirect, Navigate } from "react-router-dom"
 // const Home = lazy(() => import('@/views/home'))
 import store from '@/reducers/index'
 import { userinfoReducerApi } from '@/reducers/userReducer'
@@ -20,89 +20,95 @@ const Test2 = lazy(() => import('@/views/error/test2'))
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
   return (
-    <Suspense fallback={<LoadingOutlined />}>{ comps }</Suspense>
+    <Suspense fallback={<LoadingOutlined />}>{comps}</Suspense>
   )
 }
 // 在loader里判断登录情况，刷新时走这个loader
 const loader = async () => {
   const token = sessionStorage.getItem(StorageKeys.TOKEN)
   // debugger
-  if(!token) {
+  if (!token) {
     return redirect('/login');
   } else {
     const users = sessionStorage.getItem(StorageKeys.USERINFO)
     const info = JSON.parse(users || "{}")
     // debugger
-    if(!info || !info.name || !info.role) {
+    if (!info || !info.name || !info.role) {
       // debugger
       const { payload } = await store.dispatch(userinfoReducerApi())
       // debugger
-      if(!payload) return redirect('/login');
+      if (!payload) return redirect('/login');
     }
     return null
   }
 }
 
-export const mainRoute: RouterType = {
-  path: "/",
-  element: <Layout />,
-  children: [
-    {
-      path: "",
-      label: 'menu.home',
-      loader: loader,
-      element: <Home />,
-      icon: <HomeOutlined />,
-    },
-    {
-      path: "guide",
-      label: 'menu.guide',
-      loader: loader,
-      element: formatSuspense(<Guide />),
-      icon: <FileImageOutlined />,
-    },
-    {
-      path: "pics",
-      label: 'menu.picsManage',
-      loader: loader,
-      element: formatSuspense(<Pics />),
-      icon: <FileImageOutlined />,
-    },
-    {
-      path: "tags",
-      label: 'menu.tagsManage',
-      loader: loader,
-      element: formatSuspense(<Tags />),
-      icon: <TagsOutlined />,
-    },
-    {
-      path: "else",
-      label: 'menu.else',
-      element: <Outlet />,
-      icon: <ToolOutlined />,
-      children: [
-        {
-          path: "test1",
-          label: 'menu.test1',
-          loader: loader,
-          icon: <HomeOutlined />,
-          element:  formatSuspense(<Test1 />)
-        },
-        {
-          path: "test2",
-          label: 'menu.test2',
-          loader: loader,
-          icon: <HomeOutlined />,
-          element: formatSuspense(<Test2 />)
-        },
-      ]
-    },
-    {
-      path: "*",
-      label: "404",
-      element: formatSuspense(<NotFound />),
-      icon: <HomeOutlined />,
-      hide: true
-    }
-  ],
-}
+export const mainRoute: RouterType[] = [
+  {
+    path: "/",
+    element: <Navigate to='/dashboard' />
+  },
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "dashboard",
+        label: 'menu.home',
+        loader: loader,
+        element: <Home />,
+        icon: <HomeOutlined />,
+      },
+      {
+        path: "guide",
+        label: 'menu.guide',
+        loader: loader,
+        element: formatSuspense(<Guide />),
+        icon: <FileImageOutlined />,
+      },
+      {
+        path: "pics",
+        label: 'menu.picsManage',
+        loader: loader,
+        element: formatSuspense(<Pics />),
+        icon: <FileImageOutlined />,
+      },
+      {
+        path: "tags",
+        label: 'menu.tagsManage',
+        loader: loader,
+        element: formatSuspense(<Tags />),
+        icon: <TagsOutlined />,
+      },
+      {
+        path: "else",
+        label: 'menu.else',
+        element: <Outlet />,
+        icon: <ToolOutlined />,
+        children: [
+          {
+            path: "test1",
+            label: 'menu.test1',
+            loader: loader,
+            icon: <HomeOutlined />,
+            element: formatSuspense(<Test1 />)
+          },
+          {
+            path: "test2",
+            label: 'menu.test2',
+            loader: loader,
+            icon: <HomeOutlined />,
+            element: formatSuspense(<Test2 />)
+          },
+        ]
+      },
+      {
+        path: "*",
+        label: "404",
+        element: formatSuspense(<NotFound />),
+        icon: <HomeOutlined />,
+        hide: true
+      }
+    ]
+  }
+]

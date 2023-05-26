@@ -35,7 +35,7 @@ const pathnameToSelectedKeys = (pathname: string) => {
   const paths = pathname.match(/\w+/g)
   console.log('paths===', paths)
   if (paths === null) {
-    return { selectedKeys: [''], subKeys: [] }
+    return { selectedKeys: ['dashboard'], subKeys: [] }
   } else {
     const subKeys = paths.slice(0, paths.length - 1)
     return { selectedKeys: paths, subKeys }
@@ -114,7 +114,7 @@ function LayoutSider(props: {
         style={{ borderInlineEnd: 'none' }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
-        items={formatMenu(mainRoute.children)}
+        items={formatMenu(mainRoute[1].children)}
         onSelect={(menu) => {
           const path = formatPath(menu.keyPath)
           navigate(path)
