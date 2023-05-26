@@ -1,5 +1,5 @@
 
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import { RouterType } from "../types"
 import { loginRoute } from "./login"
 import { mainRoute } from "./main"
@@ -24,6 +24,6 @@ export function RootRouter() {
     return _routes
   }
   const allRoutes = [loginRoute, ...mainRoute]
-  const rootRoutes = createBrowserRouter(formatRoute(allRoutes),  { basename: '/react-admin' })
+  const rootRoutes = createHashRouter(formatRoute(allRoutes))
   return <RouterProvider router={rootRoutes} />
 }
