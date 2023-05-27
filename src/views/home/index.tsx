@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import styles from './index.module.scss'
 import { useState, useEffect } from 'react'
 import CustomColorPicker from '@/components/colorPicker'
+import { useSelector, shallowEqual } from 'react-redux'
+import { GlobalConfigState } from '@/types/reducer';
 
 function Home() {
   const navigate = useNavigate();
+  const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   // const [msg, setMsg] = useState('')
   const [color, setColor] = useState('#167fff')
   const colorChange = (val:any) => {
@@ -32,7 +35,7 @@ function Home() {
   return (
     <div className="Home">
       <div>
-        <div className={styles.title}>555</div>
+        <div className={styles.title}>{userinfo.name}</div>
         <Space>
           <Button type="primary" onClick={gorouter}>Home</Button>
         </Space>

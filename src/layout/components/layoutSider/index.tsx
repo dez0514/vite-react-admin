@@ -114,7 +114,7 @@ function LayoutSider(props: {
         style={{ borderInlineEnd: 'none' }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
-        items={formatMenu(mainRoute[1].children)}
+        items={formatMenu(mainRoute)}
         onSelect={(menu) => {
           const path = formatPath(menu.keyPath)
           navigate(path)

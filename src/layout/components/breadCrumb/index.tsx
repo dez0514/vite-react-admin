@@ -7,7 +7,7 @@ import { FormattedMessage } from "react-intl";
 
 function CustomBreadcrumb() {
   const location = useLocation()
-  const MenuData = flatRouteTree(mainRoute[1].children || [])
+  const MenuData = flatRouteTree(mainRoute || [])
   const [breadList, setBreadList] = useState<any[]>([])
   const renderBreadcrumbs = () => {
     const paths = location.pathname.match(/\w+/g)

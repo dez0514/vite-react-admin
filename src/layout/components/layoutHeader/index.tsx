@@ -32,7 +32,7 @@ function LayoutHeader() {
     label: <FormattedMessage id='menu.home' />,
     closable: false
   }
-  const MenuData: RouterType[] = flatRouteTree(mainRoute[1].children || []).filter((item: any) => item.path).map((item: any) => {
+  const MenuData: RouterType[] = flatRouteTree(mainRoute || []).filter((item: any) => item.path).map((item: any) => {
     return {
       path: item.path,
       fullPath: item.fullPath,
@@ -58,9 +58,9 @@ function LayoutHeader() {
         const fitem = MenuData.find(item => item.fullPath === location.pathname)
         if(fitem && fitem.label) {
           label = fitem.label
+          const temp = [...tags, { path: location.pathname, label, closable: true  }]
+          setTags(temp)
         }
-        const temp = [...tags, { path: location.pathname, label, closable: true  }]
-        setTags(temp)
       }
     }
     // console.log('location===', location)

@@ -12,6 +12,7 @@ import { ThemeType, IntlMsg, TypeLang } from "@/types"
 import 'dayjs/locale/zh-cn';
 import zh from "antd/lib/locale/zh_CN";
 import en from "antd/lib/locale/en_US";
+import { UserProvider } from '@/userProvider'
 const antdLocal = {
   zh: zh,
   en: en
@@ -37,7 +38,9 @@ function App() {
           tip='Loading...'
           style={{ maxHeight: 'unset', minHeight: '100vh' }}
         >
-          <RootRouter />
+          <UserProvider>
+            <RootRouter />
+          </UserProvider>
         </Spin>
       </IntlProvider>
     </ConfigProvider>

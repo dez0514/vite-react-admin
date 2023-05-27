@@ -1,29 +1,31 @@
 
-import { createHashRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { RouterType } from "../types"
 import { loginRoute } from "./login"
 import { mainRoute } from "./main"
-
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Layout from "@/layout"
+import { flatRouteTree } from '@/utils'
 export function RootRouter() {
-  const formatRoute = (routes: RouterType[]): RouteObject[] => {
-    const _routes: RouteObject[] = []
-    for (const route of routes) {
-      let temp: RouterType = {
-        path: route.path,
-        element: route.element,
-        children: route.children ? formatRoute(route.children) : undefined
-      }
-      if('loader' in route) {
-        temp.loader = route.loader
-      }
-      if(route.id) { // 可以加id, 配合 useRouteLoaderData 可以在路由之前异步加载信息，暂时不需要
-        temp.id = route.id
-      }
-      _routes.push(temp as RouterType)
+  const MenuData: RouterType[] = flatRouteTree(mainRoute || []).filter((item: any) => item.path).map((item: any) => {
+    return {
+      ...item,
+      fullPath: item.fullPath
     }
-    return _routes
-  }
-  const allRoutes = [loginRoute, ...mainRoute]
-  const rootRoutes = createHashRouter(formatRoute(allRoutes))
-  return <RouterProvider router={rootRoutes} />
+  })
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/" element={<Layout />}>
+          {
+            MenuData.map((item: RouterType, index: number) => {
+              return <Route key={index} path={item.fullPath} element={item.element} />
+            })
+          }
+        </Route>
+        <Route path="/login" element={loginRoute.element} />
+      </Routes>
+    </HashRouter>
+  );
 }

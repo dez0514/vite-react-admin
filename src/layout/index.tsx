@@ -11,8 +11,6 @@ import { GlobalConfigState } from '@/types/reducer'
 import { FormattedMessage } from "react-intl";
 
 function Dashboard() {
-  const loaderData : any = useLoaderData();
-  console.log('loaderData===', loaderData)
   const { openSettingDrawer } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const dispatch = useDispatch() 
   return (
