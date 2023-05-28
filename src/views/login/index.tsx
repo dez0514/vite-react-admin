@@ -1,13 +1,15 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, theme, Space, Typography } from "antd"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import SwitchLanguage from "@/layout/components/switchLanguage"
 import SwitchTheme from "@/layout/components/switchTheme"
 import styled from "styled-components"
 import { FormattedMessage, useIntl } from "react-intl";
 import { useDispatch } from 'react-redux'
 import { loginReducerApi, userinfoReducerApi } from '@/reducers/userReducer'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '@/userProvider'
+
 
 const RightCorner = styled.div`
   position: absolute;
@@ -19,6 +21,7 @@ const RightCorner = styled.div`
 `
 
 export default function Login() {
+  const { isAuth } = useContext(UserContext)
   const { formatMessage } = useIntl()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -46,10 +49,11 @@ export default function Login() {
       return
     }
     setBtnLoad(false)
-    navigate('/dashboard')
+    navigate('/')
   }
   return (
     <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
+      { isAuth && <Navigate to="/" /> }
       <RightCorner>
         <Typography.Text>
           <Space>
