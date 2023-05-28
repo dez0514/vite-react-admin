@@ -44,3 +44,21 @@
 [data-theme=dark] ::-webkit-scrollbar-track {
   background-color: rgba(0,0,0,.05);
 }
+
+//  路由动画
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  opacity: 1;
+  transition: all 500ms ease-out;
+  transform: translateX(0);
+}
+
+.fade-exit {
+  opacity: 0;
+  transform: translateX(30px);
+}

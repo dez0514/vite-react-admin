@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import store from '@/reducers/index' // 坑：最好在 App 之前引入
 import App from './App'
@@ -14,9 +14,9 @@ import '@/mock'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
+  <>
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
+  </>
 )

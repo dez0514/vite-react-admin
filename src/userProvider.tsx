@@ -18,13 +18,11 @@ export function UserProvider(props: ContextProps) {
   const getAuthState = async () => {
     setIsLoading(true)
     const token = sessionStorage.getItem(StorageKeys.TOKEN)
-    debugger
     if (!token) {
       setIsAuth(false)
     } else {
       const users = sessionStorage.getItem(StorageKeys.USERINFO)
       const info = JSON.parse(users || "{}")
-      debugger
       if (!info || !info.name || !info.role) {
         const { payload } = await dispatch(userinfoReducerApi())
         if (!payload) setIsAuth(false);

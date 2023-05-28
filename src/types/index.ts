@@ -38,7 +38,7 @@ export type RouterType = {
   // route props
   path?: string
   fullPath?: string
-  element?: ReactNode
+  element?: any
   children?: RouterType[]
   loader?: LoaderFunction
   id?: string

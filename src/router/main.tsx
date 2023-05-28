@@ -10,6 +10,15 @@ const NotFound = lazy(() => import('@/views/error/404'))
 const Test1 = lazy(() => import('@/views/error/test1'))
 const Test2 = lazy(() => import('@/views/error/test2'))
 
+// import Loadable from 'react-loadable'
+// import Loading from '@/components/loading'
+// const Home = Loadable({loader: () => import('@/views/home'), loading: Loading})
+// const Pics = Loadable({loader: () => import('@/views/pics'), loading: Loading})
+// const Guide = Loadable({loader: () => import('@/views/guide'), loading: Loading})
+// const Tags = Loadable({loader: () => import('@/views/tags'), loading: Loading})
+// const NotFound = Loadable({loader: () => import('@/views/error/404'), loading: Loading})
+// const Test1 = Loadable({loader: () => import('@/views/error/test1'), loading: Loading})
+// const Test2 = Loadable({loader: () => import('@/views/error/test2'), loading: Loading})
 
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
