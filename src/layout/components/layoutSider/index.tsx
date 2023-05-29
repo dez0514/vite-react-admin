@@ -13,20 +13,23 @@ import { CONFIG } from '@/config'
 const { Sider } = AntdLayOut;
 
 
-const formatMenu: any = (menuRoutes: RouterType[] | undefined) => {
+const formatMenu: any = (menuRoutes: RouterType[] | undefined, role: string) => {
   const menus = []
   if (!menuRoutes) {
     return null
   }
   for (const route of menuRoutes) {
     const menu = {
+      ...route,
       label: <FormattedMessage id={`${route.label}`} />,
       key: route.path,
       icon: route.icon,
-      children: formatMenu(route.children),
+      children: formatMenu(route.children, role)
     }
     if (!route.hide) {
-      menus.push(menu)
+      if(role === 'admin' || !route.roles || route.roles!.includes(role)) {
+        menus.push(menu)
+      }
     }
   }
   return menus
@@ -48,6 +51,7 @@ function LayoutSider(props: {
   const location = useLocation()
   const navigate = useNavigate()
   const { theme, siderCollapse, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
   const formatPath = (pathArray: string[]) => {
@@ -114,7 +118,7 @@ function LayoutSider(props: {
         style={{ borderInlineEnd: 'none' }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
-        items={formatMenu(mainRoute)}
+        items={formatMenu(mainRoute, userinfo.role)}
         onSelect={(menu) => {
           const path = formatPath(menu.keyPath)
           navigate(path)

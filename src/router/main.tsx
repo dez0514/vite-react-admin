@@ -29,12 +29,14 @@ export const mainRoute: RouterType[] = [
     label: 'menu.home',
     element: <Home />,
     icon: <HomeOutlined />,
+    roles: ['admin', 'editor', 'visitor']
   },
   {
     path: "guide",
     label: 'menu.guide',
     element: formatSuspense(<Guide />),
     icon: <FileImageOutlined />,
+    roles: ['admin', 'editor']
   },
   {
     path: "permissionTest",
@@ -46,25 +48,29 @@ export const mainRoute: RouterType[] = [
         path: "introduce",
         label: 'menu.permissionTest.introduce',
         icon: <HomeOutlined />,
-        element: formatSuspense(<PermissionIntro />)
+        element: formatSuspense(<PermissionIntro />),
+        roles: ['admin', 'editor', 'visitor']
       },
       {
         path: "adminPage",
         label: 'menu.permissionTest.adminPage',
         icon: <HomeOutlined />,
-        element: formatSuspense(<PermissionAdmin />)
+        element: formatSuspense(<PermissionAdmin />),
+        roles: ['admin']
       },
       {
         path: "editorPage",
         label: 'menu.permissionTest.editorPage',
         icon: <HomeOutlined />,
-        element: formatSuspense(<PermissionEditor />)
+        element: formatSuspense(<PermissionEditor />),
+        roles: ['admin', 'editor']
       },
       {
         path: "visitorPage",
         label: 'menu.permissionTest.visitorPage',
         icon: <HomeOutlined />,
-        element: formatSuspense(<PermissionVisitor />)
+        element: formatSuspense(<PermissionVisitor />),
+        roles: ['admin', 'visitor']
       },
     ]
   },
@@ -73,18 +79,21 @@ export const mainRoute: RouterType[] = [
     label: 'menu.userManage',
     element: formatSuspense(<UserManage />),
     icon: <FileImageOutlined />,
+    roles: ['admin', 'editor']
   },
   {
     path: "pics",
     label: 'menu.picsManage',
     element: formatSuspense(<Pics />),
     icon: <FileImageOutlined />,
+    roles: ['admin']
   },
   {
     path: "tags",
     label: 'menu.tagsManage',
     element: formatSuspense(<Tags />),
     icon: <TagsOutlined />,
+    roles: ['admin', 'editor']
   },
   {
     path: "else",
@@ -96,13 +105,15 @@ export const mainRoute: RouterType[] = [
         path: "test1",
         label: 'menu.test1',
         icon: <HomeOutlined />,
-        element: formatSuspense(<Test1 />)
+        element: formatSuspense(<Test1 />),
+        roles: ['admin']
       },
       {
         path: "test2",
         label: 'menu.test2',
         icon: <HomeOutlined />,
-        element: formatSuspense(<Test2 />)
+        element: formatSuspense(<Test2 />),
+        roles: ['admin']
       },
     ]
   },

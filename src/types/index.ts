@@ -48,7 +48,7 @@ export type RouterType = {
   label?: string | ReactNode
   hide?: boolean
   // auth props
-  // auth?: Roles[]
+  roles?: string[]
 }
 
 export type MenuType = {

@@ -6,20 +6,31 @@ import { mainRoute } from "./main"
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/layout"
 import { flatRouteTree } from '@/utils'
+import { shallowEqual, useSelector } from "react-redux";
+import { GlobalConfigState } from '@/types/reducer'
 export function RootRouter() {
+  const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   const MenuData: RouterType[] = flatRouteTree(mainRoute || []).filter((item: any) => item.path).map((item: any) => {
     return {
       ...item,
       fullPath: item.fullPath
     }
   })
+  const handleRoutesFilter = (arr: RouterType[]) => {
+    const { role } = userinfo
+    if(role === 'admin') {
+      return arr
+    } else {
+      return arr.filter((item: RouterType) => !item.roles || item.roles!.includes(role))
+    }
+  }
   return (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/" element={<Layout />}>
           {
-            MenuData.map((item: RouterType, index: number) => {
+            handleRoutesFilter(MenuData).map((item: RouterType, index: number) => {
               return <Route key={index} path={item.fullPath} element={item.element} />
             })
           }
