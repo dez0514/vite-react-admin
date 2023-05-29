@@ -42,7 +42,6 @@
     "react-horizontal-scrolling-menu": "^4.0.4",
     "react-i18next": "^12.2.0",
     "react-intl": "^6.4.1",
-    "react-loadable": "^5.5.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-transition-group": "^4.4.5",
