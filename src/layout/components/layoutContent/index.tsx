@@ -14,7 +14,7 @@ const LayoutContent = () => {
       style={{
         height: `calc(100vh - ${CONFIG.headerHeight}px - ${hideTagsView ? 0 : 41}px)`,
         overflow: 'hidden',
-        overflowY: 'auto'
+        overflowY: 'auto' 
       }}
     >
       <TransitionGroup>
