@@ -1,1 +1,0 @@
-import{j as s,S as e,B as i}from"./index-28f6881e.js";function t(){return s.jsx("div",{className:"PermissionTest",children:s.jsx("div",{children:s.jsx(e,{children:s.jsx(i,{type:"primary",children:"PermissionTest"})})})})}export{t as default};

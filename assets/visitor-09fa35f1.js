@@ -1,0 +1,1 @@
+import{j as s,S as i,B as t}from"./index-cbf71812.js";function e(){return s.jsx("div",{className:"VisitorTest",children:s.jsx("div",{children:s.jsx(i,{children:s.jsx(t,{type:"primary",children:"VisitorTest"})})})})}export{e as default};
