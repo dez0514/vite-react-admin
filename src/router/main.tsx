@@ -11,6 +11,12 @@ const NotFound = lazy(() => import('@/views/error/404'))
 const Test1 = lazy(() => import('@/views/error/test1'))
 const Test2 = lazy(() => import('@/views/error/test2'))
 
+const PermissionIntro = lazy(() => import('@/views/permissionTest/index'))
+const PermissionAdmin = lazy(() => import('@/views/permissionTest/admin'))
+const PermissionEditor = lazy(() => import('@/views/permissionTest/editor'))
+const PermissionVisitor = lazy(() => import('@/views/permissionTest/visitor'))
+const UserManage = lazy(() => import('@/views/userManage'))
+
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
   return (
@@ -28,6 +34,44 @@ export const mainRoute: RouterType[] = [
     path: "guide",
     label: 'menu.guide',
     element: formatSuspense(<Guide />),
+    icon: <FileImageOutlined />,
+  },
+  {
+    path: "permissionTest",
+    label: 'menu.permissionTest',
+    element: <Outlet />,
+    icon: <ToolOutlined />,
+    children: [
+      {
+        path: "introduce",
+        label: 'menu.permissionTest.introduce',
+        icon: <HomeOutlined />,
+        element: formatSuspense(<PermissionIntro />)
+      },
+      {
+        path: "adminPage",
+        label: 'menu.permissionTest.adminPage',
+        icon: <HomeOutlined />,
+        element: formatSuspense(<PermissionAdmin />)
+      },
+      {
+        path: "editorPage",
+        label: 'menu.permissionTest.editorPage',
+        icon: <HomeOutlined />,
+        element: formatSuspense(<PermissionEditor />)
+      },
+      {
+        path: "visitorPage",
+        label: 'menu.permissionTest.visitorPage',
+        icon: <HomeOutlined />,
+        element: formatSuspense(<PermissionVisitor />)
+      },
+    ]
+  },
+  {
+    path: "userManage",
+    label: 'menu.userManage',
+    element: formatSuspense(<UserManage />),
     icon: <FileImageOutlined />,
   },
   {

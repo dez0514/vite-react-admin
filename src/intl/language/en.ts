@@ -10,6 +10,12 @@ export default {
   'menu.else': 'Else Module',
   'menu.test1': 'Test One',
   'menu.test2': 'Test Two',
+  'menu.permissionTest': 'Permission Test',
+  'menu.permissionTest.introduce': 'Introduce',
+  'menu.permissionTest.adminPage': 'Admin Page',
+  'menu.permissionTest.editorPage': 'Editor Page',
+  'menu.permissionTest.visitorPage': 'Visitor Page',
+  'menu.userManage': 'User Manage',
   // layout
   'layout.setting': 'system setting',
   'layout.setting.themeType': 'theme mode',

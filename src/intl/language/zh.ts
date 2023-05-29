@@ -10,6 +10,12 @@ export default {
   'menu.else': '其他',
   'menu.test1': '测试1',
   'menu.test2': '测试2',
+  'menu.permissionTest': '权限测试',
+  'menu.permissionTest.introduce': '权限说明',
+  'menu.permissionTest.adminPage': 'admin页面',
+  'menu.permissionTest.editorPage': 'editor页面',
+  'menu.permissionTest.visitorPage': 'visitor页面',
+  'menu.userManage': '用户管理',
   // layout
   'layout.setting': '系统布局配置',
   'layout.setting.themeType': '主题模式',
