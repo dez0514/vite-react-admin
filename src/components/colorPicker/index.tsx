@@ -32,6 +32,7 @@ const TriggerSpan = styled.span`
 // 此处是使用react-color的小组件拼装成自己定制的CustomColorPicker
 // 也可使用react-color默认的
 // todo: 主题没同步
+// 番外：antd 最新版 加了 ColorPicker ... 我giao...
 function CustomColorPicker({ hexval, onChange, popoverStyle={} }: { hexval: any, onChange: Function, popoverStyle?: CSSProperties }) {
   const [visible, setVisible] = useState(false)
   const hexColor = hexval || '#ffffff'
