@@ -21,7 +21,7 @@ export function RootRouter() {
     if(role === 'admin') {
       return arr
     } else {
-      return arr.filter((item: RouterType) => !item.roles || item.roles!.includes(role))
+      return arr.filter((item: RouterType) => !item.roles || item.roles!.includes(role)).filter(item => !item.children || item.children.length !== 0)
     }
   }
   return (

@@ -32,7 +32,8 @@ const formatMenu: any = (menuRoutes: RouterType[] | undefined, role: string) => 
       }
     }
   }
-  return menus
+  // 子路由都被隐藏时 父级也过滤掉
+  return menus.filter(item => !item.children || item.children.length !== 0)
 }
 const pathnameToSelectedKeys = (pathname: string) => {
   const paths = pathname.match(/\w+/g)
