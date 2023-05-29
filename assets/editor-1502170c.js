@@ -1,1 +1,0 @@
-import{j as t,S as r,B as s}from"./index-d470e39d.js";function i(){return t.jsx("div",{className:"EditorTest",children:t.jsx("div",{children:t.jsx(r,{children:t.jsx(s,{type:"primary",children:"EditorTest"})})})})}export{i as default};
