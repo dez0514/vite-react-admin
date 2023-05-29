@@ -14,7 +14,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className="app-container">
+    <div style={{padding: '20px'}}>
       <Spin />
     </div>
   );

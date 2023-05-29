@@ -1,7 +1,8 @@
-import { HomeOutlined, LoadingOutlined, FileImageOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
+import { HomeOutlined, FileImageOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate } from "react-router-dom"
+import Loading from '@/components/loading'
 import Home from '@/views/home'
 const Pics = lazy(() => import('@/views/pics'))
 const Guide = lazy(() => import('@/views/guide'))
@@ -10,20 +11,10 @@ const NotFound = lazy(() => import('@/views/error/404'))
 const Test1 = lazy(() => import('@/views/error/test1'))
 const Test2 = lazy(() => import('@/views/error/test2'))
 
-// import Loadable from 'react-loadable'
-// import Loading from '@/components/loading'
-// const Home = Loadable({loader: () => import('@/views/home'), loading: Loading})
-// const Pics = Loadable({loader: () => import('@/views/pics'), loading: Loading})
-// const Guide = Loadable({loader: () => import('@/views/guide'), loading: Loading})
-// const Tags = Loadable({loader: () => import('@/views/tags'), loading: Loading})
-// const NotFound = Loadable({loader: () => import('@/views/error/404'), loading: Loading})
-// const Test1 = Loadable({loader: () => import('@/views/error/test1'), loading: Loading})
-// const Test2 = Loadable({loader: () => import('@/views/error/test2'), loading: Loading})
-
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
   return (
-    <Suspense fallback={<LoadingOutlined />}>{comps}</Suspense>
+    <Suspense fallback={<Loading />}>{comps}</Suspense>
   )
 }
 export const mainRoute: RouterType[] = [
