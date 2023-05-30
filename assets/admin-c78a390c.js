@@ -1,0 +1,1 @@
+import{j as s,S as e,B as i}from"./index-d96c5454.js";function n(){return s.jsx("div",{className:"AdminTest",children:s.jsx("div",{children:s.jsx(e,{children:s.jsx(i,{type:"primary",children:"AdminTest"})})})})}export{n as default};
