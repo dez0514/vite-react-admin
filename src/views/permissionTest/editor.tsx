@@ -1,15 +1,13 @@
-import { Button, Space } from 'antd'
+import TypingCard from '@/components/typingCard'
+import PageWrap from '@/components/page'
 
 function EditorTest() {
-  return (
-    <div className="EditorTest">
-      <div>
-        <Space>
-          <Button type="primary">EditorTest</Button>
-        </Space>
-      </div>
-    </div>
-  )
+  const cardContent = `这个页面只有admin和editor角色才可以访问，visitor角色看不到`
+  return ( 
+    <PageWrap className="EditorTest">
+      <TypingCard title='editor页面' source={cardContent}/>
+    </PageWrap>
+  );
 }
 
 export default EditorTest

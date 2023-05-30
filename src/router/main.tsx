@@ -79,14 +79,14 @@ export const mainRoute: RouterType[] = [
     label: 'menu.userManage',
     element: formatSuspense(<UserManage />),
     icon: <FileImageOutlined />,
-    roles: ['admin', 'editor']
+    roles: ['admin']
   },
   {
     path: "pics",
     label: 'menu.picsManage',
     element: formatSuspense(<Pics />),
     icon: <FileImageOutlined />,
-    roles: ['admin']
+    roles: ['admin', 'editor']
   },
   {
     path: "tags",
@@ -106,14 +106,14 @@ export const mainRoute: RouterType[] = [
         label: 'menu.test1',
         icon: <HomeOutlined />,
         element: formatSuspense(<Test1 />),
-        roles: ['admin']
+        roles: ['admin', 'editor']
       },
       {
         path: "test2",
         label: 'menu.test2',
         icon: <HomeOutlined />,
         element: formatSuspense(<Test2 />),
-        roles: ['admin']
+        roles: ['admin', 'editor']
       },
     ]
   },
