@@ -25,6 +25,7 @@ const style = {
 }
 function LayoutHeader() {
   const { hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   const navigate = useNavigate()
   const location = useLocation()
   const homeTag: TagType = {
@@ -34,6 +35,7 @@ function LayoutHeader() {
   }
   const MenuData: RouterType[] = flatRouteTree(mainRoute || []).filter((item: any) => item.path).map((item: any) => {
     return {
+      ...item,
       path: item.path,
       fullPath: item.fullPath,
       label: <FormattedMessage id={`${item.label}`} />
@@ -57,9 +59,11 @@ function LayoutHeader() {
         let label: string | ReactNode = ''
         const fitem = MenuData.find(item => item.fullPath === location.pathname)
         if(fitem && fitem.label) {
-          label = fitem.label
-          const temp = [...tags, { path: location.pathname, label, closable: true  }]
-          setTags(temp)
+          if(userinfo.role === 'admin' || !fitem.roles || fitem.roles!.includes(userinfo.role)) {
+            label = fitem.label
+            const temp = [...tags, { path: location.pathname, label, closable: true  }]
+            setTags(temp)
+          }
         }
       }
     }
