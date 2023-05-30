@@ -1,1 +1,0 @@
-import{j as t}from"./index-e1458059.js";import{P as i,T as r}from"./page-68b227b1.js";function a(){const s="这个页面只有admin和visitor角色才可以访问，editor角色看不到";return t.jsx(i,{className:"VisitorTest",children:t.jsx(r,{title:"visitor页面",source:s})})}export{a as default};
