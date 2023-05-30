@@ -1,1 +1,0 @@
-import{u as n,j as t}from"./index-72aaf63a.js";import{P as o,T as r}from"./page-b9ee761d.js";function c(){const{formatMessage:s}=n(),e=s({id:"permission.intro"}),i=s({id:"permission.page"});return t.jsx(o,{className:"PermissionTest",children:t.jsx(r,{title:`admin ${i}`,source:e})})}export{c as default};
