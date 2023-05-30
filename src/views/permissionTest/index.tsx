@@ -1,21 +1,14 @@
 import TypingCard from '@/components/typingCard'
 import PageWrap from '@/components/page'
-
+import { useIntl } from "react-intl";
 function PermissionTest() {
-  const cardContent = `
-    本项目中的菜单权限和路由权限都是基于用户所属角色来分配的，本项目中内置了三种角色，分别是：
-
-    <ul>
-      <li>管理员 admin:该角色拥有系统内所有菜单和路由的权限。</li>
-      <li>编辑员 editor:该角色拥有系统内除用户管理页之外的所有菜单和路由的权限。</li>
-      <li>游客 visitor:该角色仅拥有首页、权限测试页面的权限。</li>
-    </ul>
-
-    你可以通过<a href="#/userManage">用户管理</a>页面，动态的添加或删除用户，以及编辑某个已经存在的用户，例如修改其权限等操作。
-  `;
+  const { formatMessage } = useIntl()
+  const cardContent = formatMessage({ id: 'permission.intro' })
+  const title = formatMessage({ id: 'permission.page' })
+  
   return ( 
     <PageWrap className="PermissionTest">
-      <TypingCard title='admin页面' source={cardContent}/>
+      <TypingCard title={`admin ${title}`} source={cardContent}/>
     </PageWrap>
   );
 }

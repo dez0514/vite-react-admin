@@ -30,6 +30,7 @@ export default {
   'login.usernameNotEmpty': '请填写用户名',
   'login.passwordNotEmpty': '请填写密码',
   'login.errorUsernameOrPassword': '用户名或密码不正确',
+  'login.extra.whatever': '随便填',
   // guide
   'guide.openGuide': '打开引导',
   'guide.finish': '完成',
@@ -43,5 +44,16 @@ export default {
   'guide.change.language': '语言',
   'guide.change.language.desc': '切换语言',
   'guide.change.setting': '设置',
-  'guide.change.setting.desc': '系统设置'
+  'guide.change.setting.desc': '系统设置',
+  // permission intro
+  'permission.page': '页面',
+  'permission.intro': `
+    本项目中的菜单权限和路由权限都是基于用户所属角色来分配的，本项目中内置了三种角色，分别是：
+    <ul>
+      <li>管理员 admin:该角色拥有系统内所有菜单和路由的权限。</li>
+      <li>编辑员 editor:该角色拥有系统内除用户管理页之外的所有菜单和路由的权限。</li>
+      <li>游客 visitor:该角色仅拥有首页、权限测试页面的权限。</li>
+    </ul>
+    你可以通过<a href="#/userManage">用户管理</a>页面，动态的添加或删除用户，以及编辑某个已经存在的用户，例如修改其权限等操作。
+  `
 };

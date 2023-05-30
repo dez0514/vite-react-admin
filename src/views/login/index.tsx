@@ -65,7 +65,7 @@ export default function Login() {
       <Card style={{ width: 400 }} title={formatMessage({ id: 'common.systemTitle' })}>
         <Form
           name="normal_login"
-          initialValues={{ remember: true, username: 'admin', password: '123456'  }}
+          initialValues={{ username: 'admin', password: '123456'  }}
           autoComplete="off"
           onFinish={ onFinish }
         >
@@ -88,6 +88,15 @@ export default function Login() {
             <Button htmlType="submit" type="primary" size="large" block loading={btnLoad}>{ !btnLoad ? formatMessage({ id: 'login.loginBtn' }) : formatMessage({ id: 'login.loginBtn.loading' })}</Button>
           </Form.Item>
         </Form>
+        <div>
+          <Typography.Text>{ formatMessage({ id: 'login.username' }) } : admin， { formatMessage({ id: 'login.password' }) }: { formatMessage({ id: 'login.extra.whatever' }) }</Typography.Text>
+        </div>
+        <div>
+          <Typography.Text>{ formatMessage({ id: 'login.username' }) } : editor， { formatMessage({ id: 'login.password' }) }: { formatMessage({ id: 'login.extra.whatever' }) }</Typography.Text>
+        </div>
+        <div>
+          <Typography.Text>{ formatMessage({ id: 'login.username' }) } : visitor， { formatMessage({ id: 'login.password' }) }: { formatMessage({ id: 'login.extra.whatever' }) }</Typography.Text>
+        </div>
       </Card>
     </div>
   )
