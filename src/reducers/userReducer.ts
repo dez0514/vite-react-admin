@@ -32,13 +32,14 @@ const userSlice = createSlice({
     userinfo: JSON.parse(sessionStorage.getItem(StorageKeys.USERINFO) || "{}")
   },
   reducers: {
-    updateToken(state: any, payload) {
+    updateToken(state: any, { payload }) {
       console.log('token payload==', payload)
       state.token = payload
     },
-    updateUserinfo(state: any, payload) {
-      console.log('info payload==', state)
+    updateUserinfo(state: any, { payload }) {
+      // console.log('info payload==', payload)
       state.userinfo = { ...state.userinfo, ...payload }
+      // console.log('state.userinfo==', state.userinfo)
     },
     resetLoginInfo(state: any) {
       console.log('info payload==', state)

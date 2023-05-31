@@ -15,3 +15,15 @@ export const getUsersList = (params: any = {}, config: any = {}) => {
 export const getRoleList = (params: any = {}, config: any = {}) => {
   return get('/api/getRoleList', params, config)
 }
+
+export const addUser = (params: any = {}, config: any = {}) => {
+  return post('/api/addUser', params, config)
+}
+
+export const editUser = (params: any = {}, config: any = {}) => {
+  return post('/api/editUser', params, config)
+}
+
+export const deleteUser = (params: any = {}, config: any = {}) => {
+  return post('/api/deleteUser', params, config)
+}

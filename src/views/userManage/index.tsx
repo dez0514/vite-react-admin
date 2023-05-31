@@ -1,10 +1,13 @@
-import { Button, Table, Card, Space, Tag, Divider, Modal, Form, Input, Select } from 'antd'
+import { Button, Table, Card, Space, Tag, Divider, Modal, Form, Input, Select, message, Popconfirm } from 'antd'
 import TypingCard from '@/components/typingCard'
 import PageWrap from '@/components/page'
 import type { ColumnsType } from 'antd/es/table';
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getUsersList, getRoleList } from '@/api/user'
+import { getUsersList, getRoleList, addUser, editUser, deleteUser } from '@/api/user'
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { GlobalConfigState } from '@/types/reducer';
+import { updateUserinfo } from '@/reducers/userReducer'
 interface DataType {
   id: string
   role: string
@@ -14,13 +17,17 @@ interface DataType {
 }
 
 function userManage() {
+  const [messageApi, contextHolder] = message.useMessage();
   const cardContent = `在这里，你可以对系统中的用户进行管理，例如添加一个新用户，或者修改系统中已经存在的用户。`
+  const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)
+  const dispatch = useDispatch()
   const [ userList, setUserList ] = useState<DataType[]>([])
   const [ roleList, setRoleList ] = useState<any>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(false);
   const [form] = Form.useForm();
-  const getList = () => {
+  const getList = (updateUser: boolean = false) => {
     getUsersList().then((res: any) => {
       if(res.code === 0) {
         setUserList(res.data.map((item: any, index: number) => {
@@ -29,6 +36,12 @@ function userManage() {
             ...item
           }
         }))
+        if(updateUser) {
+          const fitem = res.data.find((item: any) => item.id === userinfo.id)
+          if(fitem) {
+            dispatch(updateUserinfo(fitem))
+          }
+        }
       }
     })
   }
@@ -36,7 +49,7 @@ function userManage() {
     getRoleList().then((res: any) => {
       if(res.code === 0) {
         const roles = res.data.map((item: string, index: number) => {
-          return { value: String(index), label: item }
+          return { key: String(index), value: item, label: item }
         })
         setRoleList(roles)
       }
@@ -45,15 +58,46 @@ function userManage() {
   const showModal = (isEditMode: boolean = false, rowData?: DataType | undefined) => {
     setIsModalOpen(true);
     setIsEdit(isEditMode)
-    console.log('rowData===', rowData)
     if(rowData) {
       const { id, name, role, description } = rowData
       form.setFieldsValue({id, name, role, description})
     }
   }
   const handleOk = () => {
-    // setIsModalOpen(false)
-    console.log(form.getFieldsValue())
+    console.log(form)
+    form.validateFields().then(res => {
+      setLoad(true)
+      const { id, name, role, description } = res
+      const params = {
+        id: id || '',
+        name: name || '',
+        role: role || '',
+        description: description || ''
+      }
+      if(isEdit) {
+        editUser(params).then((data: any) => {
+          setLoad(false)
+          if(data.code === 0) {
+            messageApi.success('修改成功')
+            setIsModalOpen(false)
+            getList(true)
+          }
+        }).catch(() => {
+          setLoad(false)
+        })
+      } else {
+        addUser(params).then((data: any) => {
+          setLoad(false)
+          if(data.code === 0) {
+            messageApi.success('新增成功')
+            setIsModalOpen(false)
+            getList()
+          }
+        }).catch(() => {
+          setLoad(false)
+        })
+      }
+    })
   }
   const handleCancel = () => {
     setIsModalOpen(false)
@@ -61,13 +105,25 @@ function userManage() {
     form.resetFields()
   }
   const handleDelete = (row: DataType) => {
-    console.log(row)
+    deleteUser({ id: row.id }).then((res: any) => {
+      if(res.code === 0) {
+        messageApi.success('删除成功')
+        getList()
+      }
+    })
   }
   useEffect(() => {
     getList()
     getRoles()
   }, [])
   const columns: ColumnsType<DataType> = [
+    {
+      title: '头像',
+      key: 'avatar',
+      render: (_, { avatar }) => (
+        <img className='tw-w-[40px]' src={avatar} />
+      )
+    },
     {
       title: '用户ID',
       key: 'id',
@@ -99,18 +155,27 @@ function userManage() {
         <Space>
           <Button type="primary" shape="circle" icon={<FormOutlined />} onClick={() =>showModal(true, record)} />
           <Divider type="vertical" />
-          <Button type="primary" shape="circle" icon={<DeleteOutlined />} disabled={record.id === 'admin'} onClick={() =>handleDelete(record)} />
+          <Popconfirm
+            title="提示"
+            description="确定删除？"
+            onConfirm={() =>handleDelete(record)}
+            okText="是"
+            cancelText="否"
+          >
+            <Button type="primary" shape="circle" icon={<DeleteOutlined />} disabled={record.id === 'admin'} />
+          </Popconfirm>
         </Space>
       )
     }
   ]
   return ( 
     <PageWrap className="userManage">
+      {contextHolder}
       <TypingCard title='用户管理' source={cardContent}/>
       <Card className='tw-mt-[20px]' title={ <Button type="primary" onClick={() => showModal()}>新增用户</Button> }>
-        <Table columns={columns} dataSource={userList} />
+        <Table columns={columns} dataSource={userList} pagination={{ pageSize: 10 }} />
       </Card>
-      <Modal title={isEdit ? '编辑' : '新增'} width={800} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={isEdit ? '编辑' : '新增'} width={800} open={isModalOpen} onOk={handleOk} okButtonProps={{ loading: load }} onCancel={handleCancel}>
         <Form className='tw-mt-[20px]' form={form} name="user-form" labelCol={{ span: 4 }}>
           <Form.Item name="id" label="用户ID" rules={[{ required: true }]}>
             <Input placeholder="id" disabled={isEdit} />

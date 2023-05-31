@@ -34,9 +34,9 @@ const users: any = {
 };
 
 export const login = (config: any) => {
-  console.log('config===', config)
+  // console.log('config===', config)
   const { data } = config; // 获取前端传递的数据
-  console.log('data===',data);
+  // console.log('data===',data);
   const { username } = qs.parse(data)
   if(!username || !Object.keys(tokens).includes(username as string)){
     const err = {
@@ -54,9 +54,9 @@ export const login = (config: any) => {
 }
 
 export const userInfo = (config: any) => {
-  console.log('get==config===', config)
+  // console.log('get==config===', config)
   const { headers } = config; // 获取请求头信息
-  console.log('headers===',headers); // 打印请求头信息
+  // console.log('headers===',headers); // 打印请求头信息
   const token: string = headers.Authorization || '';
   if(!token || !Object.keys(users).includes(token)) {
     const err = {
@@ -88,6 +88,78 @@ export const getRoleList = () => {
     code: 0,
     message: 'success',
     data: roles
+  }
+  return [200, response]
+}
+
+export const addUser = (config: any) => {
+  const { data } = config;
+  console.log('data===',data);
+  const { id, name, role, description } = qs.parse(data)
+  const userArr = Object.values(users)
+  const fitem = userArr.find((item: any) => item.id === id)
+  if(!fitem) { // 新增
+    const lastUser = {
+      id: id,
+      role: role,
+      name: name,
+      avatar: avatar1,
+      description: description
+    }
+    const token = `${id}-token`
+    tokens[id as string] = token
+    users[token] = lastUser
+    const response = {
+      code: 0,
+      message: 'success'
+    }
+    return [200, response]
+  } else {
+    const response = {
+      code: 1,
+      message: 'error'
+    }
+    return [200, response]
+  }
+}
+
+export const editUser = (config: any) => {
+  const { data } = config;
+  const { id, name, role, description } = qs.parse(data)
+  const userArr = Object.values(users)
+  const fitem = userArr.find((item: any) => item.id === id)
+  if(fitem) {
+    const token = `${id}-token`
+    users[token] = {
+      ...users[token],
+      id: id,
+      role: role,
+      name: name,
+      avatar: avatar1,
+      description: description
+    }
+    const response = {
+      code: 0,
+      message: 'success'
+    }
+    return [200, response]
+  } else {
+    const response = {
+      code: 1,
+      message: 'error'
+    }
+    return [200, response]
+  }
+}
+
+export const deleteUser = (config: any) => {
+  const { data } = config;
+  const { id } = qs.parse(data)
+  delete users[`${id}-token`]
+  delete tokens[id as string]
+  const response = {
+    code: 0,
+    message: 'success'
   }
   return [200, response]
 }
