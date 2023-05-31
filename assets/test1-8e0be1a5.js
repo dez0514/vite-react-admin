@@ -1,0 +1,1 @@
+import{j as s,S as e,B as t}from"./index-bd943433.js";function i(){return s.jsx("div",{className:"Test1",children:s.jsx("div",{children:s.jsx(e,{children:s.jsx(t,{type:"primary",children:"Test1"})})})})}export{i as default};

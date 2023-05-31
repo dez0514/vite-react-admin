@@ -1,4 +1,4 @@
-import{c as K,g as Q,m as M,j as _,S as W,B as Z,C as q}from"./index-f63f4f8b.js";import{P as tt}from"./page-23ad7367.js";var D={exports:{}};/*!
+import{c as K,g as Q,m as M,j as _,S as W,B as Z,C as q}from"./index-bd943433.js";import{P as tt}from"./page-b69f8480.js";var D={exports:{}};/*!
  * clipboard.js v2.0.11
  * https://clipboardjs.com/
  *
