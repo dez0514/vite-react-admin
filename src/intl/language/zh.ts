@@ -5,7 +5,7 @@ export default {
   // menu
   'menu.home': '首页',
   'menu.guide': '引导页',
-  'menu.picsManage': '图片管理',
+  'menu.clipboard': '剪切板',
   'menu.tagsManage': '标签管理',
   'menu.else': '其他',
   'menu.test1': '测试1',

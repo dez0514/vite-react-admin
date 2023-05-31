@@ -5,7 +5,7 @@ export default {
   // menu
   'menu.home': 'Home',
   'menu.guide': 'Guide',
-  'menu.picsManage': 'Picture Manage',
+  'menu.clipboard': 'Clipboard',
   'menu.tagsManage': 'Tag Manage',
   'menu.else': 'Else Module',
   'menu.test1': 'Test One',

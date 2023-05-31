@@ -4,7 +4,7 @@ import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate } from "react-router-dom"
 import Loading from '@/components/loading'
 import Home from '@/views/home'
-const Pics = lazy(() => import('@/views/pics'))
+const Clipboard = lazy(() => import('@/views/clipboard'))
 const Guide = lazy(() => import('@/views/guide'))
 const Tags = lazy(() => import('@/views/tags'))
 const NotFound = lazy(() => import('@/views/error/404'))
@@ -82,9 +82,9 @@ export const mainRoute: RouterType[] = [
     roles: ['admin']
   },
   {
-    path: "pics",
-    label: 'menu.picsManage',
-    element: formatSuspense(<Pics />),
+    path: "clipboard",
+    label: 'menu.clipboard',
+    element: formatSuspense(<Clipboard />),
     icon: <FileImageOutlined />,
     roles: ['admin', 'editor']
   },
