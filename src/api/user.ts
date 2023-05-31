@@ -27,3 +27,15 @@ export const editUser = (params: any = {}, config: any = {}) => {
 export const deleteUser = (params: any = {}, config: any = {}) => {
   return post('/api/deleteUser', params, config)
 }
+
+export const addRole = (params: any = {}, config: any = {}) => {
+  return post('/api/addRole', params, config)
+}
+
+export const editRole = (params: any = {}, config: any = {}) => {
+  return post('/api/editRole', params, config)
+}
+
+export const deleteRole = (params: any = {}, config: any = {}) => {
+  return post('/api/deleteRole', params, config)
+}

@@ -6,7 +6,7 @@ export default {
   'menu.home': 'Home',
   'menu.guide': 'Guide',
   'menu.clipboard': 'Clipboard',
-  'menu.tagsManage': 'Tag Manage',
+  'menu.roleManage': 'Role Manage',
   'menu.else': 'Else Module',
   'menu.test1': 'Test One',
   'menu.test2': 'Test Two',

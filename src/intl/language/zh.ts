@@ -6,7 +6,7 @@ export default {
   'menu.home': '首页',
   'menu.guide': '引导页',
   'menu.clipboard': '剪切板',
-  'menu.tagsManage': '标签管理',
+  'menu.roleManage': '角色管理',
   'menu.else': '其他',
   'menu.test1': '测试1',
   'menu.test2': '测试2',

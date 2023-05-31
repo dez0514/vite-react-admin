@@ -1,7 +1,7 @@
 // import Mock from 'mockjs'
 import service from '@/utils/fetch';
 import MockAdapter from 'axios-mock-adapter';
-import { login, userInfo, getUserList, getRoleList, addUser, editUser, deleteUser } from './user'
+import { login, userInfo, getUserList, getRoleList, addUser, editUser, deleteUser, deleteRole, editRole, addRole } from './user'
 
 const mock = new MockAdapter(service, { delayResponse: 2000 });
 
@@ -16,6 +16,9 @@ mock.onGet(/\/getRoleList/).reply(getRoleList);
 mock.onPost(/\/addUser/).reply(addUser);
 mock.onPost(/\/editUser/).reply(editUser);
 mock.onPost(/\/deleteUser/).reply(deleteUser);
+mock.onPost(/\/addRole/).reply(addRole);
+mock.onPost(/\/editRole/).reply(editRole);
+mock.onPost(/\/deleteRole/).reply(deleteRole);
 
 
 // Mock.mock(/\/login/, 'post', login)

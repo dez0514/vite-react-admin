@@ -48,8 +48,8 @@ function userManage() {
   const getRoles = () => {
     getRoleList().then((res: any) => {
       if(res.code === 0) {
-        const roles = res.data.map((item: string, index: number) => {
-          return { key: String(index), value: item, label: item }
+        const roles = res.data.map((item: any, index: number) => {
+          return { key: String(index), value: item.name, label: item.name }
         })
         setRoleList(roles)
       }
@@ -161,6 +161,7 @@ function userManage() {
             onConfirm={() =>handleDelete(record)}
             okText="是"
             cancelText="否"
+            disabled={record.id === 'admin'}
           >
             <Button type="primary" shape="circle" icon={<DeleteOutlined />} disabled={record.id === 'admin'} />
           </Popconfirm>

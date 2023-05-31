@@ -6,7 +6,7 @@ import Loading from '@/components/loading'
 import Home from '@/views/home'
 const Clipboard = lazy(() => import('@/views/clipboard'))
 const Guide = lazy(() => import('@/views/guide'))
-const Tags = lazy(() => import('@/views/tags'))
+const RoleManage = lazy(() => import('@/views/roleManage'))
 const NotFound = lazy(() => import('@/views/error/404'))
 const Test1 = lazy(() => import('@/views/error/test1'))
 const Test2 = lazy(() => import('@/views/error/test2'))
@@ -75,13 +75,6 @@ export const mainRoute: RouterType[] = [
     ]
   },
   {
-    path: "userManage",
-    label: 'menu.userManage',
-    element: formatSuspense(<UserManage />),
-    icon: <FileImageOutlined />,
-    roles: ['admin']
-  },
-  {
     path: "clipboard",
     label: 'menu.clipboard',
     element: formatSuspense(<Clipboard />),
@@ -89,9 +82,16 @@ export const mainRoute: RouterType[] = [
     roles: ['admin', 'editor']
   },
   {
-    path: "tags",
-    label: 'menu.tagsManage',
-    element: formatSuspense(<Tags />),
+    path: "userManage",
+    label: 'menu.userManage',
+    element: formatSuspense(<UserManage />),
+    icon: <FileImageOutlined />,
+    roles: ['admin']
+  },
+  {
+    path: "roleManage",
+    label: 'menu.roleManage',
+    element: formatSuspense(<RoleManage />),
     icon: <TagsOutlined />,
     roles: ['admin', 'editor']
   },
