@@ -3,6 +3,7 @@ import avatar from '@/assets/head.png'
 import avatar0 from '@/assets/avatar/0.jpg'
 import avatar1 from '@/assets/avatar/1.jpg'
 // import Mock from 'mockjs'
+const roles: string[] = ['admin', 'editor', 'visitor']
 const tokens: any = {
   admin: "admin-token",
   editor: "editor-token",
@@ -68,6 +69,25 @@ export const userInfo = (config: any) => {
     code: 0,
     message: 'success',
     data: users[token as string]
+  }
+  return [200, response]
+}
+
+export const getUserList = () => {
+  const arr = Object.values(users)
+  const response = {
+    code: 0,
+    message: 'success',
+    data: arr
+  }
+  return [200, response]
+}
+
+export const getRoleList = () => {
+  const response = {
+    code: 0,
+    message: 'success',
+    data: roles
   }
   return [200, response]
 }
