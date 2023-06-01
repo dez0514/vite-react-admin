@@ -1,1 +1,0 @@
-import{u as o,j as t}from"./index-37781033.js";import{T as r}from"./typingCard-df76f534.js";import{P as n}from"./page-62d8c030.js";function c(){const{formatMessage:s}=o(),e=s({id:"permission.intro"}),i=s({id:"permission.page"});return t.jsx(n,{className:"PermissionTest",children:t.jsx(r,{title:`admin ${i}`,source:e})})}export{c as default};
