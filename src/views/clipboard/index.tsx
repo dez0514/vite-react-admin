@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd'
+import { Button, Space, Input } from 'antd'
 import { CopyOutlined } from "@ant-design/icons"
 import PageWrap from '@/components/page'
 import clip from "@/utils/clipboard"; 
@@ -12,6 +12,7 @@ function Clipboard() {
     <PageWrap className="Clipboard">
       <div>
         <div className='tw-mb-[20px]'>点击下方的Copy按钮，可将以下文字复制到剪贴板</div>
+        <div className='tw-mb-[20px]'>{ text }</div>
         <Space>
           <Button
             type="primary"
@@ -23,6 +24,7 @@ function Clipboard() {
             Copy
           </Button>
         </Space>
+        <Input.TextArea className='tw-mt-[20px]' placeholder='粘贴验证' autoSize={{ minRows: 6, maxRows: 10 }} allowClear />
       </div>
     </PageWrap>
   )

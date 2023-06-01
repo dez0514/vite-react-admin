@@ -11,6 +11,14 @@ export const flatRouteTree = (routes: any[], fullPath: string | null = null) => 
   }, []);
 }
 
+// 数组交换位置, 返回新数组
+export const swapIndices = (list: any, startIndex: any, endIndex: any) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result
+}
+
 // 下载文件流，使用file-save也行
 export const download = (data: Blob, file: string = '') => {
   // res 为接口返回的信息。 res.data: blob信息, res.request.getResponseHeader 里能获取到文件名
