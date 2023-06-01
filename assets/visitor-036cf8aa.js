@@ -1,1 +1,0 @@
-import{j as t}from"./index-bd943433.js";import{T as i}from"./typingCard-165752e4.js";import{P as s}from"./page-b69f8480.js";function n(){const r="这个页面只有admin和visitor角色才可以访问，editor角色看不到";return t.jsx(s,{className:"VisitorTest",children:t.jsx(i,{title:"visitor页面",source:r})})}export{n as default};
