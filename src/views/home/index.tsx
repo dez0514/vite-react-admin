@@ -1,99 +1,69 @@
-import { Button, Space } from 'antd'
-import { useNavigate } from "react-router-dom";
-import styles from './index.module.scss'
-import { useState, useEffect } from 'react'
-import CustomColorPicker from '@/components/colorPicker'
-import { useSelector, shallowEqual } from 'react-redux'
-import { GlobalConfigState } from '@/types/reducer';
-import MyCard from './components/card/card';
+import PageWrap from '@/components/page'
+import MyCard from './components/card';
+import { TagOutlined, DeploymentUnitOutlined, SlackOutlined, RadarChartOutlined } from '@ant-design/icons'
 
 function Home() {
-  const navigate = useNavigate();
-  const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
-  // const [msg, setMsg] = useState('')
-  const [color, setColor] = useState('#167fff')
-  const colorChange = (val:any) => {
-    console.log('cur color===', val)
-    setColor(val)
-  }
-  const gorouter = () => {
-    navigate(`/pics`)
-  }
   const cardList = [
     {
-      id : 1,
-      end : 6666,
-      duration : 3,
-      title : 'Order',
-      icon : 'yu-icon-lifangti',
-      badge : '+56%',
-      info : 'From previous period',
-      prefix : '￥'
+      id: 1,
+      end: 6666,
+      duration: 3,
+      title: 'Order',
+      icon: <DeploymentUnitOutlined />,
+      badge: '+56%',
+      badgeBg: '#29bbe3',
+      info: 'From previous period',
+      prefix: '￥'
     },
     {
-      id : 2,
-      end : 95270,
-      duration : 3,
-      prefix : '￥',
-      title : 'Income',
-      icon : 'yu-icon-chanpin1',
-      badge : '+78%',
-      info : 'From previous period'
+      id: 2,
+      end: 95270,
+      duration: 3,
+      prefix: '￥',
+      title: 'Income',
+      icon: <RadarChartOutlined />,
+      badge: '+78%',
+      badgeBg: '#f5b225',
+      info: 'From previous period'
     },
     {
-      id : 3,
-      end : 666,
-      duration : 3,
-      prefix : '￥',
-      title : 'Average Price',
-      icon : 'yu-icon-jiagebiaoqian',
-      badge : '-5.2%',
-      info : 'From previous period'
+      id: 3,
+      end: 666,
+      duration: 3,
+      prefix: '￥',
+      title: 'Average Price',
+      icon: <TagOutlined />,
+      badge: '-5.2%',
+      badgeBg: '#ec536c',
+      info: 'From previous period'
     },
     {
-      id : 4,
-      end : 9527,
-      duration : 3,
-      title : 'Product Sold',
-      icon : 'yu-icon-icon_xinyong_xianxing_jijin-129',
-      badge : '+22%',
-      prefix : '￥',
-      info : 'From previous period'
+      id: 4,
+      end: 9527,
+      duration: 3,
+      title: 'Product Sold',
+      icon: <SlackOutlined />,
+      badge: '+22%',
+      badgeBg: '#29bbe3',
+      prefix: '￥',
+      info: 'From previous period'
     }
   ]
-  // useEffect(() => {
-  //   const source = new EventSource('http://localhost:3000/article');
-  //   let str = ''
-  //   source.onmessage = function (e) {
-  //     if (e.data === 'end') {
-  //       source.close()
-  //     }
-  //     str += e.data
-  //     setMsg(str)
-  //   }
-  //   return () => {
-  //     source.close()
-  //   }
-  // }, [])
+
   return (
-    <div className="Home">
-      <div>
-        <div className={styles.title}>{userinfo.name}</div>
-        <Space>
-          <Button type="primary" onClick={gorouter}>Home</Button>
-        </Space>
+    <PageWrap>
+      <div className='tw-flex'>
         {
-          cardList.map((item: any, index: number) => {
-            const { end, duration, title, prefix, badge, info } = item
+          cardList.map((item: any) => {
             return (
-              <MyCard key={index} start={0} end={end} prefix={prefix} info={info} badge={badge} title={title} duration={duration} />
+              <div className='tw-flex-1 tw-mr-[10px] last:tw-mr-0' key={item.id}>
+                <MyCard {...item} />
+              </div>
             )
           })
         }
-        {/* <div className='tw-bg-orange-400 tw-text-green-700'>{msg}</div> */}
-        <CustomColorPicker hexval={color} onChange={colorChange} />
       </div>
-    </div>
+    </PageWrap>
   )
 }
 
