@@ -53,6 +53,7 @@
     "sass": "^1.59.3",
     "screenfull": "^6.0.2",
     "styled-components": "^5.3.9",
+    "use-count-up": "^3.0.1",
     "uuid": "^9.0.0",
     "vite-plugin-imp": "^2.3.1"
   },
