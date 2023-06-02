@@ -1,3 +1,4 @@
+
 // 扁平Routes
 export const flatRouteTree = (routes: any[], fullPath: string | null = null) => {
   return routes.reduce((prev: any, cur: any) => {
@@ -17,6 +18,16 @@ export const swapIndices = (list: any, startIndex: any, endIndex: any) => {
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result
+}
+
+export const debounce = (fn: Function, wait: number = 500) => {
+  let timeout: any = null
+  return function () {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      fn(...arguments)
+    }, wait)
+  }
 }
 
 // 下载文件流，使用file-save也行

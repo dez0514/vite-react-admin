@@ -10,7 +10,7 @@ interface TypeCard {
   icon?: ReactNode | undefined
   badge?: string | undefined
   badgeBg: string
-  info?: string | undefined
+  info: string
 }
 function MyCard({ start, end, duration, title, prefix, icon, badge, info, badgeBg }: TypeCard) {
   const { value } = useCountUp({ isCounting: true, start, end, duration })
@@ -23,7 +23,7 @@ function MyCard({ start, end, duration, title, prefix, icon, badge, info, badgeB
           <div className='tw-mb-[24px] tw-h-[28px] tw-leading-[28px]'>{prefix || ''}{value}</div>
           <div className='tw-flex tw-items-center'>
             { badge && <Tag className='tw-mr-[10px]' color={badgeBg}>{ badge }</Tag> }
-            { info && <div>{ info }</div>}
+            { info && <div className='tw-leading-[22px]'>{ info }</div>}
           </div>
         </div>
       </div>

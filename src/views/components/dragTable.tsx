@@ -44,7 +44,7 @@ function DragTable() {
                         <Draggable draggableId={item.id} index={index}  key={item.id}>
                           {(provided: any, snapshot: any) => (
                             <div
-                              className='tw-select-none tw-p-[16px] tw-mr-[8px]'
+                              className='tw-select-none tw-p-[16px] tw-mr-[8px] last:tw-mr-0'
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
@@ -77,7 +77,7 @@ function DragTable() {
                         <Draggable draggableId={item.id} index={index}  key={item.id}>
                           {(provided: any, snapshot: any) => (
                             <div
-                              className='tw-select-none tw-p-[16px] tw-mb-[8px]'
+                              className='tw-select-none tw-p-[16px] tw-mb-[8px] last:tw-mb-0'
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
