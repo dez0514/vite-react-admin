@@ -2,8 +2,9 @@
 import service from '@/utils/fetch';
 import MockAdapter from 'axios-mock-adapter';
 import { login, userInfo, getUserList, getRoleList, addUser, editUser, deleteUser, deleteRole, editRole, addRole } from './user'
+import { getOrderList } from './home'
 
-const mock = new MockAdapter(service, { delayResponse: 2000 });
+const mock = new MockAdapter(service, { delayResponse: 600 });
 
 // Mock.setup({
 //   timeout: "10000",
@@ -19,7 +20,7 @@ mock.onPost(/\/deleteUser/).reply(deleteUser);
 mock.onPost(/\/addRole/).reply(addRole);
 mock.onPost(/\/editRole/).reply(editRole);
 mock.onPost(/\/deleteRole/).reply(deleteRole);
-
+mock.onGet(/\/getOrderList/).reply(getOrderList);
 
 // Mock.mock(/\/login/, 'post', login)
 // Mock.mock(/\/userinfo/, 'get', userInfo)

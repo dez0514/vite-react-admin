@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PageWrap from '@/components/page'
 import MyCard from './components/card'
 import { TagOutlined, DeploymentUnitOutlined, SlackOutlined, RadarChartOutlined } from '@ant-design/icons'
@@ -7,74 +7,52 @@ import PieChart from './components/pieChart'
 import BarChart from './components/barChart'
 import LineChart from './components/lineChart'
 import BoxCard from './components/boxCard'
-import { Space, Table, Tag } from 'antd';
+import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { getOrderList } from '@/api/home'
+interface DataType {
+  key: string;
+  order_no: string;
+  price: string;
+  tag: string;
+}
 
 function Home() {
-  interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
+  const [ listData, setListData ] = useState<DataType[]>([])
+  const getList = () => {
+    getOrderList().then((res: any) => {
+      console.log('list===', res)
+      if(res.code === 0) {
+        const temp = res.data.map((item: any, index: number) => {
+          return {
+            ...item,
+            key: String(index)
+          }
+        })
+        setListData(temp)
+      }
+    })
   }
-  
+  useEffect(() => {
+    getList()
+  }, [])
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>,
+      title: 'Order_No',
+      dataIndex: 'order_no',
+      key: 'order_no'
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+      title: 'Tag',
+      key: 'tag',
+      dataIndex: 'tag',
+      render: (_, { tag }) => <Tag color={tag === 'success' ? 'success' : tag === 'pending' ? 'processing' : 'default'} key={tag}>{tag}</Tag>
     }
-  ];
-  
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
   ];
   const cardList = [
     {
@@ -170,10 +148,10 @@ function Home() {
         </div>
       </div>
       <div className='tw-flex tw-mt-[20px]'>
-        <div className='tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-[1.8] tw-mr-[20px] tw-bg-white'>
-          <Table columns={columns} dataSource={data} pagination={false} />
+        <div className='tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-[3] tw-mr-[20px] tw-bg-white tw-h-[fit-content]'>
+          <Table columns={columns} dataSource={listData} pagination={{ pageSize: 8 }} />
         </div>
-        <div className='tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-1 tw-bg-white'>
+        <div className='tw-overflow-hidden tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-1 tw-bg-white tw-h-[fit-content]'>
           <BoxCard />
         </div>
       </div>

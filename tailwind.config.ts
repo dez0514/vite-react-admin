@@ -13,7 +13,8 @@ export default {
       'hel': ['Helvetica Neue','Helvetica','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif']
     },
     boxShadow: {
-      card: '0 -3px 31px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.02)'
+      card: '0 -3px 31px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.02)',
+      thumb: '0 1px 3px rgba(0, 0, 0, 0.2)'
     }
   },
   plugins: [],
