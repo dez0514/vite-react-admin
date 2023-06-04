@@ -33,6 +33,7 @@ const TriggerBox = styled.div`
 1. 主题: light, dark。修改antd的预设算法。
 2. 换肤：修改antd的token里的变量颜色值。
 3. 使用theme provider 就不需要在 vite.config.ts 里配置按需引入antd的样式配置
+4. 自定义元素或者组件换肤色值不写死，去取antd 的 theme 里的颜色就行
 
 ## 国际化
 1. i18next react-i18next 参考：[https://www.i18next.com/overview/getting-started]

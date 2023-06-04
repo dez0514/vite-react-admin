@@ -126,7 +126,12 @@ function LayoutSider(props: {
       <Menu
         theme={theme}
         mode="inline"
-        style={{ borderInlineEnd: 'none' }}
+        style={{ 
+          borderInlineEnd: 'none',
+          overflow: 'hidden',
+          overflowY: 'auto',
+          height: `calc(100vh - ${ hideLogo ? 0 : CONFIG.headerHeight }px)`
+        }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
         items={formatMenu(mainRoute, userinfo.role)}

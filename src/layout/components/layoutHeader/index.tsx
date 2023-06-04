@@ -41,7 +41,7 @@ function LayoutHeader() {
       label: <FormattedMessage id={`${item.label}`} />
     }
   })
-  const { token: { colorBgContainer } } = theme.useToken();
+  const { token: { colorBgContainer, colorBorder, boxShadow } } = theme.useToken();
   const [ tags, setTags ] = useState<TagType[]>([homeTag])
   const handleTagClose = (closeTag: TagType) => {
     const temp = tags.filter(item => item.path !== closeTag.path)
@@ -52,7 +52,6 @@ function LayoutHeader() {
     setTags(temp)
   }
   useEffect(() => {
-    console.log('tags===', tags)
     if(location.pathname !== homeTag.path) {
       const inTags = tags.map(item => item.path).includes(location.pathname)
       if(!inTags) {
@@ -72,7 +71,7 @@ function LayoutHeader() {
 
   return (
     <>
-      <Header className='flex-between' style={{ ...style, background: colorBgContainer, boxShadow: '0 1px 4px rgba(0, 21, 41, 0.09)' }}>
+      <Header className='flex-between' style={{ ...style, background: colorBgContainer,borderBottom: `1px solid ${colorBorder}`, boxShadow: boxShadow }}>
         <div className="header-lf flex-center">
           <Space>
             <SiderTrigger />
@@ -92,8 +91,8 @@ function LayoutHeader() {
           <div
             style={{
               background: colorBgContainer,
-              borderBottom: '1px solid #d8dce5',
-              boxShadow: '0 1px 3px 0 rgba(0,0,0,.12), 0 0 3px 0 rgba(0,0,0,.04)'
+              borderBottom: `1px solid ${colorBorder}`,
+              boxShadow: boxShadow
             }}
           >
             <TagsView tags={tags} onClose={handleTagClose} />

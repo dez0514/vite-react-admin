@@ -6,7 +6,7 @@ import Hue from '@uiw/react-color-hue';
 import Swatch from '@uiw/react-color-swatch';
 import { hsvaToHex, hexToHsva, validHex } from '@uiw/color-convert';
 import { presetColors } from '@/config'
-import { Button, Popover } from 'antd'
+import { Button, Popover, theme } from 'antd'
 import styled from 'styled-components'
 const TriggerBox = styled.span`
   display: inline-block;
@@ -16,7 +16,7 @@ const TriggerBox = styled.span`
   height: 22px;
   cursor: pointer;
   border-radius: 2px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid ${props => props.color};
   background-color: transparent;
   overflow: hidden;
 `
@@ -31,9 +31,9 @@ const TriggerSpan = styled.span`
 `
 // 此处是使用react-color的小组件拼装成自己定制的CustomColorPicker
 // 也可使用react-color默认的
-// todo: 主题没同步
 // 番外：antd 最新版 加了 ColorPicker ... 我giao...
 function CustomColorPicker({ hexval, onChange, popoverStyle={} }: { hexval: any, onChange: Function, popoverStyle?: CSSProperties }) {
+  const { token: { colorBorder } } = theme.useToken();
   const [visible, setVisible] = useState(false)
   const hexColor = hexval || '#ffffff'
   const hsvaColor = hexToHsva(hexColor)
@@ -124,7 +124,7 @@ function CustomColorPicker({ hexval, onChange, popoverStyle={} }: { hexval: any,
       overlayStyle={{ ...popoverStyle }}
       onOpenChange={handleVisibleChange}
     >
-      <TriggerBox>
+      <TriggerBox color={colorBorder}>
         <TriggerSpan color={hexColor}></TriggerSpan>
       </TriggerBox>
     </Popover>
