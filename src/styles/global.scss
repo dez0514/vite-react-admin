@@ -17,9 +17,6 @@
 
 .custom_btn_hover:hover {
   background: var(--hover-bgcolor);
-  [data-theme="dark"] & {
-    background: var(--dark-hover-bgcolor);
-  }
 }
 
 // 滚动条

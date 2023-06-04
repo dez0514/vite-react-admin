@@ -1,5 +1,5 @@
 import screenfull from 'screenfull'
-import { message } from 'antd'
+import { message, theme } from 'antd'
 import { useEffect, useState } from 'react'
 import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons'
 import { CONFIG } from '@/config'
@@ -13,6 +13,8 @@ const style = {
 
 function Fullscreen() {
   const [fullScreen, setFullScreen] = useState<boolean>(screenfull.isFullscreen)
+  const { token: { colorBgTextHover } } = theme.useToken();
+  
   useEffect(() => {
     screenfull.on('change', () => {
       if (screenfull.isFullscreen) setFullScreen(true)
@@ -25,7 +27,7 @@ function Fullscreen() {
     screenfull.toggle()
   }
   return (
-    <div id='fullscreen' className="FullScreen custom_btn_hover" style={{...style}} onClick={handleFullScreen}>
+    <div id='fullscreen' className={`FullScreen hover:tw-bg-[${colorBgTextHover}]`} style={{ ...style}} onClick={handleFullScreen}>
       {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
     </div>
   )

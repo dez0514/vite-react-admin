@@ -42,6 +42,7 @@ function LayoutHeader() {
     }
   })
   const { token: { colorBgContainer, colorBorder, boxShadow } } = theme.useToken();
+  const p = theme.useToken();
   const [ tags, setTags ] = useState<TagType[]>([homeTag])
   const handleTagClose = (closeTag: TagType) => {
     const temp = tags.filter(item => item.path !== closeTag.path)
@@ -52,6 +53,7 @@ function LayoutHeader() {
     setTags(temp)
   }
   useEffect(() => {
+    console.log('pppp===', p)
     if(location.pathname !== homeTag.path) {
       const inTags = tags.map(item => item.path).includes(location.pathname)
       if(!inTags) {
