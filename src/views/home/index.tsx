@@ -23,7 +23,7 @@ function Home() {
     getOrderList().then((res: any) => {
       console.log('list===', res)
       if(res.code === 0) {
-        const temp = res.data.map((item: any, index: number) => {
+        const temp = res.data.slice(0, 9).map((item: any, index: number) => {
           return {
             ...item,
             key: String(index)
@@ -148,8 +148,8 @@ function Home() {
         </div>
       </div>
       <div className='tw-flex tw-mt-[20px]'>
-        <div className='tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-[3] tw-mr-[20px] tw-bg-white tw-h-[fit-content]'>
-          <Table columns={columns} dataSource={listData} pagination={{ pageSize: 8 }} />
+        <div className='tw-overflow-hidden tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-[3] tw-mr-[20px] tw-bg-white tw-h-[fit-content]'>
+          <Table columns={columns} dataSource={listData} pagination={false} />
         </div>
         <div className='tw-overflow-hidden tw-box-border tw-rounded-[8px] tw-shadow-card tw-flex-1 tw-bg-white tw-h-[fit-content]'>
           <BoxCard />

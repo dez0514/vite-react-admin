@@ -46,6 +46,16 @@ const pathnameToSelectedKeys = (pathname: string) => {
   }
 }
 
+const isURL = (str: string) => {
+  const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(str);
+}
+
 function LayoutSider(props: {
   style?: CSSProperties
 }) {
@@ -120,9 +130,13 @@ function LayoutSider(props: {
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
         items={formatMenu(mainRoute, userinfo.role)}
-        onSelect={(menu) => {
-          const path = formatPath(menu.keyPath)
-          navigate(path)
+        onSelect={({ keyPath, key }) => {
+          if(!isURL(key)) {
+            const path = formatPath(keyPath)
+            navigate(path)
+          } else {
+            window.open(key)
+          }
         }}
         onOpenChange={(openKeys) => {
           setMenuOpen(openKeys)

@@ -1,4 +1,4 @@
-import { HomeOutlined, CopyOutlined, TeamOutlined, LockOutlined, ProfileOutlined, RiseOutlined, AppstoreOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
+import { HomeOutlined, CopyOutlined, TeamOutlined, LockOutlined, ProfileOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate } from "react-router-dom"
@@ -17,9 +17,6 @@ const UserManage = lazy(() => import('@/views/userManage'))
 const DragTable = lazy(() => import('@/views/components/dragTable'))
 const DragTable2 = lazy(() => import('@/views/components/dragTable2'))
 const DragTable3 = lazy(() => import('@/views/components/dragTable3'))
-
-const Test1 = lazy(() => import('@/views/error/test1'))
-const Test2 = lazy(() => import('@/views/error/test2'))
 
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
@@ -129,26 +126,10 @@ export const mainRoute: RouterType[] = [
     roles: ['admin', 'editor']
   },
   {
-    path: "else",
-    label: 'menu.else',
-    element: <Outlet />,
-    icon: <ToolOutlined />,
-    children: [
-      {
-        path: "test1",
-        label: 'menu.test1',
-        icon: <HomeOutlined />,
-        element: formatSuspense(<Test1 />),
-        roles: ['admin', 'editor']
-      },
-      {
-        path: "test2",
-        label: 'menu.test2',
-        icon: <HomeOutlined />,
-        element: formatSuspense(<Test2 />),
-        roles: ['admin', 'editor']
-      },
-    ]
+    path: "https://github.com/dez0514/react-admin",
+    label: 'menu.outlink',
+    icon: <LinkOutlined />,
+    roles: ['admin', 'editor', 'visitor']
   },
   {
     path: "404",

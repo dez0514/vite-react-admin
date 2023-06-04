@@ -26,6 +26,13 @@ function UserAvatar() {
   const userDropMenu: MenuProps['items'] = [
     {
       key: '1',
+      label: <a target='_blank' href="https://github.com/dez0514/react-admin">项目地址</a>
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
       icon: <PoweroffOutlined />,
       label: <Typography.Text onClick={handleLogout}>退出登录</Typography.Text>
     }
