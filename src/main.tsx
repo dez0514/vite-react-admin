@@ -4,7 +4,6 @@ import store from '@/reducers/index' // 坑：最好在 App 之前引入
 import App from './App'
 import 'normalize.css'
 import '@/styles/reset.scss'
-import '@/styles/variable.scss'
 import '@/styles/global.scss'
 import '@/styles/tailwind.css'
 import 'driver.js/dist/driver.min.css'; // guide

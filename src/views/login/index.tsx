@@ -52,7 +52,7 @@ export default function Login() {
     navigate('/')
   }
   return (
-    <div className='flex-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
+    <div className='tw-flex tw-justify-center tw-items-center' style={{ backgroundColor: colorPrimaryBg, color: 'currentcolor', height: '100vh' }}>
       { isAuth && <Navigate to="/" /> }
       <RightCorner>
         <Typography.Text>

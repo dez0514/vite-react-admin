@@ -1,4 +1,5 @@
-import {  Dropdown } from 'antd';
+import { useMemo } from 'react'
+import {  Dropdown, theme } from 'antd';
 import type { MenuProps } from 'antd'
 import { CONFIG } from '@/config'
 import { updateConfig } from '@/actions';
@@ -18,6 +19,10 @@ const style = {
 }
 
 function SwitchLanguage({ showHover = true }: { showHover?: Boolean }) {
+  const { token: { colorBgTextHover } } = theme.useToken();
+  const hoverColor = useMemo(() => { // tailwindcss rgba 不能带空格，去掉空格
+    return colorBgTextHover.replace(/\s+/g, '')
+  }, [colorBgTextHover])
   const dispatch = useDispatch()
   const { language } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const handleSelect = (val: any) => {
@@ -46,7 +51,7 @@ function SwitchLanguage({ showHover = true }: { showHover?: Boolean }) {
         }
         trigger={['click']}
       >
-        <div className={showHover ? 'custom_btn_hover' : ''} style={{...style}}>
+        <div className={showHover ? `hover:tw-bg-[${hoverColor}]` : ''} style={{...style}}>
           <IconLang />
         </div>
       </Dropdown>

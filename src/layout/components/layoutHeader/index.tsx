@@ -42,7 +42,6 @@ function LayoutHeader() {
     }
   })
   const { token: { colorBgContainer, colorBorder, boxShadow } } = theme.useToken();
-  const p = theme.useToken();
   const [ tags, setTags ] = useState<TagType[]>([homeTag])
   const handleTagClose = (closeTag: TagType) => {
     const temp = tags.filter(item => item.path !== closeTag.path)
@@ -53,7 +52,6 @@ function LayoutHeader() {
     setTags(temp)
   }
   useEffect(() => {
-    console.log('pppp===', p)
     if(location.pathname !== homeTag.path) {
       const inTags = tags.map(item => item.path).includes(location.pathname)
       if(!inTags) {
@@ -73,14 +71,14 @@ function LayoutHeader() {
 
   return (
     <>
-      <Header className='flex-between' style={{ ...style, background: colorBgContainer,borderBottom: `1px solid ${colorBorder}`, boxShadow: boxShadow }}>
-        <div className="header-lf flex-center">
+      <Header className='tw-flex tw-justify-between tw-items-center' style={{ ...style, background: colorBgContainer,borderBottom: `1px solid ${colorBorder}`, boxShadow: boxShadow }}>
+        <div className="header-lf tw-flex tw-justify-center tw-items-center">
           <Space>
             <SiderTrigger />
             <Breadcrumb />
           </Space>
         </div>
-        <div className="header-rt flex-center">
+        <div className="header-rt tw-flex tw-justify-center tw-items-center">
           <Fullscreen />
           <SwitchLanguage />
           <UserAvatar />
@@ -94,7 +92,7 @@ function LayoutHeader() {
             style={{
               background: colorBgContainer,
               borderBottom: `1px solid ${colorBorder}`,
-              boxShadow: boxShadow
+              boxShadow: 'rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px'
             }}
           >
             <TagsView tags={tags} onClose={handleTagClose} />

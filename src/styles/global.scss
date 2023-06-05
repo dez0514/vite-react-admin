@@ -1,24 +1,3 @@
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.custom_btn_hover:hover {
-  background: var(--hover-bgcolor);
-}
-
 // 滚动条
 ::-webkit-scrollbar {
   width: 7px;

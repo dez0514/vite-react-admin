@@ -26,7 +26,8 @@ const TriggerBox = styled.div`
  <div className={classNames('a', 'b', { 'c': true })}></div>
 ```
 4. 内联style
-5. tailwindCss库
+5. tailwindCss库: 注意！！！关于 rgba 的类名，rgba之间不能带空格，否则无效。
+例如： 使用: `bg-[rgba(0,0,0,.6)]`，不要使用: `bg-[rgba(0, 0, 0, .6)]`，空格会导致类名无效。
 
 ## antd组件换主题， 换肤。
 参考官网：[研发 -> 定制主题](https://ant.design/docs/react/customize-theme-cn)
