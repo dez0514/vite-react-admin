@@ -5,7 +5,7 @@ export default {
     './src/**/*.{ts,tsx,jsx,js}'
   ],
   corePlugins: {
-    preflight: false // 不使用 tailwindcss 的 默认基础样式
+    preflight: false // 不使用 tailwindcss 的 默认基础样式, 会影响antd基础样式
   },
   theme: {
     extend: {},
@@ -14,7 +14,8 @@ export default {
     },
     boxShadow: {
       card: '0 -3px 31px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.02)',
-      thumb: '0 1px 3px rgba(0, 0, 0, 0.2)'
+      thumb: '0 1px 3px rgba(0, 0, 0, 0.2)',
+      setnav: '0px 1px 4px #d3d3d3'
     }
   },
   plugins: [],

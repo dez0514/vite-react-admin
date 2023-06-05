@@ -8,6 +8,7 @@ import { GlobalConfigState } from '@/types/reducer'
 import { ThemeType } from '@/types'
 import { FormattedMessage } from "react-intl";
 import { Typography, Switch } from 'antd'
+import NavTypeBox from './navTypeBox'
 
 function Setting () {
   const dispatch = useDispatch()
@@ -66,6 +67,18 @@ function Setting () {
         </div>
         <div>
           <Switch checked={!hideTagsView} onChange={(value: boolean) => handleChangeTagsViewShow(value)}/>
+        </div>
+      </div>
+      <div>
+        <div>
+          <Typography.Text>
+            导航模式
+          </Typography.Text>
+        </div>
+        <div className='tw-flex tw-flex-row-reverse tw-items-center tw-mt-[10px]'>
+          <NavTypeBox />
+          <NavTypeBox style={{ marginRight: '10px' }} />
+          <NavTypeBox style={{ marginRight: '10px' }} />
         </div>
       </div>
     </div>
