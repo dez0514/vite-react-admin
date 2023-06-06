@@ -3,7 +3,7 @@ import { UPDATE_CONFIG } from '@/actions/actionTypes'
 import { CONFIG } from '@/config'
 import { StorageKeys } from '@/types/enum'
 import { TypeLang, ThemeType, TypeNav } from '@/types'
-
+// nofixedHeader: true 时指高度不固定在顶部，其实并不是真正的定位，是改变 layoutContent 的高度来控制滚动条区域
 export const initialConfigState: configState = {
   showGlobalLoading: false,
   openSettingDrawer: false,

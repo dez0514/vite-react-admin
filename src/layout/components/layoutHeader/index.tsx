@@ -6,6 +6,8 @@ import SwitchLanguage from '../switchLanguage'
 import UserAvatar from '../userAvatar'
 import SiderTrigger from '../siderTrigger/index'
 import SettingTrigger from '../setting/settingTriger'
+import LayoutSider from '../layoutSider';
+import Logo from '../logo';
 import Breadcrumb from '../breadCrumb'
 import { CONFIG } from '@/config'
 import TagsView from '../tagsView';
@@ -23,8 +25,8 @@ const style = {
   height: `${CONFIG.headerHeight}px`,
   lineHeight: `${CONFIG.headerHeight}px`,
 }
-function LayoutHeader() {
-  const { hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+function LayoutHeader({ hasSider = false, noLogo = false } : { hasSider?: boolean, noLogo?: boolean }) {
+  const { hideTagsView, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   const navigate = useNavigate()
   const location = useLocation()
@@ -71,14 +73,23 @@ function LayoutHeader() {
 
   return (
     <>
-      <Header className='tw-flex tw-justify-between tw-items-center' style={{ ...style, background: colorBgContainer,borderBottom: `1px solid ${colorBorder}`, boxShadow: boxShadow }}>
-        <div className="header-lf tw-flex tw-justify-center tw-items-center">
-          <Space>
-            <SiderTrigger />
-            <Breadcrumb />
-          </Space>
-        </div>
-        <div className="header-rt tw-flex tw-justify-center tw-items-center">
+      <Header className='tw-overflow-hidden tw-w-[100%] tw-flex tw-justify-between tw-items-center' style={{ ...style, background: colorBgContainer,borderBottom: `1px solid ${colorBorder}`, boxShadow: boxShadow }}>
+        {
+          !hasSider && (<div className="header-lf tw-flex tw-justify-center tw-items-center tw-flex-shrink-0">
+            <Space>
+              { !hideLogo && !noLogo && <Logo style={{ width: `${CONFIG.siderWidth}px` }} /> }
+              <SiderTrigger />
+              <Breadcrumb />
+            </Space>
+          </div>)
+        }
+        { hasSider && !hideLogo && !noLogo && <Logo /> }
+        {
+          hasSider && (<div className='tw-overflow-hidden tw-flex-1'>
+            <LayoutSider mode={'horizontal'} noLogo={true} />
+          </div>)
+        }
+        <div className="header-rt tw-flex tw-justify-center tw-items-center tw-flex-shrink-0">
           <Fullscreen />
           <SwitchLanguage />
           <UserAvatar />

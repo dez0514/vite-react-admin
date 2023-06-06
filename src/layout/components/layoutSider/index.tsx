@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Layout as AntdLayOut, Menu } from 'antd';
-import { RouterType } from '@/types'
+import { RouterType, MenuModeType } from '@/types'
 import { mainRoute } from "@/router/main"
 import Logo from '../logo'
 import { shallowEqual, useSelector } from "react-redux";
@@ -55,13 +55,16 @@ const isURL = (str: string) => {
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
   return pattern.test(str);
 }
-
-function LayoutSider(props: {
-  style?: CSSProperties
-}) {
+interface Props {
+  style?: CSSProperties,
+  mode?: MenuModeType,
+  noLogo?: boolean,
+  subtractTagsHeight?: boolean // 减掉 tagsview 的高度
+}
+function LayoutSider({ style = {}, mode = 'inline', noLogo = false, subtractTagsHeight = false } : Props) {
   const location = useLocation()
   const navigate = useNavigate()
-  const { theme, siderCollapse, hideLogo } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, siderCollapse, hideLogo, hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const { userinfo } = useSelector((state: GlobalConfigState) => state.userReducer, shallowEqual)
   const [memoSubKeys, setMemoSubKeys] = useState<string[]>([]);
   const [memoSelectedKeys, setMemoSelectedKeys] = useState<string[]>([]);
@@ -111,26 +114,18 @@ function LayoutSider(props: {
   useEffect(() => {
     setMenuActive()
   }, [location])
-
-  return (
-    <Sider
-      trigger={null}
-      collapsible
-      theme={theme}
-      collapsed={siderCollapse}
-      onCollapse={(value) => changeCollaps(value)}
-      style={{ ...props.style }}
-      width={CONFIG.siderWidth}
-    >
-      { !hideLogo && <Logo collapsed={siderCollapse} /> }
+  const initMenu = () => {
+    return (
       <Menu
         theme={theme}
-        mode="inline"
+        mode={mode}
         style={{ 
           borderInlineEnd: 'none',
           overflow: 'hidden',
-          overflowY: 'auto',
-          height: `calc(100vh - ${ hideLogo ? 0 : CONFIG.headerHeight }px)`
+          overflowY: mode === 'horizontal' ? 'hidden': 'auto',
+          height: mode === 'horizontal' ? `${CONFIG.headerHeight}px` : 
+          subtractTagsHeight ? `calc(100vh - ${ hideLogo ? 0 : CONFIG.headerHeight }px - ${ hideTagsView ? 0 : 41 }px)` :
+          `calc(100vh - ${ hideLogo ? 0 : CONFIG.headerHeight }px)`
         }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
@@ -147,6 +142,23 @@ function LayoutSider(props: {
           setMenuOpen(openKeys)
         }}
       />
+    )
+  }
+  if(mode === 'horizontal') {
+    return initMenu()
+  }
+  return (
+    <Sider
+      trigger={null}
+      collapsible
+      theme={theme}
+      collapsed={siderCollapse}
+      onCollapse={(value) => changeCollaps(value)}
+      style={{ ...style }}
+      width={CONFIG.siderWidth}
+    >
+      { !hideLogo && !noLogo && <Logo collapsed={siderCollapse} /> }
+      { initMenu() }
     </Sider>
   )
 }

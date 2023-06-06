@@ -16,18 +16,43 @@ function Dashboard() {
   useEffect(() => {
     console.log('isAuth===', isAuth)
   }, [isAuth])
-  const { openSettingDrawer } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
-  const dispatch = useDispatch() 
+  const { openSettingDrawer, navType, nofixedHeader } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const dispatch = useDispatch()
+  const initLayout = () => {
+    if(navType === 't') {
+      return (
+        <Layout hasSider={false}>
+          <LayoutHeader hasSider={true} />
+          <LayoutContent nofixheader={!!nofixedHeader} />
+        </Layout>
+      )
+    } else if(navType === 'tl') {
+      // 此布局 header 只能固定
+      return (
+        <Layout hasSider={false}>
+          <LayoutHeader />
+          <Layout hasSider={true}>
+            <LayoutSider noLogo={true} subtractTagsHeight={true} />
+            <LayoutContent nofixheader={false} />
+          </Layout>
+        </Layout>
+      )
+    }
+    return (
+      <Layout hasSider={true}>
+        {/* header 不固定时 避免sider跟着滚动，让它 sticky */}
+        <LayoutSider style={ nofixedHeader ? { maxHeight: '100vh',position: 'sticky', top: '0' } : {}}/>
+        <Layout>
+          <LayoutHeader noLogo={true} />
+          <LayoutContent nofixheader={!!nofixedHeader} />
+        </Layout>
+      </Layout>
+    )
+  }
   return (
     <Fragment>
       { !isAuth && <Navigate to="/login" /> }
-      <Layout hasSider={true}>
-        <LayoutSider/>
-        <Layout>
-          <LayoutHeader />
-          <LayoutContent />
-        </Layout>
-      </Layout>
+      { initLayout() }
       <Drawer
         title={ <FormattedMessage id="layout.setting" /> }
         placement='right'

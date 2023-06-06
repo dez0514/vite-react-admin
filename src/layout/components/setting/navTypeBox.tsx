@@ -8,7 +8,7 @@ function NavTypeBox({ style = {} }: { style?: CSSProperties }) {
   const dispatch = useDispatch()
   const { navType } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const handleClick = (type: TypeNav) => {
-    dispatch(updateConfig({ navType: type }))
+    dispatch(updateConfig({ navType: type, openSettingDrawer: false }))
   }
   return (
     <div className="tw-flex tw-items-center tw-select-none" style={{...style}}>

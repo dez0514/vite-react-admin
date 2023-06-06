@@ -6,6 +6,7 @@ export type ThemeType = 'light' | 'dark'
 export type TypeLang = 'en' | 'zh'
 // 布局方式 左-右上,上-下左,上-下
 export type TypeNav = 'lt' | 'tl' | 't'
+export type MenuModeType = 'horizontal' | 'vertical' | 'inline'
 
 export interface ContextProps {
   children?: ReactNode

@@ -12,7 +12,7 @@ import NavTypeBox from './navTypeBox'
 
 function Setting () {
   const dispatch = useDispatch()
-  const { theme, primaryColor, hideLogo, hideTagsView, nofixedHeader } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, primaryColor, hideLogo, hideTagsView, nofixedHeader, navType } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const curColor = useMemo(() => {
     return primaryColor || CONFIG[theme as ThemeType]?.colorPrimary
   }, [theme, primaryColor])
@@ -62,7 +62,8 @@ function Setting () {
           <Switch checked={!hideLogo} onChange={(value: boolean) => handleChangeLogoShow(value)}/>
         </div>
       </div>
-      <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
+      {/* 上-下左 布局只能固定头 */}
+      { navType !== 'tl' && <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
         <div>
           <Typography.Text>
             <FormattedMessage id="layout.setting.fixedheader" />
@@ -71,7 +72,7 @@ function Setting () {
         <div>
           <Switch checked={!nofixedHeader} onChange={(value: boolean) => handleChangeFixHeader(value)}/>
         </div>
-      </div>
+      </div>}
       <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
         <div>
           <Typography.Text>
