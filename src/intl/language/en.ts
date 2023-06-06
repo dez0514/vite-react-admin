@@ -24,6 +24,8 @@ export default {
   'layout.setting.themeColor': 'theme color',
   'layout.setting.isshowlogo': 'show Logo',
   'layout.setting.isshowtagsview': 'show TagsView',
+  'layout.setting.navtype': 'navigation Type',
+  'layout.setting.fixedheader': 'fixed Header',
   // login
   'login.loginBtn': 'Login',
   'login.loginBtn.loading': 'Login Data...',

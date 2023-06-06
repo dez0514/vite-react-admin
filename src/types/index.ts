@@ -4,6 +4,8 @@ import { LoaderFunction } from 'react-router-dom'
 
 export type ThemeType = 'light' | 'dark'
 export type TypeLang = 'en' | 'zh'
+// 布局方式 左-右上,上-下左,上-下
+export type TypeNav = 'lt' | 'tl' | 't'
 
 export interface ContextProps {
   children?: ReactNode
@@ -22,6 +24,8 @@ export type UserType = {
 }
 
 export type ConfigData = {
+  nofixedHeader: boolean
+  navType: TypeNav
   hideLogo: boolean
   hideTagsView: boolean
   headerHeight: number

@@ -24,6 +24,8 @@ export default {
   'layout.setting.themeColor': '主题颜色',
   'layout.setting.isshowlogo': '是否显示Logo',
   'layout.setting.isshowtagsview': '是否显示TagsView',
+  'layout.setting.navtype': '导航模式',
+  'layout.setting.fixedheader': '固定Header',
   // login
   'login.loginBtn': '登录',
   'login.loginBtn.loading': '正在登录',

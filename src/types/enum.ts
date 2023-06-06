@@ -6,5 +6,7 @@ export enum StorageKeys {
   PRIMARY_COLOR = "primaryColor",
   menuOpenkeys = "menuOpenkeys",
   HIDELOGO = "hideLogo",
-  HIDETAGSVIEW = "hideTagsView"
+  HIDETAGSVIEW = "hideTagsView",
+  NAVTYPE = "navType",
+  NOFIXEDHEADER = 'header_not_fixed'
 }

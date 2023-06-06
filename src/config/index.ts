@@ -2,6 +2,8 @@ import { ConfigData } from "../types"
 
 // 初始默认值
 export const CONFIG: ConfigData = {
+  nofixedHeader: false,
+  navType: 'lt',
   hideLogo: false,
   hideTagsView: false,
   headerHeight: 48,

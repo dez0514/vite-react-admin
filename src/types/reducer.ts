@@ -1,6 +1,8 @@
-import { TypeLang, ThemeType } from './index'
+import { TypeLang, ThemeType, TypeNav } from './index'
 
 export type configState = {
+  nofixedHeader?: boolean
+  navType?: TypeNav
   showGlobalLoading?: boolean 
   openSettingDrawer?: boolean
   siderCollapse?: boolean

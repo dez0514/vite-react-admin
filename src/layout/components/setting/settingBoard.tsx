@@ -12,7 +12,7 @@ import NavTypeBox from './navTypeBox'
 
 function Setting () {
   const dispatch = useDispatch()
-  const { theme, primaryColor, hideLogo, hideTagsView } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
+  const { theme, primaryColor, hideLogo, hideTagsView, nofixedHeader } = useSelector((state: GlobalConfigState) => state.globalConfig, shallowEqual)
   const curColor = useMemo(() => {
     return primaryColor || CONFIG[theme as ThemeType]?.colorPrimary
   }, [theme, primaryColor])
@@ -23,6 +23,9 @@ function Setting () {
   }
   const handleChangeLogoShow = (val: boolean) => {
     dispatch(updateConfig({ hideLogo: !val }))
+  }
+  const handleChangeFixHeader = (val: boolean) => {
+    dispatch(updateConfig({ nofixedHeader: !val }))
   }
   const handleChangeTagsViewShow = (val: boolean) => {
     dispatch(updateConfig({ hideTagsView: !val }))
@@ -62,6 +65,16 @@ function Setting () {
       <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
         <div>
           <Typography.Text>
+            <FormattedMessage id="layout.setting.fixedheader" />
+          </Typography.Text>
+        </div>
+        <div>
+          <Switch checked={!nofixedHeader} onChange={(value: boolean) => handleChangeFixHeader(value)}/>
+        </div>
+      </div>
+      <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
+        <div>
+          <Typography.Text>
             <FormattedMessage id="layout.setting.isshowtagsview" />
           </Typography.Text>
         </div>
@@ -69,17 +82,13 @@ function Setting () {
           <Switch checked={!hideTagsView} onChange={(value: boolean) => handleChangeTagsViewShow(value)}/>
         </div>
       </div>
-      <div>
+      <div className='tw-flex tw-justify-between tw-mb-2'>
         <div>
           <Typography.Text>
-            导航模式
+            <FormattedMessage id="layout.setting.navtype" />
           </Typography.Text>
         </div>
-        <div className='tw-flex tw-flex-row-reverse tw-items-center tw-mt-[10px]'>
-          <NavTypeBox />
-          <NavTypeBox style={{ marginRight: '10px' }} />
-          <NavTypeBox style={{ marginRight: '10px' }} />
-        </div>
+        <NavTypeBox />
       </div>
     </div>
   )
