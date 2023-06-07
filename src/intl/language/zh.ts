@@ -18,6 +18,8 @@ export default {
   'menu.permissionTest.visitorPage': 'visitor页面',
   'menu.userManage': '用户管理',
   'menu.outlink': '外链',
+  'menu.excelexport': 'Excel导出',
+  'menu.zip': 'Zip',
   // layout
   'layout.setting': '系统布局配置',
   'layout.setting.themeType': '主题模式',

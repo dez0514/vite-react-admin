@@ -6,18 +6,7 @@ import styled from 'styled-components';
 import { GlobalConfigState } from '@/types/reducer'
 import { ReactComponent as IconSun } from '@/assets/icons/sun.svg';
 import { ReactComponent as IconMoon } from '@/assets/icons/moon.svg';
-
-const IconBox = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
+import IconBox from '@/components/IconBox'
 
 function SwitchTheme() {
   const dispatch = useDispatch()

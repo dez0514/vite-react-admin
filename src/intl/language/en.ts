@@ -18,6 +18,8 @@ export default {
   'menu.permissionTest.visitorPage': 'Visitor Page',
   'menu.userManage': 'User Manage',
   'menu.outlink': 'Outlink',
+  'menu.excelexport': 'Excel Export',
+  'menu.zip': 'Zip',
   // layout
   'layout.setting': 'system setting',
   'layout.setting.themeType': 'theme mode',

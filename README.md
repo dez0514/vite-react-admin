@@ -257,6 +257,40 @@ const dispatch = useDispatch()
 dispatch({ type: 'UPDATE_CONFIG', payload: { siderCollapse: true }})
 ```
 ### 自定义 hooks
+略
+
+### 自定义 svg icon
+这里没有使用 webpack 来生成 sprite
+React 与 Vue 略有区别，可以直接引入 svg 来使用。
+1. 在 vite.config 里配置 svgr
+```js
+import svgr from '@svgr/rollup';
+export default defineConfig({
+  plugins: [
+    ...,
+    svgr()
+  ]
+})
+```
+2. 然后使用时 直接使用，但是可能会有大小样式问题。
+```jsx
+import { ReactComponent as IcZip } from '@/assets/icons/zip.svg';
+// dom
+<IcZip />
+
+```
+3. 这里写个容器组件来放自定义icon，svg继承IconBox大小，IconBox 可添加 className 与 style
+```jsx
+import { ReactComponent as IcZip } from '@/assets/icons/zip.svg';
+import IconBox from '@/components/IconBox'
+// dom
+<IconBox>
+  <IcZip />
+</IconBox>
+
+```
+
+
 
 ### 注意： StrictMode严格模式，开发环境下 会执行两次useEffect：
 React.StrictMode 是 React 内置的一个组件，用于开启严格模式。其作用是增加一些运行时的额外检查，并在某些情况下执行额外的操作，例如在开发模式下会执行两次 useEffect。

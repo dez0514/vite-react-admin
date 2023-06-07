@@ -1,11 +1,16 @@
-import { HomeOutlined, CopyOutlined, TeamOutlined, LockOutlined, ProfileOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
+import { HomeOutlined, CopyOutlined, TeamOutlined, LockOutlined, ProfileOutlined,FileExcelOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate } from "react-router-dom"
 import Loading from '@/components/loading'
 import Home from '@/views/home'
+import { ReactComponent as IcZip } from '@/assets/icons/zip.svg';
+import IconBox from '@/components/IconBox'
+const IconZip = () => {
+  // 此处加个类名 ‘ant-menu-item-icon’， antd 的menu的图标后的标题有个左偏移的样式 是根据这个类名来的。
+  return (<IconBox className="ant-menu-item-icon"><IcZip /></IconBox>)
+}
 const NotFound = lazy(() => import('@/views/error/404'))
-
 const Clipboard = lazy(() => import('@/views/clipboard'))
 const Guide = lazy(() => import('@/views/guide'))
 const RoleManage = lazy(() => import('@/views/roleManage'))
@@ -16,7 +21,8 @@ const PermissionVisitor = lazy(() => import('@/views/permissionTest/visitor'))
 const UserManage = lazy(() => import('@/views/userManage'))
 const DragTable = lazy(() => import('@/views/componentsDemo/dragTable'))
 const DragTable2 = lazy(() => import('@/views/componentsDemo/dragTable2'))
-
+const ExcelExport = lazy(() => import('@/views/excel/export'))
+const Zip = lazy(() => import('@/views/zip'))
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
   return (
@@ -101,6 +107,20 @@ export const mainRoute: RouterType[] = [
     label: 'menu.clipboard',
     element: formatSuspense(<Clipboard />),
     icon: <CopyOutlined />,
+    roles: ['admin', 'editor']
+  },
+  {
+    path: "excelExport",
+    label: 'menu.excelexport',
+    element: formatSuspense(<ExcelExport />),
+    icon: <FileExcelOutlined />,
+    roles: ['admin', 'editor']
+  },
+  {
+    path: "zip",
+    label: 'menu.zip',
+    element: formatSuspense(<Zip />),
+    icon: <IconZip />,
     roles: ['admin', 'editor']
   },
   {
