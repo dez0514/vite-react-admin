@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { GlobalConfigState } from '@/types/reducer';
 import { updateUserinfo } from '@/reducers/userReducer'
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 interface DataType {
   id: string
   role: string
@@ -17,6 +19,8 @@ interface DataType {
 }
 
 function userManage() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.userManage' }))
   const [messageApi, contextHolder] = message.useMessage();
   const cardContent = `在这里，你可以对系统中的用户进行管理，例如添加一个新用户，或者修改系统中已经存在的用户。`
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)

@@ -19,7 +19,7 @@ const Circle = styled.span`
   height: 10px;
   margin-right: 5px;
   border-radius: 50%;
-  background: currentColor;
+  background: #ffffff;
 `
 
 type scrollVisibilityApiType = ContextType<typeof VisibilityContext>;
@@ -48,6 +48,7 @@ const TagsView = ({ tags, onClose }: { tags: any, onClose: Function }) => {
       apiObj.scrollPrev();
     }
   }
+  
   return (
     <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
       <ScrollMenu

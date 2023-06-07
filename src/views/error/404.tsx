@@ -1,7 +1,11 @@
 import { Button, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 
 function NotFound() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: '404' }))
   const navigate = useNavigate()
   const handleClick = () => {
     navigate('/')

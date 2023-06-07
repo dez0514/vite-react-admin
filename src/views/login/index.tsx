@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { loginReducerApi, userinfoReducerApi } from '@/reducers/userReducer'
 import { useState, useContext } from 'react'
 import { UserContext } from '@/userProvider'
+import { useTitle } from 'ahooks'
 
 
 const RightCorner = styled.div`
@@ -23,6 +24,7 @@ const RightCorner = styled.div`
 export default function Login() {
   const { isAuth } = useContext(UserContext)
   const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'login.loginBtn' }))
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [btnLoad, setBtnLoad] = useState<boolean>(false)

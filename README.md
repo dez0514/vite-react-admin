@@ -1,7 +1,7 @@
 ## 搭建基础结构
-1.vite + react + react-router + ts
-2.使用function组件 + hooks
-
+1. vite + react + react-router + redux + ts
+2. 使用function组件 + hooks
+3. ahooks [https://ahooks.gitee.io/zh-CN/hooks/use-request/index](https://ahooks.gitee.io/zh-CN/hooks/use-request/index)
 ## react 样式
 0. 安装`sass`。
 1. 使用Module Css。 文件名：`xxx.module.scss`。在 `vite-env.d.ts` 声明类型：`declare module '*.scss';`

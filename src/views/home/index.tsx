@@ -10,6 +10,8 @@ import BoxCard from './components/boxCard'
 import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { getOrderList } from '@/api/home'
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 interface DataType {
   key: string;
   order_no: string;
@@ -18,6 +20,8 @@ interface DataType {
 }
 
 function Home() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.home' }))
   const [ listData, setListData ] = useState<DataType[]>([])
   const getList = () => {
     getOrderList().then((res: any) => {

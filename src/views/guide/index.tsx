@@ -2,10 +2,12 @@ import { Button, Space } from 'antd'
 import { FormattedMessage, useIntl } from "react-intl";
 import { initDriver } from '@/config/driver';
 import TypingCard from '@/components/typingCard'
-import PageWrap from '@/components/page' 
+import PageWrap from '@/components/page'
+import { useTitle } from 'ahooks'
 
 function Guide() {
   const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.guide' }))
   const driver = initDriver(formatMessage)
   const handleClickGuide = () => {
     driver.start()

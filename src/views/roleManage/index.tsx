@@ -5,6 +5,8 @@ import type { ColumnsType } from 'antd/es/table';
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getRoleList } from '@/api/user'
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 interface DataType {
   id: string
   role: string
@@ -14,6 +16,8 @@ interface DataType {
 }
 
 function roleManage() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.roleManage' }))
   const [messageApi, contextHolder] = message.useMessage();
   const cardContent = `这里可以对系统中的角色进行管理，例如添加一个新角色分配需要的权限，或者修改系统中已经存在的角色，admin和visitor为基础角色不可删除。<br/>
   基本思路就是：角色与权限挂钩，通过角色来控制页面各处的访问权限，再给用户赋予角色。用户描述其实是指角色描述。<br/>

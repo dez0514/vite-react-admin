@@ -14,9 +14,8 @@ const PermissionAdmin = lazy(() => import('@/views/permissionTest/admin'))
 const PermissionEditor = lazy(() => import('@/views/permissionTest/editor'))
 const PermissionVisitor = lazy(() => import('@/views/permissionTest/visitor'))
 const UserManage = lazy(() => import('@/views/userManage'))
-const DragTable = lazy(() => import('@/views/components/dragTable'))
-const DragTable2 = lazy(() => import('@/views/components/dragTable2'))
-const DragTable3 = lazy(() => import('@/views/components/dragTable3'))
+const DragTable = lazy(() => import('@/views/componentsDemo/dragTable'))
+const DragTable2 = lazy(() => import('@/views/componentsDemo/dragTable2'))
 
 // 注：懒加载的路由必须使用 Suspense
 const formatSuspense = (comps: ReactNode) => {
@@ -57,13 +56,6 @@ export const mainRoute: RouterType[] = [
         label: 'menu.components.dragTable2',
         icon: <ProfileOutlined />,
         element: formatSuspense(<DragTable2 />),
-        roles: ['admin', 'editor', 'visitor']
-      },
-      {
-        path: "dragTable3",
-        label: 'menu.components.dragTable3',
-        icon: <ProfileOutlined />,
-        element: formatSuspense(<DragTable3 />),
         roles: ['admin', 'editor', 'visitor']
       }
     ]

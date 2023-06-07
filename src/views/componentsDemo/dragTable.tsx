@@ -4,8 +4,12 @@ import { swapIndices } from '@/utils'
 import PageWrap from '@/components/page'
 import TypingCard from '@/components/typingCard'
 import { Card } from 'antd'
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 
 function DragTable() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.components.dragTable' }))
   const list = new Array(10).fill(0).map((item, index) => {
     return {
       id: `id-${index}`, 

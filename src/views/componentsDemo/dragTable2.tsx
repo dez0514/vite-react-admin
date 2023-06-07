@@ -4,8 +4,12 @@ import { swapIndices } from '@/utils'
 import PageWrap from '@/components/page'
 import TypingCard from '@/components/typingCard'
 import { Card, Button, Space } from 'antd'
+import { useIntl } from 'react-intl'
+import { useTitle } from 'ahooks'
 
 function DragTable2() {
+  const { formatMessage } = useIntl()
+  useTitle(formatMessage({ id: 'menu.components.dragTable2' }))
   const getItems = (count: number, offset = 0) => {
     const arr = Array.from({ length: count }, (v, k) => k).map(k => ({
       id: `item-${k + offset}-${new Date().getTime()}`,
