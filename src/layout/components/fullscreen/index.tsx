@@ -22,8 +22,8 @@ function Fullscreen() {
     screenfull.on('change', () => {
       if (screenfull.isFullscreen) setFullScreen(true)
       else setFullScreen(false)
-      return () => screenfull.off('change', () => {})
     })
+    return () => screenfull.off('change', () => {})
   }, [])
   const handleFullScreen = () => {
     if (!screenfull.isEnabled) message.warning('当前您的浏览器不支持全屏 ❌')
