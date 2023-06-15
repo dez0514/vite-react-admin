@@ -97,6 +97,7 @@ function compileConfig(config: any) {
   let { headers: newHeaders, ...rest } = config
   if(!newHeaders) newHeaders = {};
   config = { ...defaultRest, ...rest, headers: { ...headers, ...newHeaders }}
+  // config 重新赋值了, 要return出去
   // get,set token...
   const token = sessionStorage.getItem(StorageKeys.TOKEN)
   if(token) {
@@ -111,6 +112,7 @@ function compileConfig(config: any) {
 			delete data[item.name];
 		}
 	});
+  return config
 }
 
 function handleError(data: any) {
@@ -141,7 +143,7 @@ service.interceptors.request.use(
   (config: any) => {
     isAbortRequest(config)
     changeLoadingState(config, true)
-    compileConfig(config)
+    config = compileConfig(config)
     return config
   },
   error => {
