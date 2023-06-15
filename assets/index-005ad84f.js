@@ -1,1 +1,0 @@
-import{u as r,d as i,j as s,P as o}from"./index-6fd211bb.js";import{T as n}from"./typingCard-817987f4.js";function u(){const{formatMessage:e}=r(),t=e({id:"permission.intro"});return i("权限说明"),s.jsx(o,{className:"PermissionTest",children:s.jsx(n,{title:"权限说明",source:t})})}export{u as default};
