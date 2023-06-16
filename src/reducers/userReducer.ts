@@ -16,8 +16,6 @@ export const loginReducerApi: any = createAsyncThunk(`${USER_NAMESPACE}/${LOGIN_
 export const userinfoReducerApi: any = createAsyncThunk(`${USER_NAMESPACE}/${USERINFO_FETCH}`, async (params: any, action) => {
   try {
     const token = sessionStorage.getItem(StorageKeys.TOKEN)
-    // mock-adapter 监听不到 拦截器里 headers 的更新，
-    // 所以里将token手动传一下，让mock响应函数里能接收到token。
     const res = await getUserInfo({}, { headers: { Authorization: token }})
     return res.data
   } catch(error) {
