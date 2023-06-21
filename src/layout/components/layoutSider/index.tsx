@@ -80,21 +80,25 @@ function LayoutSider({ style = {}, mode = 'inline', noLogo = false, subtractTags
   }
   const setMenuOpen = (openKeys: string[]) => {
     setMemoSubKeys(openKeys)
-    const openkeys = openKeys.filter(Boolean).join('-')
-    if(openkeys) {
-      sessionStorage.setItem(StorageKeys.menuOpenkeys, openkeys)
-    } else {
-      sessionStorage.removeItem(StorageKeys.menuOpenkeys)
+    if(mode !== 'horizontal') {
+      const openkeys = openKeys.filter(Boolean).join('-')
+      if(openkeys) {
+        sessionStorage.setItem(StorageKeys.menuOpenkeys, openkeys)
+      } else {
+        sessionStorage.removeItem(StorageKeys.menuOpenkeys)
+      }
     }
   }
   const setMenuActive = () => {
     const selectedKeys = pathnameToSelectedKeys(location.pathname).selectedKeys
     setMemoSelectedKeys(selectedKeys)
     // 处理展开的菜单
-    const subkeys = pathnameToSelectedKeys(location.pathname).subKeys
-    if(subkeys.length > 0) {
-      const newSubArr = Array.from(new Set(memoSubKeys.concat(subkeys))) // 合并去重
-      setMenuOpen(newSubArr)
+    if(mode !== 'horizontal') {
+      const subkeys = pathnameToSelectedKeys(location.pathname).subKeys
+      if(subkeys.length > 0) {
+        const newSubArr = Array.from(new Set(memoSubKeys.concat(subkeys))) // 合并去重
+        setMenuOpen(newSubArr)
+      }
     }
   }
   const changeCollaps = (val: boolean) => {
@@ -104,10 +108,12 @@ function LayoutSider({ style = {}, mode = 'inline', noLogo = false, subtractTags
   }
 
   useEffect(() => {
-    const menuOpenkeys = sessionStorage.getItem(StorageKeys.menuOpenkeys)
-    if(menuOpenkeys) {
-      const openArr = menuOpenkeys.split('-').filter(Boolean)
-      setMenuOpen(openArr)
+    if(mode !== 'horizontal') {
+      const menuOpenkeys = sessionStorage.getItem(StorageKeys.menuOpenkeys)
+      if(menuOpenkeys) {
+        const openArr = menuOpenkeys.split('-').filter(Boolean)
+        setMenuOpen(openArr)
+      }
     }
   }, [])
 

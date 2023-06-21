@@ -49,9 +49,9 @@ function Dashboard() {
       </Layout>
     )
   }
+  if(!isAuth) return <Navigate to="/login" />
   return (
     <Fragment>
-      { !isAuth && <Navigate to="/login" /> }
       { initLayout() }
       <Drawer
         title={ <FormattedMessage id="layout.setting" /> }

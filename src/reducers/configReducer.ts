@@ -43,6 +43,10 @@ export const configReducer = (
       }
       if('navType' in payload) {
         sessionStorage.setItem(StorageKeys.NAVTYPE, payload.navType as TypeNav)
+        if(payload.navType === 't') {
+          // 清掉 menuOpenKeys
+          sessionStorage.removeItem(StorageKeys.menuOpenkeys)
+        }
       }
       return { ...state, ...payload };
     default:
