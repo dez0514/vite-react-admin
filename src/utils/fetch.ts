@@ -142,8 +142,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config: any) => {
     isAbortRequest(config)
-    changeLoadingState(config, true)
     config = compileConfig(config)
+    // 先处理config, 再loading， 防止 url 中存在变量时（例如 /:id）， loadingRequestList 匹配问题: push时是处理前的，find时是处理后的
+    changeLoadingState(config, true)
     return config
   },
   error => {
