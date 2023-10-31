@@ -12,7 +12,7 @@ function Guide() {
   const handleClickGuide = () => {
     driver.start()
   }
-  const cardContent = `引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。本Demo是基于<a href="https://github.com/kamranahmedse/driver.js" target="_blank">driver.js</a>`
+  const cardContent = `引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。本Demo是基于<a href="https://github.com/kamranahmedse/driver.js" target="_blank">driver.js</a>，antd5.x已经支持Tour组件，可直接使用。`
   return (
     <PageWrap className="Guide">
       <div>
